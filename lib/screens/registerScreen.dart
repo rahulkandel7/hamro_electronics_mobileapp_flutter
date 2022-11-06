@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hamro_electronics/controllers/userController.dart';
 
+import '../screens/navbar.dart';
+import '../screens/loginScreen.dart';
+import '../controllers/userController.dart';
 import '../models/user.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
+  static const routeName = "/register";
   const RegisterScreen({super.key});
 
   @override
@@ -66,7 +68,7 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
             behavior: SnackBarBehavior.floating,
           ),
         );
-        context.go('/login');
+        Navigator.of(context).pushReplacementNamed(Navbar.routeName);
       }
     });
   }
@@ -334,7 +336,8 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
                         height: mediaQuery.height * 0.05,
                       ),
                       InkWell(
-                        onTap: () => GoRouter.of(context).go('/'),
+                        onTap: () => Navigator.of(context)
+                            .pushNamed(LoginScreen.routeName),
                         splashColor: Colors.indigo.shade100,
                         child: const Text(
                           'Already Have an Account ? Login',

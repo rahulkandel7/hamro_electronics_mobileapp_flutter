@@ -1,32 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hamro_electronics/screens/homePage.dart';
-import 'package:hamro_electronics/screens/loginScreen.dart';
-import 'package:hamro_electronics/screens/registerScreen.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../screens/navbar.dart';
+import '../screens/loginScreen.dart';
+import '../utils/router.dart';
 
 void main() {
   runApp(
-    ProviderScope(
+    const ProviderScope(
       child: MyApp(),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool isLogin = false;
+
+  chekIsLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('token') != null) {
+      setState(() {
+        isLogin = true;
+      });
+    } else {
+      setState(() {
+        isLogin = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    chekIsLogin();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return MaterialApp(
       title: 'Hamro Electronics ',
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.grey.shade200,
         primarySwatch: Colors.indigo,
-        textTheme: const TextTheme(
+        textTheme: TextTheme(
           headline1: TextStyle(
             fontWeight: FontWeight.bold,
+            color: Colors.indigo.shade900,
+          ),
+          headline5: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w500,
           ),
         ),
         inputDecorationTheme: InputDecorationTheme(
@@ -58,38 +90,19 @@ class MyApp extends StatelessWidget {
               width: 0.7,
             ),
           ),
-          floatingLabelStyle: Theme.of(context).textTheme.headline6!.copyWith(
-                color: Colors.indigo.shade400,
-              ),
+          floatingLabelStyle: TextStyle(
+            color: Colors.indigo.shade400,
+          ),
           labelStyle: const TextStyle(
             color: Colors.indigo,
           ),
         ),
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
       ),
-      routerConfig: _router,
+      home: isLogin ? const Navbar() : const LoginScreen(),
+      routes: routes,
     );
   }
-
-  final GoRouter _router = GoRouter(
-    routes: <GoRoute>[
-      GoRoute(
-        path: '/',
-        builder: (BuildContext context, GoRouterState state) {
-          return const HomePage();
-        },
-      ),
-      GoRoute(
-        path: '/login',
-        builder: (BuildContext context, GoRouterState state) {
-          return const LoginScreen();
-        },
-      ),
-      GoRoute(
-        path: '/register',
-        builder: (BuildContext context, GoRouterState state) {
-          return const RegisterScreen();
-        },
-      ),
-    ],
-  );
 }

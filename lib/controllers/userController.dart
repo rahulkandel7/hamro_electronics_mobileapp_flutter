@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user.dart';
 
 class UserController extends StateNotifier<List<User>> {
-  final String url = 'http://192.168.1.92:8000/api/v1/';
+  final String url = 'https://www.api.hamroelectronics.com.np/api/v1/';
 
   UserController(super.createFn);
 
@@ -70,3 +70,8 @@ class UserController extends StateNotifier<List<User>> {
 StateNotifierProvider<UserController, List<User>> userProvider =
     StateNotifierProvider<UserController, List<User>>(
         (ref) => UserController([]));
+
+FutureProvider<bool> tokenProvider = FutureProvider((ref) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('token') != null ? true : false;
+});
