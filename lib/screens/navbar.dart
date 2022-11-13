@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hamro_electronics/screens/cartScreen.dart';
+import 'package:hamro_electronics/screens/categoryScreen.dart';
 
 import '../screens/homePage.dart';
-import '../screens/loginScreen.dart';
-import '../screens/registerScreen.dart';
 
 class Navbar extends StatefulWidget {
   static const routeName = "/home";
@@ -16,8 +16,8 @@ class _NavbarState extends State<Navbar> {
   int _selectedIndex = 0;
   final _widgets = const [
     HomePage(),
-    LoginScreen(),
-    RegisterScreen(),
+    CategoryScreen(),
+    CartScreen(),
     HomePage(),
   ];
 

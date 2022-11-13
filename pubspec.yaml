@@ -39,6 +39,7 @@ dependencies:
   url_launcher: ^6.1.6
   flutter_riverpod: ^2.0.2
   shared_preferences: ^2.0.15
+  # flutter_html: ^2.2.1
 
 dev_dependencies:
   flutter_test:

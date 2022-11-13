@@ -60,6 +60,9 @@ class _MyAppState extends State<MyApp> {
             color: Colors.black,
             fontWeight: FontWeight.w500,
           ),
+          headline4: const TextStyle(
+            color: Colors.indigo,
+          ),
         ),
         inputDecorationTheme: InputDecorationTheme(
           enabledBorder: OutlineInputBorder(
@@ -99,6 +102,12 @@ class _MyAppState extends State<MyApp> {
         ),
         iconTheme: const IconThemeData(
           color: Colors.black,
+        ),
+        chipTheme: ChipThemeData(
+          pressElevation: 2.0,
+          labelStyle: const TextStyle(color: Colors.white),
+          backgroundColor: Colors.grey.shade500,
+          selectedColor: Colors.indigo,
         ),
       ),
       home: isLogin ? const Navbar() : const LoginScreen(),

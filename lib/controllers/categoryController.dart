@@ -15,6 +15,7 @@ class CategoryController extends StateNotifier<List<Category>> {
     final response = await http.get(Uri.parse('${url}fetchCategory'));
 
     final extractedData = json.decode(response.body);
+
     if (response.statusCode == 200) {
       final categories = extractedData['categories'] as List<dynamic>;
       state.clear();
@@ -31,8 +32,11 @@ class CategoryController extends StateNotifier<List<Category>> {
       }
     }
 
-    print(state.length);
     return state;
+  }
+
+  Category findCategory(int id) {
+    return state.firstWhere((element) => element.id == id);
   }
 }
 
