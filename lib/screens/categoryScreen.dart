@@ -29,44 +29,46 @@ class CategoryScreen extends StatelessWidget {
               builder: (context, ref, child) {
                 return ref.watch(fetchCategory).when(
                       data: (data) {
-                        return SizedBox(
-                          height: size.height * 0.8,
-                          child: GridView.builder(
-                            shrinkWrap: true,
-                            itemBuilder: (ctx, i) {
-                              return InkWell(
-                                onTap: () => Navigator.of(context).pushNamed(
-                                  CategoryViewScreen.routeName,
-                                  arguments: data[i].id,
-                                ),
-                                child: Column(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: Image.network(
-                                        'https://api.hamroelectronics.com.np/public/${data[i].photopath}',
-                                        width: size.width * 0.3,
+                        return SingleChildScrollView(
+                          child: SizedBox(
+                            height: size.height * 0.74,
+                            child: GridView.builder(
+                              shrinkWrap: true,
+                              itemBuilder: (ctx, i) {
+                                return InkWell(
+                                  onTap: () => Navigator.of(context).pushNamed(
+                                    CategoryViewScreen.routeName,
+                                    arguments: data[i].id,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: Image.network(
+                                          'https://api.hamroelectronics.com.np/public/${data[i].photopath}',
+                                          width: size.width * 0.3,
+                                        ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: size.height * 0.01,
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          vertical: size.height * 0.01,
+                                        ),
+                                        child: Text(
+                                          data[i].categoryName,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6,
+                                        ),
                                       ),
-                                      child: Text(
-                                        data[i].categoryName,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                            itemCount: data.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
+                                    ],
+                                  ),
+                                );
+                              },
+                              itemCount: data.length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                              ),
                             ),
                           ),
                         );

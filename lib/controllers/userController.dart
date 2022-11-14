@@ -30,6 +30,7 @@ class UserController extends StateNotifier<List<User>> {
       var res = json.decode(response.body);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('token', res['token']);
+      prefs.setString('user', json.encode(res['user']));
     }
 
     return response;
@@ -61,6 +62,7 @@ class UserController extends StateNotifier<List<User>> {
       final res = json.decode(response.body);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('token', res['token']);
+      prefs.setString('user', json.encode(res['user']));
     }
 
     return response;

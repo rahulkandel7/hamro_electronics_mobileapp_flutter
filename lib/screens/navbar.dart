@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hamro_electronics/screens/cartScreen.dart';
 import 'package:hamro_electronics/screens/categoryScreen.dart';
+import 'package:hamro_electronics/screens/optionScreen.dart';
 
 import '../screens/homePage.dart';
 
@@ -18,7 +19,7 @@ class _NavbarState extends State<Navbar> {
     HomePage(),
     CategoryScreen(),
     CartScreen(),
-    HomePage(),
+    OptionScreen(),
   ];
 
   @override
@@ -97,7 +98,7 @@ class _NavbarState extends State<Navbar> {
               ),
               label: 'Profile',
               selectedIcon: Icon(
-                Icons.favorite_border_outlined,
+                Icons.person_outline,
                 color: Colors.indigo.shade900,
               ),
             ),

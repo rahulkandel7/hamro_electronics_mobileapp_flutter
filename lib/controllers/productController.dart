@@ -60,6 +60,16 @@ class ProductController extends StateNotifier<List<Product>> {
   List<Product> findBySubCategory(int id) {
     return state.where((element) => element.subCategoryId == id).toList();
   }
+
+  List<Product> searchProduct(String name) {
+    return state
+        .where(
+          (product) => product.name.toLowerCase().contains(
+                name.toLowerCase(),
+              ),
+        )
+        .toList();
+  }
 }
 
 var productProvider =

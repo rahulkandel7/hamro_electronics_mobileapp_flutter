@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:hamro_electronics/controllers/brandController.dart';
 import 'package:hamro_electronics/controllers/categoryController.dart';
+import 'package:hamro_electronics/controllers/couponController.dart';
 import 'package:hamro_electronics/controllers/productController.dart';
+import 'package:hamro_electronics/controllers/shippingController.dart';
 import 'package:hamro_electronics/models/product.dart';
 import 'package:hamro_electronics/screens/categoryViewScreen.dart';
-
+import 'package:hamro_electronics/screens/productView.dart';
 import 'package:hamro_electronics/screens/widgets/homeCategory.dart';
 import 'package:hamro_electronics/screens/widgets/productItem.dart';
 
@@ -19,9 +22,12 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class HomePageState extends ConsumerState<HomePage> {
+  TextEditingController searchController = TextEditingController();
   @override
   void initState() {
     ref.read(brandProvider.notifier).fetchBrand();
+    ref.read(shippingProvider.notifier).fetchShipping();
+    ref.read(couponProvider.notifier).fetchCoupon();
     super.initState();
   }
 
@@ -62,62 +68,103 @@ class HomePageState extends ConsumerState<HomePage> {
                         'assets/images/logo.png',
                         width: mediaQuery.width * 0.25,
                       ),
-                      CircleAvatar(
-                        backgroundColor: Colors.indigo.shade300,
-                        child: const Text(
-                          'A',
-                          style: TextStyle(color: Colors.white),
+                      IconButton(
+                        onPressed: () {
+                          List<Product> _products =
+                              ref.read(productProvider.notifier).state;
+                          showSearch(
+                            context: context,
+                            delegate: CustomSearch(
+                              products: _products,
+                            ),
+                          );
+                        },
+                        icon: Icon(
+                          Icons.search,
                         ),
                       ),
                     ],
                   ),
                 ),
                 //* Search Box Code
-                Center(
-                  child: SizedBox(
-                    width: mediaQuery.width * 0.8,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        floatingLabelBehavior: FloatingLabelBehavior.never,
-                        contentPadding: const EdgeInsets.all(0),
-                        focusedBorder: Theme.of(context)
-                            .inputDecorationTheme
-                            .focusedBorder!
-                            .copyWith(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade500,
-                              ),
-                            ),
-                        border: Theme.of(context)
-                            .inputDecorationTheme
-                            .focusedBorder!
-                            .copyWith(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade500,
-                              ),
-                            ),
-                        enabledBorder: Theme.of(context)
-                            .inputDecorationTheme
-                            .focusedBorder!
-                            .copyWith(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade500,
-                              ),
-                            ),
-                        prefixIcon: Icon(
-                          Icons.search_outlined,
-                          color: Colors.grey.shade500,
-                        ),
-                        labelText: 'Search Products...',
-                        labelStyle: TextStyle(
-                          color: Colors.grey.shade500,
-                        ),
-                      ),
+                // Center(
+                //   child: SizedBox(
+                //     width: mediaQuery.width * 0.8,
+                //     child: Column(
+                //       children: [
+                //         TextField(
+                //           controller: searchController,
+                //           decoration: InputDecoration(
+                //             floatingLabelBehavior: FloatingLabelBehavior.never,
+                //             contentPadding: const EdgeInsets.all(0),
+                //             focusedBorder: Theme.of(context)
+                //                 .inputDecorationTheme
+                //                 .focusedBorder!
+                //                 .copyWith(
+                //                   borderSide: BorderSide(
+                //                     color: Colors.grey.shade500,
+                //                   ),
+                //                 ),
+                //             border: Theme.of(context)
+                //                 .inputDecorationTheme
+                //                 .focusedBorder!
+                //                 .copyWith(
+                //                   borderSide: BorderSide(
+                //                     color: Colors.grey.shade500,
+                //                   ),
+                //                 ),
+                //             enabledBorder: Theme.of(context)
+                //                 .inputDecorationTheme
+                //                 .focusedBorder!
+                //                 .copyWith(
+                //                   borderSide: BorderSide(
+                //                     color: Colors.grey.shade500,
+                //                   ),
+                //                 ),
+                //             prefixIcon: Icon(
+                //               Icons.search_outlined,
+                //               color: Colors.grey.shade500,
+                //             ),
+                //             labelText: 'Search Products...',
+                //             labelStyle: TextStyle(
+                //               color: Colors.grey.shade500,
+                //             ),
+                //           ),
+                //           onEditingComplete: () {
+                //             Navigator.of(context).pushNamed(
+                //                 SearchScreen.routeName,
+                //                 arguments: searchController.text);
+                //           },
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
+
+                // SizedBox(
+                //   height: mediaQuery.height * 0.02,
+                // ),
+
+                Text(
+                  'Promotions',
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+
+                Container(
+                  width: double.infinity,
+                  height: mediaQuery.height * 0.2,
+                  margin: const EdgeInsets.all(
+                    8,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                      10,
                     ),
+                    color: Colors.indigo,
                   ),
                 ),
                 SizedBox(
-                  height: mediaQuery.height * 0.02,
+                  height: 10,
                 ),
                 Text(
                   'Categories',
@@ -157,25 +204,6 @@ class HomePageState extends ConsumerState<HomePage> {
                       },
                       loading: () => const CircularProgressIndicator(),
                     ),
-
-                Text(
-                  'Promotions',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-
-                Container(
-                  width: double.infinity,
-                  height: mediaQuery.height * 0.2,
-                  margin: const EdgeInsets.all(
-                    8,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      10,
-                    ),
-                    color: Colors.indigo,
-                  ),
-                ),
                 ref.watch(fetchProduct).when(
                       data: (data) {
                         List<Category> categories =
@@ -264,6 +292,89 @@ class HomePageState extends ConsumerState<HomePage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CustomSearch extends SearchDelegate {
+  final List<Product> products;
+
+  CustomSearch({required this.products});
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          query = '';
+        },
+        icon: const Icon(
+          Icons.clear,
+        ),
+      ),
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () => close(context, null),
+      icon: const Icon(
+        Icons.arrow_back_ios,
+      ),
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    List<Product> matchQuery = [];
+    for (var product in products) {
+      if (product.name.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(product);
+      }
+    }
+    return GridView.builder(
+      itemBuilder: (ctx, i) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ProductItem(
+            id: matchQuery[i].id,
+            discountedPrice: matchQuery[i].discountedprice,
+            name: matchQuery[i].name,
+            photopath: matchQuery[i].photopath1,
+            price: matchQuery[i].price,
+            rating: matchQuery[i].rating ?? 0.0,
+            ratingNumber: matchQuery[i].ratingNumber,
+          ),
+        );
+      },
+      itemCount: matchQuery.length,
+      shrinkWrap: true,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 0.59,
+      ),
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<Product> matchQuery = [];
+    for (var product in products) {
+      if (product.name.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(product);
+      }
+    }
+    return ListView.builder(
+      itemBuilder: (ctx, i) {
+        return ListTile(
+          onTap: () {
+            Navigator.of(context)
+                .pushNamed(ProductView.routeName, arguments: matchQuery[i].id);
+          },
+          title: Text(matchQuery[i].name),
+        );
+      },
+      itemCount: matchQuery.length,
     );
   }
 }
