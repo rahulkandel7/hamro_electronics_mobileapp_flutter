@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hamro_electronics/screens/widgets/shimmers/homeCategoryShimmer.dart';
+import 'package:hamro_electronics/screens/widgets/shimmers/homeProductShimmer.dart';
 
-import 'package:hamro_electronics/controllers/brandController.dart';
-import 'package:hamro_electronics/controllers/categoryController.dart';
-import 'package:hamro_electronics/controllers/couponController.dart';
-import 'package:hamro_electronics/controllers/productController.dart';
-import 'package:hamro_electronics/controllers/shippingController.dart';
-import 'package:hamro_electronics/models/product.dart';
-import 'package:hamro_electronics/screens/categoryViewScreen.dart';
-import 'package:hamro_electronics/screens/productView.dart';
-import 'package:hamro_electronics/screens/widgets/homeCategory.dart';
-import 'package:hamro_electronics/screens/widgets/productItem.dart';
+import '../controllers/brandController.dart';
+import '../controllers/categoryController.dart';
+import '../controllers/couponController.dart';
+import '../controllers/productController.dart';
+import '../controllers/shippingController.dart';
+import '../models/product.dart';
+import '../screens/categoryViewScreen.dart';
+import '../screens/productView.dart';
+import '../screens/widgets/homeCategory.dart';
+import '../screens/widgets/productItem.dart';
 
 import '../models/category.dart';
 
@@ -79,7 +81,7 @@ class HomePageState extends ConsumerState<HomePage> {
                             ),
                           );
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.search,
                         ),
                       ),
@@ -163,7 +165,7 @@ class HomePageState extends ConsumerState<HomePage> {
                     color: Colors.indigo,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
@@ -172,38 +174,53 @@ class HomePageState extends ConsumerState<HomePage> {
                 ),
 
                 ref.watch(fetchCategory).when(
-                      data: (data) {
-                        data.sort(
-                          (a, b) => a.priority.compareTo(b.priority),
-                        );
-                        return Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: mediaQuery.height * 0.01),
-                          child: SizedBox(
-                            width: double.infinity,
-                            height: mediaQuery.height * 0.12,
-                            child: ListView.builder(
-                              physics: const BouncingScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (ctx, i) => InkWell(
-                                onTap: () => Navigator.of(context).pushNamed(
-                                    CategoryViewScreen.routeName,
-                                    arguments: data[i].id),
-                                child: HomeCategory(
-                                  name: data[i].categoryName,
-                                  photopath: data[i].photopath,
-                                ),
-                              ),
-                              itemCount: data.length,
+                  data: (data) {
+                    data.sort(
+                      (a, b) => a.priority.compareTo(b.priority),
+                    );
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: mediaQuery.height * 0.01),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: mediaQuery.height * 0.12,
+                        child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (ctx, i) => InkWell(
+                            onTap: () => Navigator.of(context).pushNamed(
+                                CategoryViewScreen.routeName,
+                                arguments: data[i].id),
+                            child: HomeCategory(
+                              name: data[i].categoryName,
+                              photopath: data[i].photopath,
                             ),
                           ),
-                        );
-                      },
-                      error: (e, s) {
-                        return Text(e.toString());
-                      },
-                      loading: () => const CircularProgressIndicator(),
-                    ),
+                          itemCount: data.length,
+                        ),
+                      ),
+                    );
+                  },
+                  error: (e, s) {
+                    return Text(e.toString());
+                  },
+                  loading: () {
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: mediaQuery.height * 0.12,
+                        child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (ctx, i) => const HomeCategoryShimmer(),
+                          itemCount: 10,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+
                 ref.watch(fetchProduct).when(
                       data: (data) {
                         List<Category> categories =
@@ -280,9 +297,7 @@ class HomePageState extends ConsumerState<HomePage> {
                         print(s.toString());
                         return Text(e.toString());
                       },
-                      loading: () => const Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                      loading: () => const HomeProductShimmer(),
                     ),
                 const SizedBox(
                   height: 20,
