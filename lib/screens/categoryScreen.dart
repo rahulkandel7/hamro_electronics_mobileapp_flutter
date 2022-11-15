@@ -75,7 +75,9 @@ class CategoryScreen extends StatelessWidget {
                       },
                       error: (e, s) => Text(e.toString()),
                       loading: () => const Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(
+                          strokeWidth: 0.4,
+                        ),
                       ),
                     );
               },

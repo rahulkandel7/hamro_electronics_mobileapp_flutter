@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/controllers/productController.dart';
 import 'package:hamro_electronics/controllers/wishlistController.dart';
 import 'package:hamro_electronics/models/product.dart';
+import 'package:hamro_electronics/screens/widgets/shimmers/homeProductShimmer.dart';
 
 import 'package:hamro_electronics/screens/widgets/wishlistItem.dart';
 
@@ -72,7 +73,9 @@ class WishlistScreenState extends ConsumerState<WishlistScreen> {
               ));
             },
             error: (e, s) => Text(e.toString()),
-            loading: () => const CircularProgressIndicator(),
+            loading: () => const SingleChildScrollView(
+              child: HomeProductShimmer(),
+            ),
           ),
     );
   }

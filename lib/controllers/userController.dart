@@ -48,6 +48,7 @@ class UserController extends StateNotifier<List<User>> {
       prefs.remove('token');
     }
 
+    print(response.body);
     return response;
   }
 

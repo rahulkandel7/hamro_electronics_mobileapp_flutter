@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hamro_electronics/controllers/userController.dart';
+import 'package:hamro_electronics/screens/loginScreen.dart';
 import 'package:hamro_electronics/screens/wishlistScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -113,7 +116,22 @@ class _OptionScreenState extends State<OptionScreen> {
             options(mediaQuery, Icons.receipt_long_outlined, 'Orders'),
             options(mediaQuery, Icons.security_outlined, 'Privacy Policy'),
             options(mediaQuery, Icons.book_outlined, 'About Us'),
-            options(mediaQuery, Icons.logout_outlined, 'About Us'),
+            Consumer(
+              builder: (context, ref, child) {
+                return InkWell(
+                  onTap: () {
+                    ref.read(userProvider.notifier).logout().then((response) {
+                      final extractedData = json.decode(response.body);
+                      if (extractedData['success'] == true) {
+                        Navigator.of(context)
+                            .pushReplacementNamed(LoginScreen.routeName);
+                      }
+                    });
+                  },
+                  child: options(mediaQuery, Icons.logout_outlined, 'Logout'),
+                );
+              },
+            ),
           ],
         ),
       ),
