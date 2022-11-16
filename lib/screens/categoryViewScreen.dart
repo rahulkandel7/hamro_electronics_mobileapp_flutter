@@ -103,7 +103,7 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
                                     ),
                                   );
                                 },
-                                itemCount: data.length,
+                                itemCount: subCategory.length,
                                 scrollDirection: Axis.horizontal,
                               ),
                             )
@@ -189,7 +189,7 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
                                 ratingNumber: subProducts[i].ratingNumber,
                               );
                             },
-                            itemCount: products.length,
+                            itemCount: subProducts.length,
                             shrinkWrap: true,
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(

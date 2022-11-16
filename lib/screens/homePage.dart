@@ -89,63 +89,59 @@ class HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
                 //* Search Box Code
-                // Center(
-                //   child: SizedBox(
-                //     width: mediaQuery.width * 0.8,
-                //     child: Column(
-                //       children: [
-                //         TextField(
-                //           controller: searchController,
-                //           decoration: InputDecoration(
-                //             floatingLabelBehavior: FloatingLabelBehavior.never,
-                //             contentPadding: const EdgeInsets.all(0),
-                //             focusedBorder: Theme.of(context)
-                //                 .inputDecorationTheme
-                //                 .focusedBorder!
-                //                 .copyWith(
-                //                   borderSide: BorderSide(
-                //                     color: Colors.grey.shade500,
-                //                   ),
-                //                 ),
-                //             border: Theme.of(context)
-                //                 .inputDecorationTheme
-                //                 .focusedBorder!
-                //                 .copyWith(
-                //                   borderSide: BorderSide(
-                //                     color: Colors.grey.shade500,
-                //                   ),
-                //                 ),
-                //             enabledBorder: Theme.of(context)
-                //                 .inputDecorationTheme
-                //                 .focusedBorder!
-                //                 .copyWith(
-                //                   borderSide: BorderSide(
-                //                     color: Colors.grey.shade500,
-                //                   ),
-                //                 ),
-                //             prefixIcon: Icon(
-                //               Icons.search_outlined,
-                //               color: Colors.grey.shade500,
-                //             ),
-                //             labelText: 'Search Products...',
-                //             labelStyle: TextStyle(
-                //               color: Colors.grey.shade500,
-                //             ),
-                //           ),
-                //           onEditingComplete: () {
-                //             Navigator.of(context).pushNamed(
-                //                 SearchScreen.routeName,
-                //                 arguments: searchController.text);
-                //           },
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
+                Center(
+                  child: SizedBox(
+                    width: mediaQuery.width * 0.8,
+                    child: Column(
+                      children: [
+                        TextField(
+                          controller: searchController,
+                          decoration: InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            contentPadding: const EdgeInsets.all(0),
+                            focusedBorder: Theme.of(context)
+                                .inputDecorationTheme
+                                .focusedBorder!
+                                .copyWith(
+                                  borderSide: BorderSide(
+                                    color: Colors.grey.shade500,
+                                  ),
+                                ),
+                            border: Theme.of(context)
+                                .inputDecorationTheme
+                                .focusedBorder!
+                                .copyWith(
+                                  borderSide: BorderSide(
+                                    color: Colors.grey.shade500,
+                                  ),
+                                ),
+                            enabledBorder: Theme.of(context)
+                                .inputDecorationTheme
+                                .focusedBorder!
+                                .copyWith(
+                                  borderSide: BorderSide(
+                                    color: Colors.grey.shade500,
+                                  ),
+                                ),
+                            prefixIcon: Icon(
+                              Icons.search_outlined,
+                              color: Colors.grey.shade500,
+                            ),
+                            labelText: 'Search Products...',
+                            labelStyle: TextStyle(
+                              color: Colors.grey.shade500,
+                            ),
+                          ),
+                          onEditingComplete: () {},
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
 
-                // SizedBox(
-                //   height: mediaQuery.height * 0.02,
-                // ),
+                SizedBox(
+                  height: mediaQuery.height * 0.02,
+                ),
 
                 Text(
                   'Promotions',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 // import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -55,27 +56,27 @@ class ProductViewState extends ConsumerState<ProductView> {
         children: [
           Icon(
             Icons.star_border,
-            size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+            size: Theme.of(context).textTheme.headline6!.fontSize,
             color: Colors.yellow.shade700,
           ),
           Icon(
             Icons.star_border,
-            size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+            size: Theme.of(context).textTheme.headline6!.fontSize,
             color: Colors.yellow.shade700,
           ),
           Icon(
             Icons.star_border,
-            size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+            size: Theme.of(context).textTheme.headline6!.fontSize,
             color: Colors.yellow.shade700,
           ),
           Icon(
             Icons.star_border,
-            size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+            size: Theme.of(context).textTheme.headline6!.fontSize,
             color: Colors.yellow.shade700,
           ),
           Icon(
             Icons.star_border,
-            size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+            size: Theme.of(context).textTheme.headline6!.fontSize,
             color: Colors.yellow.shade700,
           ),
         ],
@@ -87,27 +88,27 @@ class ProductViewState extends ConsumerState<ProductView> {
         children: [
           Icon(
             Icons.star,
-            size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+            size: Theme.of(context).textTheme.headline6!.fontSize,
             color: Colors.yellow.shade700,
           ),
           Icon(
             Icons.star_border,
-            size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+            size: Theme.of(context).textTheme.headline6!.fontSize,
             color: Colors.yellow.shade700,
           ),
           Icon(
             Icons.star_border,
-            size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+            size: Theme.of(context).textTheme.headline6!.fontSize,
             color: Colors.yellow.shade700,
           ),
           Icon(
             Icons.star_border,
-            size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+            size: Theme.of(context).textTheme.headline6!.fontSize,
             color: Colors.yellow.shade700,
           ),
           Icon(
             Icons.star_border,
-            size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+            size: Theme.of(context).textTheme.headline6!.fontSize,
             color: Colors.yellow.shade700,
           ),
         ],
@@ -121,27 +122,27 @@ class ProductViewState extends ConsumerState<ProductView> {
           children: [
             Icon(
               Icons.star,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
             Icon(
               Icons.star,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
             Icon(
               Icons.star_border,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
             Icon(
               Icons.star_border,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
             Icon(
               Icons.star_border,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
           ],
@@ -156,27 +157,27 @@ class ProductViewState extends ConsumerState<ProductView> {
           children: [
             Icon(
               Icons.star,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
             Icon(
               Icons.star,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
             Icon(
               Icons.star,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
             Icon(
               Icons.star_border,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
             Icon(
               Icons.star_border,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
           ],
@@ -190,27 +191,27 @@ class ProductViewState extends ConsumerState<ProductView> {
           children: [
             Icon(
               Icons.star,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
             Icon(
               Icons.star,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
             Icon(
               Icons.star,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
             Icon(
               Icons.star,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
             Icon(
               Icons.star_border,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
           ],
@@ -224,60 +225,33 @@ class ProductViewState extends ConsumerState<ProductView> {
           children: [
             Icon(
               Icons.star,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
             Icon(
               Icons.star,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
             Icon(
               Icons.star,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
             Icon(
               Icons.star,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
             Icon(
               Icons.star,
-              size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+              size: Theme.of(context).textTheme.headline6!.fontSize,
               color: Colors.yellow.shade700,
             ),
           ],
         ),
       );
     }
-  }
-
-  productInfo(Size mediaQuery, String title, String value) {
-    return Padding(
-      padding: EdgeInsets.only(top: mediaQuery.height * 0.01),
-      child: Row(
-        children: [
-          // SizedBox(
-          //   width: mediaQuery.width * 0.16,
-          //   child: Text(
-          //     '$title :',
-          //     style: Theme.of(context)
-          //         .textTheme
-          //         .headline6!
-          //         .copyWith(fontWeight: FontWeight.w300),
-          //   ),
-          // ),
-          Text(
-            value,
-            style: Theme.of(context)
-                .textTheme
-                .headline6!
-                .copyWith(fontWeight: FontWeight.w300),
-          ),
-        ],
-      ),
-    );
   }
 
   String size = " ";
@@ -326,7 +300,7 @@ class ProductViewState extends ConsumerState<ProductView> {
           children: [
             //* For Showing Product Details
             SizedBox(
-              height: mediaQuery.height * 0.82,
+              height: mediaQuery.height * 0.8,
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -338,13 +312,15 @@ class ProductViewState extends ConsumerState<ProductView> {
                         child: productPhotopath == ""
                             ? Image.network(
                                 'https://api.hamroelectronics.com.np/public/${product.photopath1}',
-                                height: mediaQuery.height * 0.4,
+                                height: mediaQuery.height * 0.48,
                                 width: double.infinity,
+                                fit: BoxFit.cover,
                               )
                             : Image.network(
                                 'https://api.hamroelectronics.com.np/public/$productPhotopath',
-                                height: mediaQuery.height * 0.4,
+                                height: mediaQuery.height * 0.48,
                                 width: double.infinity,
+                                fit: BoxFit.cover,
                               ),
                       ),
                     ),
@@ -354,109 +330,134 @@ class ProductViewState extends ConsumerState<ProductView> {
                         vertical: mediaQuery.height * 0.02,
                       ),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          showSmallPhoto(product.photopath1, mediaQuery),
-                          product.photopath2.isNotEmpty
-                              ? showSmallPhoto(product.photopath2, mediaQuery)
-                              : const SizedBox(),
-                          product.photopath3.isNotEmpty
-                              ? showSmallPhoto(product.photopath3, mediaQuery)
-                              : const SizedBox(),
+                          Row(
+                            children: [
+                              showSmallPhoto(product.photopath1, mediaQuery),
+                              product.photopath2.isNotEmpty
+                                  ? showSmallPhoto(
+                                      product.photopath2, mediaQuery)
+                                  : const SizedBox(),
+                              product.photopath3.isNotEmpty
+                                  ? showSmallPhoto(
+                                      product.photopath3, mediaQuery)
+                                  : const SizedBox(),
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              showStar(context, product.rating ?? 0),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Text('(${product.ratingNumber})'),
+                              )
+                            ],
+                          ),
                         ],
                       ),
                     ),
                     // * Product Information Showing Section
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: mediaQuery.width * 0.67,
-                          child: Text(
-                            product.name,
-                            style: Theme.of(context).textTheme.headline5,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            showStar(context, product.rating ?? 0),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5.0),
-                              child: Text('(${product.ratingNumber})'),
-                            )
-                          ],
-                        ),
-                      ],
+                    Text(
+                      product.name,
+                      style: Theme.of(context).textTheme.headline5,
                     ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Text(
+                      brand.brandName,
+                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                            fontWeight: FontWeight.w300,
+                          ),
+                    ),
+
                     Padding(
                       padding: EdgeInsets.only(top: mediaQuery.height * 0.02),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          product.discountedprice > 0
-                              ? Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Rs ${product.discountedprice}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 3.0),
-                                      child: Text(
-                                        'Rs ${product.price}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6!
-                                            .copyWith(
-                                              color: Colors.red.shade500,
-                                              decoration:
-                                                  TextDecoration.lineThrough,
-                                              fontSize: 17,
-                                            ),
+                          Row(
+                            children: [
+                              product.discountedprice > 0
+                                  ? Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text('Rs ${product.discountedprice}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 3.0),
+                                          child: Text(
+                                            'Rs ${product.price}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6!
+                                                .copyWith(
+                                                  color: Colors.red.shade500,
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
+                                                  fontSize: 17,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Text(
+                                      'Rs ${product.price}',
+                                      style:
+                                          Theme.of(context).textTheme.headline6,
+                                    ),
+                              off < 100
+                                  ? Padding(
+                                      padding: const EdgeInsets.only(left: 9.0),
+                                      child: Container(
+                                        width: mediaQuery.width * 0.16,
+                                        height: mediaQuery.height * 0.036,
+                                        padding: EdgeInsets.only(
+                                          left: mediaQuery.width * 0.02,
+                                          right: mediaQuery.width * 0.02,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                          color: Colors.indigo.shade500,
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            '- $off %',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge!
+                                                .copyWith(
+                                                  color: Colors.white,
+                                                ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                )
-                              : Text(
-                                  'Rs ${product.price}',
-                                  style: Theme.of(context).textTheme.headline6,
-                                ),
-                          off < 100
-                              ? Padding(
-                                  padding: const EdgeInsets.only(left: 9.0),
-                                  child: Container(
-                                    width: mediaQuery.width * 0.13,
-                                    height: mediaQuery.height * 0.036,
-                                    padding: EdgeInsets.only(
-                                      left: mediaQuery.width * 0.02,
-                                      right: mediaQuery.width * 0.02,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6),
-                                      color: Colors.indigo.shade500,
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        '- $off %',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge!
-                                            .copyWith(
-                                              color: Colors.white,
-                                            ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : const SizedBox(),
+                                    )
+                                  : const SizedBox(),
+                            ],
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            color: Colors.indigo,
+                            icon: const Icon(
+                              Icons.share,
+                            ),
+                          )
                         ],
                       ),
                     ),
 
-                    productInfo(mediaQuery, 'Brand', brand.brandName),
                     const SizedBox(
                       height: 5,
                     ),
+
                     Row(
                       children: product.size.split(',').map((s) {
                         return Padding(
@@ -471,7 +472,7 @@ class ProductViewState extends ConsumerState<ProductView> {
                                     7,
                                   ),
                                 ),
-                                backgroundColor: Colors.indigo.shade200,
+                                backgroundColor: Colors.indigo.shade300,
                                 labelStyle: const TextStyle(
                                   color: Colors.white,
                                 ),
@@ -505,7 +506,7 @@ class ProductViewState extends ConsumerState<ProductView> {
                                     7,
                                   ),
                                 ),
-                                backgroundColor: Colors.indigo.shade200,
+                                backgroundColor: Colors.indigo.shade300,
                                 labelStyle: const TextStyle(
                                   color: Colors.white,
                                 ),
@@ -529,11 +530,40 @@ class ProductViewState extends ConsumerState<ProductView> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      'Description',
-                      style: Theme.of(context).textTheme.headline5,
+                    ExpansionTile(
+                      tilePadding: const EdgeInsets.all(0),
+                      title: Text(
+                        'Description',
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                      children: [
+                        Html(data: product.description),
+                      ],
                     ),
-                    // Html(data: product.description),
+
+                    ExpansionTile(
+                      tilePadding: const EdgeInsets.all(0),
+                      title: Text(
+                        'Rating',
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                      children: [
+                        // Html(data: product.description),
+                        Text(product.description),
+                      ],
+                    ),
+
+                    ExpansionTile(
+                      tilePadding: const EdgeInsets.all(0),
+                      title: Text(
+                        'Review',
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                      children: [
+                        // Html(data: product.description),
+                        Text(product.description),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -544,9 +574,9 @@ class ProductViewState extends ConsumerState<ProductView> {
               margin: EdgeInsets.only(top: mediaQuery.height * 0.01),
               height: mediaQuery.height * 0.06,
               decoration: BoxDecoration(
-                // color: Colors.grey.shade100,
+                color: Colors.indigo,
                 borderRadius: BorderRadius.circular(
-                  1000,
+                  10,
                 ),
                 boxShadow: [
                   BoxShadow(
@@ -635,7 +665,6 @@ class ProductViewState extends ConsumerState<ProductView> {
                 ],
               ),
             ),
-          
           ],
         ),
       ),
