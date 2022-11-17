@@ -52,10 +52,10 @@ class HomePageState extends ConsumerState<HomePage> {
 
     ref.read(bannerProvider.notifier).fetchBanner();
     checkIsLogin();
-    if (isLogin) {
-      ref.read(shippingProvider.notifier).fetchShipping();
-      ref.read(couponProvider.notifier).fetchCoupon();
-    }
+
+    ref.read(shippingProvider.notifier).fetchShipping();
+    ref.read(couponProvider.notifier).fetchCoupon();
+
     super.initState();
   }
 

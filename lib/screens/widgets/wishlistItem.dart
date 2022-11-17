@@ -11,6 +11,7 @@ class WishlistItem extends ConsumerWidget {
   final int ratingNumber;
   final double? rating;
   final String photopath;
+  final int productId;
 
   const WishlistItem({
     required this.id,
@@ -18,6 +19,7 @@ class WishlistItem extends ConsumerWidget {
     required this.photopath,
     required this.rating,
     required this.ratingNumber,
+    required this.productId,
     super.key,
   });
 
@@ -233,7 +235,7 @@ class WishlistItem extends ConsumerWidget {
       width: mediaQuery.width * 0.45,
       child: InkWell(
         onTap: () => Navigator.of(context)
-            .pushNamed(ProductView.routeName, arguments: id),
+            .pushNamed(ProductView.routeName, arguments: productId),
         child: Card(
           elevation: 6,
           shape: RoundedRectangleBorder(

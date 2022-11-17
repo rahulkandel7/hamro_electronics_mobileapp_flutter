@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hamro_electronics">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="hamro_electronics"
+        android:label="Hamro Electronics"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

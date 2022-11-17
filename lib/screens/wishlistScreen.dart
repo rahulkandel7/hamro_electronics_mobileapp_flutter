@@ -65,6 +65,7 @@ class WishlistScreenState extends ConsumerState<WishlistScreen> {
                                     EdgeInsets.only(bottom: size.height * 0.01),
                                 child: WishlistItem(
                                   id: data[i].id,
+                                  productId: product.id,
                                   name: product.name,
                                   photopath: product.photopath1,
                                   rating: product.rating ?? 0.0,

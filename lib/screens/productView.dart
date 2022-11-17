@@ -51,9 +51,11 @@ class ProductViewState extends ConsumerState<ProductView> {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: Image.network(
-            'https://api.hamroelectronics.com.np/public/$photopath',
+          child: CachedNetworkImage(
+            imageUrl: 'https://api.hamroelectronics.com.np/public/$photopath',
             width: mediaQuery.width * 0.1,
+            placeholder: (context, url) =>
+                Image.asset('assets/images/logo.png'),
           ),
         ),
       ),
@@ -579,7 +581,7 @@ class ProductViewState extends ConsumerState<ProductView> {
                                     },
                                     tooltip: s,
                                     selectedShadowColor: Colors.indigo.shade300,
-                                    selectedColor: Colors.indigo,
+                                    selectedColor: Colors.indigo.shade800,
                                     label: Text(s),
                                   ),
                                 ],
@@ -624,7 +626,7 @@ class ProductViewState extends ConsumerState<ProductView> {
                                     },
                                     tooltip: c,
                                     selectedShadowColor: Colors.indigo.shade300,
-                                    selectedColor: Colors.indigo,
+                                    selectedColor: Colors.indigo.shade800,
                                     label: Text(c),
                                   ),
                                 ],
@@ -863,17 +865,6 @@ class ProductViewState extends ConsumerState<ProductView> {
                               setState(() {
                                 quantity++;
                               });
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: SnackBar(
-                                    content: Text('Cannot add more than this'),
-                                    behavior: SnackBarBehavior.floating,
-                                    backgroundColor: Colors.indigo,
-                                    shape: RoundedRectangleBorder(),
-                                  ),
-                                ),
-                              );
                             }
                           },
                           icon: Icon(
@@ -886,96 +877,106 @@ class ProductViewState extends ConsumerState<ProductView> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.indigo,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                          1000,
-                        ),
-                      ),
-                    ),
-                    onPressed: () {
-                      isLogin
-                          ? ref
-                              .read(cartProvider.notifier)
-                              .addToCart(
-                                  product.id,
-                                  color,
-                                  size,
-                                  product.discountedprice > 0
-                                      ? product.discountedprice
-                                      : product.price,
-                                  quantity)
-                              .then((value) {
-                              final extractedData = json.decode(value.body);
+                product.stock == 0
+                    ? const SizedBox()
+                    : Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.indigo,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                1000,
+                              ),
+                            ),
+                          ),
+                          onPressed: () {
+                            isLogin
+                                ? ref
+                                    .read(cartProvider.notifier)
+                                    .addToCart(
+                                        product.id,
+                                        color,
+                                        size,
+                                        product.discountedprice > 0
+                                            ? product.discountedprice
+                                            : product.price,
+                                        quantity)
+                                    .then((value) {
+                                    final extractedData =
+                                        json.decode(value.body);
 
-                              if (extractedData['status'] == true) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      extractedData['message'],
-                                    ),
-                                    backgroundColor: Colors.indigo,
-                                    behavior: SnackBarBehavior.floating,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                        10,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }
-                              if (extractedData['details'] != null) {
-                                final errors = extractedData['details']
-                                    as Map<String, dynamic>;
-                                errors.forEach(
-                                  (key, value) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          value
-                                              .toString()
-                                              .replaceAll('[', '')
-                                              .replaceAll(']', ''),
-                                        ),
-                                        backgroundColor: Colors.red,
-                                        behavior: SnackBarBehavior.floating,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            10,
+                                    if (extractedData['status'] == true) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            extractedData['message'],
+                                          ),
+                                          backgroundColor: Colors.indigo,
+                                          behavior: SnackBarBehavior.floating,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              10,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              }
-                            })
-                          : Navigator.of(context)
-                              .pushNamed(LoginScreen.routeName);
-                    },
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.shopping_cart_outlined,
-                          size: Theme.of(context).textTheme.bodyLarge!.fontSize,
-                        ),
-                        SizedBox(
-                          width: mediaQuery.width * 0.01,
-                        ),
-                        const Text(
-                          'Add To Cart',
-                          style: TextStyle(
-                            color: Colors.white,
+                                      );
+                                    }
+                                    if (extractedData['details'] != null) {
+                                      final errors = extractedData['details']
+                                          as Map<String, dynamic>;
+                                      errors.forEach(
+                                        (key, value) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                value
+                                                    .toString()
+                                                    .replaceAll('[', '')
+                                                    .replaceAll(']', ''),
+                                              ),
+                                              backgroundColor: Colors.red,
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                  10,
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    }
+                                  })
+                                : Navigator.of(context)
+                                    .pushNamed(LoginScreen.routeName);
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.shopping_cart_outlined,
+                                size: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .fontSize,
+                              ),
+                              SizedBox(
+                                width: mediaQuery.width * 0.01,
+                              ),
+                              const Text(
+                                'Add To Cart',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
+                      ),
               ],
             ),
           ),
