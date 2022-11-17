@@ -41,8 +41,29 @@ class WishlistController extends StateNotifier<List<Wishlist>> {
         await http.delete(Uri.parse('${url}wishlist/$id'), headers: {
       'Authorization': 'Bearer ${prefs.getString('token')}',
     });
-    print(response.body);
+
     return response;
+  }
+
+  Future<http.Response> addWishlist(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final response = await http.post(Uri.parse('${url}wishlist'), body: {
+      'product_id': id.toString(),
+    }, headers: {
+      'Authorization': 'Bearer ${prefs.getString('token')}',
+    });
+
+    return response;
+  }
+
+  bool isWishlist(int id) {
+    List<Wishlist> w =
+        state.where((element) => element.productId == id).toList();
+    if (w.isEmpty) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
 

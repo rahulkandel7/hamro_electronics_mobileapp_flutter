@@ -249,7 +249,7 @@ class _ProductItemState extends State<ProductItem> {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context).size;
     return SizedBox(
-      width: mediaQuery.width * 0.45,
+      width: mediaQuery.width * 0.46,
       child: InkWell(
         onTap: () => Navigator.of(context)
             .pushNamed(ProductView.routeName, arguments: widget.id),

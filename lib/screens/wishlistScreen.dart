@@ -53,12 +53,15 @@ class WishlistScreenState extends ConsumerState<WishlistScreen> {
                           ref.read(productProvider.notifier).findProduct(
                                 data[i].productId,
                               );
-                      return WishlistItem(
-                        id: data[i].id,
-                        name: product.name,
-                        photopath: product.photopath1,
-                        rating: product.rating ?? 0.0,
-                        ratingNumber: product.ratingNumber,
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: size.height * 0.01),
+                        child: WishlistItem(
+                          id: data[i].id,
+                          name: product.name,
+                          photopath: product.photopath1,
+                          rating: product.rating ?? 0.0,
+                          ratingNumber: product.ratingNumber,
+                        ),
                       );
                     },
                     itemCount: data.length,

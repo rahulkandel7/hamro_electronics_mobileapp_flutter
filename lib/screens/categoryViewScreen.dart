@@ -149,14 +149,18 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
                       height: size.height * 0.82,
                       child: GridView.builder(
                         itemBuilder: (ctx, i) {
-                          return ProductItem(
-                            id: products[i].id,
-                            discountedPrice: products[i].discountedprice,
-                            name: products[i].name,
-                            photopath: products[i].photopath1,
-                            price: products[i].price,
-                            rating: products[i].rating ?? 0.0,
-                            ratingNumber: products[i].ratingNumber,
+                          return Padding(
+                            padding:
+                                EdgeInsets.only(bottom: size.height * 0.01),
+                            child: ProductItem(
+                              id: products[i].id,
+                              discountedPrice: products[i].discountedprice,
+                              name: products[i].name,
+                              photopath: products[i].photopath1,
+                              price: products[i].price,
+                              rating: products[i].rating ?? 0.0,
+                              ratingNumber: products[i].ratingNumber,
+                            ),
                           );
                         },
                         itemCount: products.length,
@@ -164,7 +168,7 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          childAspectRatio: 0.59,
+                          childAspectRatio: 0.58,
                         ),
                       ),
                     )
@@ -179,14 +183,19 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
                               : size.height * 0.82,
                           child: GridView.builder(
                             itemBuilder: (ctx, i) {
-                              return ProductItem(
-                                id: subProducts[i].id,
-                                discountedPrice: subProducts[i].discountedprice,
-                                name: subProducts[i].name,
-                                photopath: subProducts[i].photopath1,
-                                price: subProducts[i].price,
-                                rating: subProducts[i].rating ?? 0.0,
-                                ratingNumber: subProducts[i].ratingNumber,
+                              return Padding(
+                                padding:
+                                    EdgeInsets.only(bottom: size.height * 0.01),
+                                child: ProductItem(
+                                  id: subProducts[i].id,
+                                  discountedPrice:
+                                      subProducts[i].discountedprice,
+                                  name: subProducts[i].name,
+                                  photopath: subProducts[i].photopath1,
+                                  price: subProducts[i].price,
+                                  rating: subProducts[i].rating ?? 0.0,
+                                  ratingNumber: subProducts[i].ratingNumber,
+                                ),
                               );
                             },
                             itemCount: subProducts.length,
@@ -194,7 +203,7 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              childAspectRatio: 0.59,
+                              childAspectRatio: 0.58,
                             ),
                           ),
                         ),

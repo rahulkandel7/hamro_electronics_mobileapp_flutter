@@ -1,7 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-// import 'package:flutter_html/flutter_html.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hamro_electronics/controllers/cartController.dart';
+import 'package:hamro_electronics/controllers/commentController.dart';
+import 'package:hamro_electronics/controllers/wishlistController.dart';
+import 'package:hamro_electronics/models/comment.dart';
+import 'package:hamro_electronics/models/wishlist.dart';
 
 import '/controllers/brandController.dart';
 
@@ -267,6 +274,7 @@ class ProductViewState extends ConsumerState<ProductView> {
     Brand brand = ref.watch(brandProvider.notifier).getBrand(product.brandId);
     int off = ((product.price - product.discountedprice) / product.price * 100)
         .toInt();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -282,24 +290,61 @@ class ProductViewState extends ConsumerState<ProductView> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.favorite_border,
-              color: Colors.indigo,
-            ),
-          ),
+          ref.watch(fetchWishlist).when(
+              data: (data) {
+                List<Wishlist> wishlists =
+                    data.where((element) => element.productId == id).toList();
+
+                bool isWishlist = wishlists.isEmpty ? false : true;
+                return IconButton(
+                  onPressed: () {
+                    ref
+                        .read(wishlistProvider.notifier)
+                        .addWishlist(product.id)
+                        .then((value) {
+                      final extractedData = json.decode(value.body);
+
+                      if (extractedData['status'] == true) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              extractedData['message'],
+                            ),
+                            backgroundColor: Colors.indigo,
+                            behavior: SnackBarBehavior.floating,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                            ),
+                          ),
+                        );
+                        ref.refresh(wishlistProvider);
+                        setState(() {
+                          isWishlist = true;
+                        });
+                      }
+                    });
+                  },
+                  icon: Icon(
+                    isWishlist ? Icons.favorite : Icons.favorite_border,
+                    color: isWishlist ? Colors.red : Colors.indigo,
+                  ),
+                );
+              },
+              error: (e, s) => Text(e.toString()),
+              loading: () => const SizedBox()),
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: mediaQuery.width * 0.04,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //* For Showing Product Details
-            SizedBox(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          //* For Showing Product Details
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: mediaQuery.width * 0.04,
+            ),
+            child: SizedBox(
               height: mediaQuery.height * 0.8,
               child: SingleChildScrollView(
                 child: Column(
@@ -443,11 +488,17 @@ class ProductViewState extends ConsumerState<ProductView> {
                                   : const SizedBox(),
                             ],
                           ),
-                          IconButton(
-                            onPressed: () {},
-                            color: Colors.indigo,
-                            icon: const Icon(
-                              Icons.share,
+                          Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.indigo,
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                              onPressed: () {},
+                              color: Colors.white,
+                              icon: const Icon(
+                                Icons.share,
+                              ),
                             ),
                           )
                         ],
@@ -459,72 +510,94 @@ class ProductViewState extends ConsumerState<ProductView> {
                     ),
 
                     Row(
-                      children: product.size.split(',').map((s) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: mediaQuery.width * 0.01,
-                          ),
-                          child: Wrap(
-                            children: [
-                              ChoiceChip(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    7,
+                      children: [
+                        Text(
+                          'Size: ',
+                          style:
+                              Theme.of(context).textTheme.headline6!.copyWith(
+                                    fontWeight: FontWeight.w500,
                                   ),
-                                ),
-                                backgroundColor: Colors.indigo.shade300,
-                                labelStyle: const TextStyle(
-                                  color: Colors.white,
-                                ),
-                                selected: s.contains(size),
-                                onSelected: (value) {
-                                  setState(() {
-                                    size = s;
-                                  });
-                                },
-                                tooltip: s,
-                                selectedShadowColor: Colors.indigo.shade300,
-                                selectedColor: Colors.indigo,
-                                label: Text(s),
+                        ),
+                        Row(
+                          children: product.size.split(',').map((s) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: mediaQuery.width * 0.01,
                               ),
-                            ],
-                          ),
-                        );
-                      }).toList(),
+                              child: Wrap(
+                                children: [
+                                  ChoiceChip(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        7,
+                                      ),
+                                    ),
+                                    backgroundColor: Colors.indigo.shade300,
+                                    labelStyle: const TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                    selected: s.contains(size),
+                                    onSelected: (value) {
+                                      setState(() {
+                                        size = s;
+                                      });
+                                    },
+                                    tooltip: s,
+                                    selectedShadowColor: Colors.indigo.shade300,
+                                    selectedColor: Colors.indigo,
+                                    label: Text(s),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ],
                     ),
                     Row(
-                      children: product.color.split(',').map((c) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: mediaQuery.width * 0.01,
-                          ),
-                          child: Wrap(
-                            children: [
-                              ChoiceChip(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    7,
+                      children: [
+                        Text(
+                          'Color: ',
+                          style:
+                              Theme.of(context).textTheme.headline6!.copyWith(
+                                    fontWeight: FontWeight.w500,
                                   ),
-                                ),
-                                backgroundColor: Colors.indigo.shade300,
-                                labelStyle: const TextStyle(
-                                  color: Colors.white,
-                                ),
-                                selected: c.contains(color),
-                                onSelected: (value) {
-                                  setState(() {
-                                    color = c;
-                                  });
-                                },
-                                tooltip: c,
-                                selectedShadowColor: Colors.indigo.shade300,
-                                selectedColor: Colors.indigo,
-                                label: Text(c),
+                        ),
+                        Row(
+                          children: product.color.split(',').map((c) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: mediaQuery.width * 0.01,
                               ),
-                            ],
-                          ),
-                        );
-                      }).toList(),
+                              child: Wrap(
+                                children: [
+                                  ChoiceChip(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        7,
+                                      ),
+                                    ),
+                                    backgroundColor: Colors.indigo.shade300,
+                                    labelStyle: const TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                    selected: c.contains(color),
+                                    onSelected: (value) {
+                                      setState(() {
+                                        color = c;
+                                      });
+                                    },
+                                    tooltip: c,
+                                    selectedShadowColor: Colors.indigo.shade300,
+                                    selectedColor: Colors.indigo,
+                                    label: Text(c),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ],
                     ),
 
                     const SizedBox(
@@ -560,113 +633,279 @@ class ProductViewState extends ConsumerState<ProductView> {
                         style: Theme.of(context).textTheme.headline5,
                       ),
                       children: [
-                        // Html(data: product.description),
-                        Text(product.description),
+                        ref.watch(fetchComment(id)).when(
+                              data: (data) {
+                                List<Comment> comments = data
+                                    .where((comment) =>
+                                        comment.productId == product.id)
+                                    .toList();
+
+                                return SizedBox(
+                                  height: mediaQuery.height * 0.3,
+                                  child: ListView.builder(
+                                    itemBuilder: (ctx, i) {
+                                      return Container(
+                                        margin: const EdgeInsets.only(top: 6),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Colors.grey.shade200,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 10,
+                                              color: Colors.grey.shade300,
+                                            ),
+                                          ],
+                                        ),
+                                        child: ListTile(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          title: Row(
+                                            children: [
+                                              Text(
+                                                comments[i].userName,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge!
+                                                    .copyWith(
+                                                      color:
+                                                          Colors.grey.shade700,
+                                                    ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal:
+                                                        mediaQuery.width *
+                                                            0.01),
+                                                child: Text(
+                                                  '-',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyLarge!
+                                                      .copyWith(
+                                                        color: Colors
+                                                            .grey.shade700,
+                                                      ),
+                                                ),
+                                              ),
+                                              Text(
+                                                '${DateTime.parse(comments[i].date).day}/${DateTime.parse(comments[i].date).month}/${DateTime.parse(comments[i].date).year}',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge!
+                                                    .copyWith(
+                                                      color:
+                                                          Colors.grey.shade700,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                          subtitle: Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 4.0),
+                                            child: Text(
+                                              comments[i].comment,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline6,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    itemCount: comments.length,
+                                  ),
+                                );
+                              },
+                              error: (e, s) => Text(e.toString()),
+                              loading: () => CircularProgressIndicator(),
+                            )
                       ],
                     ),
                   ],
                 ),
               ),
             ),
-            //* For add To Cart Section section
-            Container(
-              width: double.infinity,
-              margin: EdgeInsets.only(top: mediaQuery.height * 0.01),
-              height: mediaQuery.height * 0.06,
-              decoration: BoxDecoration(
-                color: Colors.indigo,
-                borderRadius: BorderRadius.circular(
-                  10,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    offset: const Offset(0, 3),
-                    blurRadius: 6,
-                    color: Colors.grey.shade300,
-                    spreadRadius: 3,
-                  ),
-                ],
+          ),
+          Spacer(),
+          //* For add To Cart Section section
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(
+              horizontal: mediaQuery.width * 0.04,
+            ),
+            margin: EdgeInsets.only(
+              top: mediaQuery.height * 0.01,
+              bottom: mediaQuery.height * 0.004,
+            ),
+            height: mediaQuery.height * 0.06,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(
+                10,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Container(
-                      height: mediaQuery.height * 0.04,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Container(
+                    height: mediaQuery.height * 0.04,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(
+                        1000,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 8,
+                          color: Colors.grey.shade300,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            if (quantity > 1) {
+                              setState(() {
+                                quantity--;
+                              });
+                            }
+                          },
+                          icon: Icon(
+                            Icons.remove,
+                            size:
+                                Theme.of(context).textTheme.headline6!.fontSize,
+                          ),
+                        ),
+                        Text(
+                          quantity.toString(),
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            if (quantity < product.stock) {
+                              setState(() {
+                                quantity++;
+                              });
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: SnackBar(
+                                    content: Text('Cannot add more than this'),
+                                    behavior: SnackBarBehavior.floating,
+                                    backgroundColor: Colors.indigo,
+                                    shape: RoundedRectangleBorder(),
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                          icon: Icon(
+                            Icons.add,
+                            size:
+                                Theme.of(context).textTheme.headline6!.fontSize,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.indigo,
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
                           1000,
                         ),
                       ),
-                      child: Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              if (quantity > 1) {
-                                setState(() {
-                                  quantity--;
-                                });
-                              }
-                            },
-                            icon: Icon(
-                              Icons.remove,
-                              size: Theme.of(context)
-                                  .textTheme
-                                  .headline6!
-                                  .fontSize,
-                            ),
-                          ),
-                          Text(
-                            quantity.toString(),
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              if (quantity < product.stock) {
-                                setState(() {
-                                  quantity++;
-                                });
-                              }
-                            },
-                            icon: Icon(
-                              Icons.add,
-                              size: Theme.of(context)
-                                  .textTheme
-                                  .headline6!
-                                  .fontSize,
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                            1000,
+                    onPressed: () {
+                      ref
+                          .read(cartProvider.notifier)
+                          .addToCart(
+                              product.id,
+                              color,
+                              size,
+                              product.discountedprice > 0
+                                  ? product.discountedprice
+                                  : product.price,
+                              quantity)
+                          .then((value) {
+                        final extractedData = json.decode(value.body);
+
+                        if (extractedData['status'] == true) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                extractedData['message'],
+                              ),
+                              backgroundColor: Colors.indigo,
+                              behavior: SnackBarBehavior.floating,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  10,
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                        if (extractedData['details'] != null) {
+                          final errors =
+                              extractedData['details'] as Map<String, dynamic>;
+                          errors.forEach(
+                            (key, value) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    value
+                                        .toString()
+                                        .replaceAll('[', '')
+                                        .replaceAll(']', ''),
+                                  ),
+                                  backgroundColor: Colors.red,
+                                  behavior: SnackBarBehavior.floating,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        }
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.shopping_cart_outlined,
+                          size: Theme.of(context).textTheme.bodyLarge!.fontSize,
+                        ),
+                        SizedBox(
+                          width: mediaQuery.width * 0.01,
+                        ),
+                        const Text(
+                          'Add To Cart',
+                          style: TextStyle(
+                            color: Colors.white,
                           ),
                         ),
-                      ),
-                      onPressed: () {},
-                      child: const Text(
-                        'Add To Cart',
-                        style: TextStyle(
-                          color: Colors.indigo,
-                        ),
-                      ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

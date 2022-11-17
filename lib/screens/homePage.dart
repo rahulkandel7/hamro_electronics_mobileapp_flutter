@@ -1,5 +1,8 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hamro_electronics/controllers/bannerController.dart';
+import 'package:hamro_electronics/controllers/wishlistController.dart';
 import 'package:hamro_electronics/screens/widgets/shimmers/homeCategoryShimmer.dart';
 import 'package:hamro_electronics/screens/widgets/shimmers/homeProductShimmer.dart';
 
@@ -30,6 +33,7 @@ class HomePageState extends ConsumerState<HomePage> {
     ref.read(brandProvider.notifier).fetchBrand();
     ref.read(shippingProvider.notifier).fetchShipping();
     ref.read(couponProvider.notifier).fetchCoupon();
+    ref.read(bannerProvider.notifier).fetchBanner();
     super.initState();
   }
 
@@ -89,59 +93,59 @@ class HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
                 //* Search Box Code
-                Center(
-                  child: SizedBox(
-                    width: mediaQuery.width * 0.8,
-                    child: Column(
-                      children: [
-                        TextField(
-                          controller: searchController,
-                          decoration: InputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            contentPadding: const EdgeInsets.all(0),
-                            focusedBorder: Theme.of(context)
-                                .inputDecorationTheme
-                                .focusedBorder!
-                                .copyWith(
-                                  borderSide: BorderSide(
-                                    color: Colors.grey.shade500,
-                                  ),
-                                ),
-                            border: Theme.of(context)
-                                .inputDecorationTheme
-                                .focusedBorder!
-                                .copyWith(
-                                  borderSide: BorderSide(
-                                    color: Colors.grey.shade500,
-                                  ),
-                                ),
-                            enabledBorder: Theme.of(context)
-                                .inputDecorationTheme
-                                .focusedBorder!
-                                .copyWith(
-                                  borderSide: BorderSide(
-                                    color: Colors.grey.shade500,
-                                  ),
-                                ),
-                            prefixIcon: Icon(
-                              Icons.search_outlined,
-                              color: Colors.grey.shade500,
-                            ),
-                            labelText: 'Search Products...',
-                            labelStyle: TextStyle(
-                              color: Colors.grey.shade500,
-                            ),
-                          ),
-                          onEditingComplete: () {},
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                // Center(
+                //   child: SizedBox(
+                //     width: mediaQuery.width * 0.8,
+                //     child: Column(
+                //       children: [
+                //         TextField(
+                //           controller: searchController,
+                //           decoration: InputDecoration(
+                //             floatingLabelBehavior: FloatingLabelBehavior.never,
+                //             contentPadding: const EdgeInsets.all(0),
+                //             focusedBorder: Theme.of(context)
+                //                 .inputDecorationTheme
+                //                 .focusedBorder!
+                //                 .copyWith(
+                //                   borderSide: BorderSide(
+                //                     color: Colors.grey.shade500,
+                //                   ),
+                //                 ),
+                //             border: Theme.of(context)
+                //                 .inputDecorationTheme
+                //                 .focusedBorder!
+                //                 .copyWith(
+                //                   borderSide: BorderSide(
+                //                     color: Colors.grey.shade500,
+                //                   ),
+                //                 ),
+                //             enabledBorder: Theme.of(context)
+                //                 .inputDecorationTheme
+                //                 .focusedBorder!
+                //                 .copyWith(
+                //                   borderSide: BorderSide(
+                //                     color: Colors.grey.shade500,
+                //                   ),
+                //                 ),
+                //             prefixIcon: Icon(
+                //               Icons.search_outlined,
+                //               color: Colors.grey.shade500,
+                //             ),
+                //             labelText: 'Search Products...',
+                //             labelStyle: TextStyle(
+                //               color: Colors.grey.shade500,
+                //             ),
+                //           ),
+                //           onEditingComplete: () {},
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
 
-                SizedBox(
-                  height: mediaQuery.height * 0.02,
-                ),
+                // SizedBox(
+                //   height: mediaQuery.height * 0.02,
+                // ),
 
                 Text(
                   'Promotions',
@@ -150,7 +154,7 @@ class HomePageState extends ConsumerState<HomePage> {
 
                 Container(
                   width: double.infinity,
-                  height: mediaQuery.height * 0.2,
+                  height: mediaQuery.height * 0.12,
                   margin: const EdgeInsets.all(
                     8,
                   ),
@@ -159,6 +163,23 @@ class HomePageState extends ConsumerState<HomePage> {
                       10,
                     ),
                     color: Colors.indigo,
+                  ),
+                  child: CarouselSlider(
+                    items: ref.watch(bannerProvider.notifier).state.map((e) {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(
+                          10,
+                        ),
+                        child: Image.network(
+                          'https://api.hamroelectronics.com.np/public/${e.photopath}',
+                          fit: BoxFit.fill,
+                        ),
+                      );
+                    }).toList(),
+                    options: CarouselOptions(
+                      autoPlay: true,
+                      pauseAutoPlayOnTouch: true,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -216,6 +237,64 @@ class HomePageState extends ConsumerState<HomePage> {
                     );
                   },
                 ),
+
+                ref.watch(fetchProduct).when(
+                      data: (data) {
+                        List<Product> saleProducts = data
+                            .where(
+                              (element) => element.flashsale == 1,
+                            )
+                            .toList();
+
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: mediaQuery.height * 0.01,
+                                horizontal: mediaQuery.width * 0.02,
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Sales',
+                                    style:
+                                        Theme.of(context).textTheme.headline5,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: double.infinity,
+                              height: mediaQuery.height * 0.36,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: const BouncingScrollPhysics(),
+                                itemBuilder: (ctx, i) => ProductItem(
+                                  id: saleProducts[i].id,
+                                  discountedPrice:
+                                      saleProducts[i].discountedprice,
+                                  name: saleProducts[i].name,
+                                  photopath: saleProducts[i].photopath1,
+                                  price: saleProducts[i].price,
+                                  rating: saleProducts[i].rating ?? 0.0,
+                                  ratingNumber: saleProducts[i].ratingNumber,
+                                ),
+                                itemCount: saleProducts.length,
+                                scrollDirection: Axis.horizontal,
+                              ),
+                            )
+                          ],
+                        );
+                      },
+                      error: (e, s) {
+                        print(s.toString());
+                        return Text(e.toString());
+                      },
+                      loading: () => const HomeProductShimmer(),
+                    ),
 
                 ref.watch(fetchProduct).when(
                       data: (data) {

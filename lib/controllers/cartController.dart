@@ -80,8 +80,28 @@ class CartController extends StateNotifier<List<Cart>> {
     }, headers: {
       'Authorization': 'Bearer ${prefs.getString('token')}',
     });
+  }
 
-    print(response.body);
+  Future<http.Response> addToCart(
+      int productId, String color, String size, int price, int quantity) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final response = await http.post(
+      Uri.parse(url),
+      body: {
+        'product_id': productId.toString(),
+        'color': color,
+        'size': size,
+        'price': price.toString(),
+        'quantity': quantity.toString(),
+        'ordered': '0',
+      },
+      headers: {
+        'Authorization': 'Bearer ${prefs.getString('token')}',
+      },
+    );
+
+    return response;
   }
 }
 
