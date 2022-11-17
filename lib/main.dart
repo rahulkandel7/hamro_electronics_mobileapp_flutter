@@ -23,27 +23,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool isLogin = false;
-
-  chekIsLogin() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getString('token') != null) {
-      setState(() {
-        isLogin = true;
-      });
-    } else {
-      setState(() {
-        isLogin = false;
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    chekIsLogin();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -122,7 +101,7 @@ class _MyAppState extends State<MyApp> {
           selectedColor: Colors.indigo,
         ),
       ),
-      home: isLogin ? const Navbar() : const LoginScreen(),
+      home: const Navbar(),
       routes: routes,
     );
   }

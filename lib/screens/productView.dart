@@ -9,6 +9,8 @@ import 'package:hamro_electronics/controllers/commentController.dart';
 import 'package:hamro_electronics/controllers/wishlistController.dart';
 import 'package:hamro_electronics/models/comment.dart';
 import 'package:hamro_electronics/models/wishlist.dart';
+import 'package:hamro_electronics/screens/loginScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '/controllers/brandController.dart';
 
@@ -267,6 +269,26 @@ class ProductViewState extends ConsumerState<ProductView> {
 
   int quantity = 1;
 
+  bool isLogin = false;
+  checkIsLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('token') == null) {
+      setState(() {
+        isLogin = false;
+      });
+    } else {
+      setState(() {
+        isLogin = true;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkIsLogin();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size mediaQuery = MediaQuery.of(context).size;
@@ -294,50 +316,53 @@ class ProductViewState extends ConsumerState<ProductView> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         actions: [
-          ref.watch(fetchWishlist).when(
-              data: (data) {
-                List<Wishlist> wishlists =
-                    data.where((element) => element.productId == id).toList();
+          isLogin
+              ? ref.watch(fetchWishlist).when(
+                  data: (data) {
+                    List<Wishlist> wishlists = data
+                        .where((element) => element.productId == id)
+                        .toList();
 
-                bool isWishlist = wishlists.isEmpty ? false : true;
-                return IconButton(
-                  onPressed: () {
-                    ref
-                        .read(wishlistProvider.notifier)
-                        .addWishlist(product.id)
-                        .then((value) {
-                      final extractedData = json.decode(value.body);
+                    bool isWishlist = wishlists.isEmpty ? false : true;
+                    return IconButton(
+                      onPressed: () {
+                        ref
+                            .read(wishlistProvider.notifier)
+                            .addWishlist(product.id)
+                            .then((value) {
+                          final extractedData = json.decode(value.body);
 
-                      if (extractedData['status'] == true) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              extractedData['message'],
-                            ),
-                            backgroundColor: Colors.indigo,
-                            behavior: SnackBarBehavior.floating,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                10,
+                          if (extractedData['status'] == true) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  extractedData['message'],
+                                ),
+                                backgroundColor: Colors.indigo,
+                                behavior: SnackBarBehavior.floating,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    10,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        );
-                        ref.refresh(wishlistProvider);
-                        setState(() {
-                          isWishlist = true;
+                            );
+                            ref.refresh(wishlistProvider);
+                            setState(() {
+                              isWishlist = true;
+                            });
+                          }
                         });
-                      }
-                    });
+                      },
+                      icon: Icon(
+                        isWishlist ? Icons.favorite : Icons.favorite_border,
+                        color: isWishlist ? Colors.red : Colors.indigo,
+                      ),
+                    );
                   },
-                  icon: Icon(
-                    isWishlist ? Icons.favorite : Icons.favorite_border,
-                    color: isWishlist ? Colors.red : Colors.indigo,
-                  ),
-                );
-              },
-              error: (e, s) => Text(e.toString()),
-              loading: () => const SizedBox()),
+                  error: (e, s) => Text(e.toString()),
+                  loading: () => const SizedBox())
+              : const SizedBox(),
         ],
       ),
       body: Column(
@@ -867,61 +892,64 @@ class ProductViewState extends ConsumerState<ProductView> {
                       ),
                     ),
                     onPressed: () {
-                      ref
-                          .read(cartProvider.notifier)
-                          .addToCart(
-                              product.id,
-                              color,
-                              size,
-                              product.discountedprice > 0
-                                  ? product.discountedprice
-                                  : product.price,
-                              quantity)
-                          .then((value) {
-                        final extractedData = json.decode(value.body);
+                      isLogin
+                          ? ref
+                              .read(cartProvider.notifier)
+                              .addToCart(
+                                  product.id,
+                                  color,
+                                  size,
+                                  product.discountedprice > 0
+                                      ? product.discountedprice
+                                      : product.price,
+                                  quantity)
+                              .then((value) {
+                              final extractedData = json.decode(value.body);
 
-                        if (extractedData['status'] == true) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                extractedData['message'],
-                              ),
-                              backgroundColor: Colors.indigo,
-                              behavior: SnackBarBehavior.floating,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10,
-                                ),
-                              ),
-                            ),
-                          );
-                        }
-                        if (extractedData['details'] != null) {
-                          final errors =
-                              extractedData['details'] as Map<String, dynamic>;
-                          errors.forEach(
-                            (key, value) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    value
-                                        .toString()
-                                        .replaceAll('[', '')
-                                        .replaceAll(']', ''),
-                                  ),
-                                  backgroundColor: Colors.red,
-                                  behavior: SnackBarBehavior.floating,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      10,
+                              if (extractedData['status'] == true) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      extractedData['message'],
+                                    ),
+                                    backgroundColor: Colors.indigo,
+                                    behavior: SnackBarBehavior.floating,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        10,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                          );
-                        }
-                      });
+                                );
+                              }
+                              if (extractedData['details'] != null) {
+                                final errors = extractedData['details']
+                                    as Map<String, dynamic>;
+                                errors.forEach(
+                                  (key, value) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          value
+                                              .toString()
+                                              .replaceAll('[', '')
+                                              .replaceAll(']', ''),
+                                        ),
+                                        backgroundColor: Colors.red,
+                                        behavior: SnackBarBehavior.floating,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            10,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
+                            })
+                          : Navigator.of(context)
+                              .pushNamed(LoginScreen.routeName);
                     },
                     child: Row(
                       children: [

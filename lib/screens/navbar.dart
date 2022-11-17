@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hamro_electronics/screens/cartScreen.dart';
 import 'package:hamro_electronics/screens/categoryScreen.dart';
+import 'package:hamro_electronics/screens/loginScreen.dart';
 import 'package:hamro_electronics/screens/optionScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens/homePage.dart';
 
@@ -14,21 +16,37 @@ class Navbar extends StatefulWidget {
 }
 
 class _NavbarState extends State<Navbar> {
-  int _selectedIndex = 0;
-  final _widgets = const [
-    HomePage(),
-    CategoryScreen(),
-    CartScreen(),
-    OptionScreen(),
-  ];
+  bool isLogin = false;
+
+  checkIsLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('token') == null) {
+      setState(() {
+        isLogin = false;
+      });
+    } else {
+      setState(() {
+        isLogin = true;
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    checkIsLogin();
   }
+
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _widgets = [
+      const HomePage(),
+      const CategoryScreen(),
+      isLogin ? const CartScreen() : const LoginScreen(),
+      const OptionScreen(),
+    ];
     return Scaffold(
       body: _widgets[_selectedIndex],
       bottomNavigationBar: NavigationBarTheme(

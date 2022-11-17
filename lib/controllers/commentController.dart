@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:hamro_electronics/models/comment.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class CommentController extends StateNotifier<List<Comment>> {
   CommentController(super.state);
@@ -12,12 +11,8 @@ class CommentController extends StateNotifier<List<Comment>> {
   String url = 'https://api.hamroelectronics.com.np/api/v1/';
 
   Future<List<Comment>> fetchComment(id) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     final response = await http.get(
       Uri.parse('${url}product/view/$id'),
-      headers: {
-        'Authorization': 'Bearer ${prefs.getString('token')}',
-      },
     );
 
     final extractedData = json.decode(response.body);

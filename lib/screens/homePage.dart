@@ -2,10 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/controllers/bannerController.dart';
-import 'package:hamro_electronics/controllers/wishlistController.dart';
+import 'package:hamro_electronics/screens/loginScreen.dart';
+
 import 'package:hamro_electronics/screens/widgets/shimmers/homeCategoryShimmer.dart';
 import 'package:hamro_electronics/screens/widgets/shimmers/homeProductShimmer.dart';
 import 'package:hamro_electronics/screens/wishlistScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controllers/brandController.dart';
 import '../controllers/categoryController.dart';
@@ -28,13 +30,31 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class HomePageState extends ConsumerState<HomePage> {
-  TextEditingController searchController = TextEditingController();
+  // TextEditingController searchController = TextEditingController();
+  bool isLogin = false;
+  checkIsLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('token') == null) {
+      setState(() {
+        isLogin = false;
+      });
+    } else {
+      setState(() {
+        isLogin = true;
+      });
+    }
+  }
+
   @override
   void initState() {
     ref.read(brandProvider.notifier).fetchBrand();
-    ref.read(shippingProvider.notifier).fetchShipping();
-    ref.read(couponProvider.notifier).fetchCoupon();
+
     ref.read(bannerProvider.notifier).fetchBanner();
+    checkIsLogin();
+    if (isLogin) {
+      ref.read(shippingProvider.notifier).fetchShipping();
+      ref.read(couponProvider.notifier).fetchCoupon();
+    }
     super.initState();
   }
 
@@ -77,8 +97,11 @@ class HomePageState extends ConsumerState<HomePage> {
                       ),
                       IconButton(
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(WishlistScreen.routeName);
+                          isLogin
+                              ? Navigator.of(context)
+                                  .pushNamed(WishlistScreen.routeName)
+                              : Navigator.of(context)
+                                  .pushNamed(LoginScreen.routeName);
                         },
                         icon: const Icon(
                           Icons.favorite_border,

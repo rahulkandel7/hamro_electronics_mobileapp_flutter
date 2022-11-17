@@ -46,6 +46,7 @@ class UserController extends StateNotifier<List<User>> {
 
     if (response.statusCode == 200) {
       prefs.remove('token');
+      prefs.remove('user');
     }
 
     return response;
