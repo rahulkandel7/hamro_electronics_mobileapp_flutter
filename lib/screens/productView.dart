@@ -16,6 +16,7 @@ import '/controllers/productController.dart';
 import '/models/brand.dart';
 
 import '/models/product.dart';
+import 'widgets/productItem.dart';
 
 class ProductView extends ConsumerStatefulWidget {
   static const routeName = '/productView';
@@ -274,6 +275,9 @@ class ProductViewState extends ConsumerState<ProductView> {
     Brand brand = ref.watch(brandProvider.notifier).getBrand(product.brandId);
     int off = ((product.price - product.discountedprice) / product.price * 100)
         .toInt();
+
+    List<Product> suggestedProducts =
+        ref.watch(productProvider.notifier).findByCategory(product.categoryId);
 
     return Scaffold(
       appBar: AppBar(
@@ -723,6 +727,42 @@ class ProductViewState extends ConsumerState<ProductView> {
                               loading: () => CircularProgressIndicator(),
                             )
                       ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: mediaQuery.height * 0.02),
+                      child: Text(
+                        'Suggested Products',
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ),
+                    GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (ctx, i) {
+                        return Padding(
+                          padding:
+                              EdgeInsets.only(bottom: mediaQuery.height * 0.01),
+                          child: ProductItem(
+                            id: suggestedProducts[i].id,
+                            discountedPrice:
+                                suggestedProducts[i].discountedprice,
+                            name: suggestedProducts[i].name,
+                            photopath: suggestedProducts[i].photopath1,
+                            price: suggestedProducts[i].price,
+                            rating: suggestedProducts[i].rating ?? 0.0,
+                            ratingNumber: suggestedProducts[i].ratingNumber,
+                          ),
+                        );
+                      },
+                      itemCount: suggestedProducts.length > 10
+                          ? 10
+                          : suggestedProducts.length,
+                      shrinkWrap: true,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.54,
+                      ),
                     ),
                   ],
                 ),
