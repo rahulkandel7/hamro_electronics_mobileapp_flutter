@@ -168,7 +168,7 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          childAspectRatio: 0.58,
+                          childAspectRatio: 0.555,
                         ),
                       ),
                     )
@@ -203,7 +203,7 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              childAspectRatio: 0.58,
+                              childAspectRatio: 0.555,
                             ),
                           ),
                         ),

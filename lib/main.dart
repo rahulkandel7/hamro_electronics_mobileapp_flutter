@@ -55,13 +55,25 @@ class _MyAppState extends State<MyApp> {
           headline1: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.indigo.shade900,
+            fontFamily: 'Poppins',
           ),
           headline5: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w500,
+            fontFamily: 'Poppins',
+          ),
+          headline6: const TextStyle(
+            fontFamily: 'Poppins',
           ),
           headline4: const TextStyle(
             color: Colors.indigo,
+            fontFamily: 'Poppins',
+          ),
+          bodyText1: const TextStyle(
+            fontFamily: 'Poppins',
+          ),
+          bodyText2: const TextStyle(
+            fontFamily: 'Poppins',
           ),
         ),
         inputDecorationTheme: InputDecorationTheme(

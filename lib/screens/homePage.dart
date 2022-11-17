@@ -5,6 +5,7 @@ import 'package:hamro_electronics/controllers/bannerController.dart';
 import 'package:hamro_electronics/controllers/wishlistController.dart';
 import 'package:hamro_electronics/screens/widgets/shimmers/homeCategoryShimmer.dart';
 import 'package:hamro_electronics/screens/widgets/shimmers/homeProductShimmer.dart';
+import 'package:hamro_electronics/screens/wishlistScreen.dart';
 
 import '../controllers/brandController.dart';
 import '../controllers/categoryController.dart';
@@ -76,17 +77,11 @@ class HomePageState extends ConsumerState<HomePage> {
                       ),
                       IconButton(
                         onPressed: () {
-                          List<Product> _products =
-                              ref.read(productProvider.notifier).state;
-                          showSearch(
-                            context: context,
-                            delegate: CustomSearch(
-                              products: _products,
-                            ),
-                          );
+                          Navigator.of(context)
+                              .pushNamed(WishlistScreen.routeName);
                         },
                         icon: const Icon(
-                          Icons.search,
+                          Icons.favorite_border,
                         ),
                       ),
                     ],
@@ -146,6 +141,65 @@ class HomePageState extends ConsumerState<HomePage> {
                 // SizedBox(
                 //   height: mediaQuery.height * 0.02,
                 // ),
+
+                //* Search Box
+                Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: mediaQuery.width * 0.03,
+                    ),
+                    child: Consumer(
+                      builder: (context, ref, child) {
+                        return Center(
+                          child: GestureDetector(
+                            onTap: () async {
+                              List<Product> _products =
+                                  ref.read(productProvider.notifier).state;
+                              showSearch(
+                                context: context,
+                                delegate: CustomSearch(
+                                  products: _products,
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: mediaQuery.width * 0.93,
+                              height: mediaQuery.height * 0.05,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 1,
+                                  color: Colors.grey.shade500,
+                                ),
+                                borderRadius: BorderRadius.circular(
+                                  30,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: mediaQuery.width * 0.05),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    FittedBox(
+                                      fit: BoxFit.fill,
+                                      child: Text(
+                                        'Search on Hamro Electronics..',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle1,
+                                      ),
+                                    ),
+                                    const Icon(
+                                      Icons.search_outlined,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    )),
 
                 Text(
                   'Promotions',
@@ -268,7 +322,7 @@ class HomePageState extends ConsumerState<HomePage> {
                             ),
                             SizedBox(
                               width: double.infinity,
-                              height: mediaQuery.height * 0.36,
+                              height: mediaQuery.height * 0.374,
                               child: ListView.builder(
                                 shrinkWrap: true,
                                 physics: const BouncingScrollPhysics(),
@@ -341,7 +395,7 @@ class HomePageState extends ConsumerState<HomePage> {
                                   ),
                                   SizedBox(
                                     width: double.infinity,
-                                    height: mediaQuery.height * 0.36,
+                                    height: mediaQuery.height * 0.374,
                                     child: ListView.builder(
                                       shrinkWrap: true,
                                       physics: const BouncingScrollPhysics(),
@@ -441,7 +495,7 @@ class CustomSearch extends SearchDelegate {
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 0.59,
+        childAspectRatio: 0.57,
       ),
     );
   }

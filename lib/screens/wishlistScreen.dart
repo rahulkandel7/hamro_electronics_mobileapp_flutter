@@ -5,6 +5,7 @@ import 'package:hamro_electronics/controllers/productController.dart';
 import 'package:hamro_electronics/controllers/wishlistController.dart';
 import 'package:hamro_electronics/models/product.dart';
 import 'package:hamro_electronics/screens/widgets/shimmers/homeProductShimmer.dart';
+import 'package:hamro_electronics/screens/widgets/shimmers/wishlistShimmer.dart';
 
 import 'package:hamro_electronics/screens/widgets/wishlistItem.dart';
 
@@ -42,42 +43,72 @@ class WishlistScreenState extends ConsumerState<WishlistScreen> {
       ),
       body: ref.watch(fetchWishlist).when(
             data: (data) {
-              return SingleChildScrollView(
-                  child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
-                child: SizedBox(
-                  height: size.height * 0.82,
-                  child: GridView.builder(
-                    itemBuilder: (ctx, i) {
-                      Product product =
-                          ref.read(productProvider.notifier).findProduct(
-                                data[i].productId,
+              return data.isEmpty
+                  ? Center(
+                      child: Image.asset('assets/images/Wishlist.png'),
+                    )
+                  : SingleChildScrollView(
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: size.width * 0.03),
+                        child: SizedBox(
+                          height: size.height * 0.9,
+                          child: GridView.builder(
+                            itemBuilder: (ctx, i) {
+                              Product product = ref
+                                  .read(productProvider.notifier)
+                                  .findProduct(
+                                    data[i].productId,
+                                  );
+                              return Padding(
+                                padding:
+                                    EdgeInsets.only(bottom: size.height * 0.01),
+                                child: WishlistItem(
+                                  id: data[i].id,
+                                  name: product.name,
+                                  photopath: product.photopath1,
+                                  rating: product.rating ?? 0.0,
+                                  ratingNumber: product.ratingNumber,
+                                ),
                               );
-                      return Padding(
-                        padding: EdgeInsets.only(bottom: size.height * 0.01),
-                        child: WishlistItem(
-                          id: data[i].id,
-                          name: product.name,
-                          photopath: product.photopath1,
-                          rating: product.rating ?? 0.0,
-                          ratingNumber: product.ratingNumber,
+                            },
+                            itemCount: data.length,
+                            shrinkWrap: true,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.62,
+                            ),
+                          ),
                         ),
-                      );
-                    },
-                    itemCount: data.length,
-                    shrinkWrap: true,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 0.65,
+                      ),
+                    );
+            },
+            error: (e, s) => Text(e.toString()),
+            loading: () => SingleChildScrollView(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
+                  child: SizedBox(
+                    height: size.height * 0.82,
+                    child: GridView.builder(
+                      itemBuilder: (ctx, i) {
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: size.height * 0.01),
+                          child: const WishlistShimmer(),
+                        );
+                      },
+                      itemCount: 10,
+                      shrinkWrap: true,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.65,
+                      ),
                     ),
                   ),
                 ),
-              ));
-            },
-            error: (e, s) => Text(e.toString()),
-            loading: () => const SingleChildScrollView(
-              child: HomeProductShimmer(),
+              ),
             ),
           ),
     );
