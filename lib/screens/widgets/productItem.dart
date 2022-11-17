@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hamro_electronics/screens/productView.dart';
 
@@ -273,9 +274,11 @@ class _ProductItemState extends State<ProductItem> {
                       borderRadius: BorderRadius.circular(
                         8,
                       ),
-                      child: Image.network(
-                        'https://api.hamroelectronics.com.np/public/${widget.photopath}',
-                        // height: mediaQuery.height * 0.2,
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            'https://api.hamroelectronics.com.np/public/${widget.photopath}',
+                        placeholder: (context, url) =>
+                            Image.asset('assets/images/logo.png'),
                       ),
                     ),
                   ),

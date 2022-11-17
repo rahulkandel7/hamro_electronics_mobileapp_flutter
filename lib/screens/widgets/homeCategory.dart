@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class HomeCategory extends StatelessWidget {
@@ -20,8 +21,11 @@ class HomeCategory extends StatelessWidget {
             borderRadius: BorderRadius.circular(
               100,
             ),
-            child: Image.network(
-              'https://www.api.hamroelectronics.com.np/public/${photopath}',
+            child: CachedNetworkImage(
+              imageUrl:
+                  'https://www.api.hamroelectronics.com.np/public/${photopath}',
+              placeholder: (context, url) =>
+                  Image.asset('assets/images/logo.png'),
               fit: BoxFit.cover,
             ),
           ),

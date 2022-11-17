@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -44,9 +45,14 @@ class CategoryScreen extends StatelessWidget {
                                     children: [
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(20),
-                                        child: Image.network(
-                                          'https://api.hamroelectronics.com.np/public/${data[i].photopath}',
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              'https://api.hamroelectronics.com.np/public/${data[i].photopath}',
                                           width: size.width * 0.3,
+                                          placeholder: (context, url) =>
+                                              Image.asset(
+                                            'assets/images/logo.png',
+                                          ),
                                         ),
                                       ),
                                       Padding(

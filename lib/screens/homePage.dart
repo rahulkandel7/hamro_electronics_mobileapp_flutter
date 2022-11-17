@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -239,7 +240,6 @@ class HomePageState extends ConsumerState<HomePage> {
                     borderRadius: BorderRadius.circular(
                       10,
                     ),
-                    color: Colors.indigo,
                   ),
                   child: CarouselSlider(
                     items: ref.watch(bannerProvider.notifier).state.map((e) {
@@ -247,8 +247,12 @@ class HomePageState extends ConsumerState<HomePage> {
                         borderRadius: BorderRadius.circular(
                           10,
                         ),
-                        child: Image.network(
-                          'https://api.hamroelectronics.com.np/public/${e.photopath}',
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              'https://api.hamroelectronics.com.np/public/${e.photopath}',
+                          placeholder: (context, url) => Center(
+                            child: Image.asset('assets/images/logo.png'),
+                          ),
                           fit: BoxFit.fill,
                         ),
                       );
@@ -256,6 +260,13 @@ class HomePageState extends ConsumerState<HomePage> {
                     options: CarouselOptions(
                       autoPlay: true,
                       pauseAutoPlayOnTouch: true,
+                      viewportFraction: 1,
+                      aspectRatio: 21 / 9,
+                      initialPage: 0,
+                      autoPlayInterval: const Duration(seconds: 3),
+                      autoPlayAnimationDuration:
+                          const Duration(milliseconds: 800),
+                      autoPlayCurve: Curves.fastOutSlowIn,
                     ),
                   ),
                 ),

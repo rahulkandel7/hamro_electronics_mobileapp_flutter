@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/controllers/userController.dart';
@@ -96,9 +97,12 @@ class _OptionScreenState extends State<OptionScreen> {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10000),
-                    child: Image.network(
-                      'https://api.hamroelectronics.com.np/public/$photopath',
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          'https://api.hamroelectronics.com.np/public/$photopath',
                       height: mediaQuery.height * 0.15,
+                      placeholder: (context, url) =>
+                          Image.asset('assets/images/logo.png'),
                     ),
                   ),
                   Padding(

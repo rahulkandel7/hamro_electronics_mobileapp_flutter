@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
@@ -382,21 +383,26 @@ class ProductViewState extends ConsumerState<ProductView> {
                     // * Image Zoom Section
                     InteractiveViewer(
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: productPhotopath == ""
-                            ? Image.network(
-                                'https://api.hamroelectronics.com.np/public/${product.photopath1}',
-                                height: mediaQuery.height * 0.48,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              )
-                            : Image.network(
-                                'https://api.hamroelectronics.com.np/public/$productPhotopath',
-                                height: mediaQuery.height * 0.48,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
-                      ),
+                          borderRadius: BorderRadius.circular(10),
+                          child: productPhotopath == ""
+                              ? CachedNetworkImage(
+                                  imageUrl:
+                                      'https://api.hamroelectronics.com.np/public/${product.photopath1}',
+                                  height: mediaQuery.height * 0.48,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) =>
+                                      Image.asset('assets/images/logo.png'),
+                                )
+                              : CachedNetworkImage(
+                                  imageUrl:
+                                      'https://api.hamroelectronics.com.np/public/${productPhotopath}',
+                                  height: mediaQuery.height * 0.48,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) =>
+                                      Image.asset('assets/images/logo.png'),
+                                )),
                     ),
                     // * Image Changing Section
                     Padding(
