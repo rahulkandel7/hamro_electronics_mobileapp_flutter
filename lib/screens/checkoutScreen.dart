@@ -256,119 +256,267 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                                     const Divider(
                                       color: Colors.indigo,
                                     ),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: mediaQuery.height * 0.01),
-                                      child: TextFormField(
-                                        decoration: InputDecoration(
-                                          contentPadding:
-                                              const EdgeInsets.all(0),
-                                          prefixIcon: Icon(
-                                            Icons.discount,
-                                            color: Colors.indigo.shade400,
-                                          ),
-                                          labelText: 'Apply Coupon Code',
-                                        ),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            coupon = value;
-                                          });
-                                        },
-                                        onEditingComplete: () {
-                                          for (var c in coupons) {
-                                            if (c.name.toLowerCase() ==
-                                                coupon.toLowerCase()) {
-                                              if (total < c.maxDisAmount &&
-                                                  total > c.minAmount) {
-                                                if (c.isAvailable == 1) {
-                                                  if (c.isAmoount == 1) {
-                                                    couponId = c.id;
-                                                    couponAmount =
-                                                        c.offerAmount;
-                                                  }
-                                                  if (c.isPercent == 1) {
-                                                    couponId = c.id;
-                                                    couponAmount = (total *
-                                                            (c.offerPercent /
-                                                                100))
-                                                        .toInt();
-                                                  }
-                                                } else {
-                                                  couponId = 0;
-                                                  couponAmount = 0;
-                                                  coupon = '';
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    SnackBar(
-                                                      content: const Text(
-                                                        'The Coupon Has Expired',
-                                                      ),
-                                                      backgroundColor:
-                                                          Colors.red,
-                                                      behavior: SnackBarBehavior
-                                                          .floating,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                          10,
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: mediaQuery.width * 0.64,
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical:
+                                                    mediaQuery.height * 0.01),
+                                            child: TextFormField(
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    const EdgeInsets.all(0),
+                                                prefixIcon: Icon(
+                                                  Icons.discount,
+                                                  color: Colors.indigo.shade400,
+                                                ),
+                                                labelText: 'Apply Coupon Code',
+                                              ),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  coupon = value;
+                                                });
+                                              },
+                                              onEditingComplete: () {
+                                                for (var c in coupons) {
+                                                  if (c.name.toLowerCase() ==
+                                                      coupon.toLowerCase()) {
+                                                    if (total <
+                                                            c.maxDisAmount &&
+                                                        total > c.minAmount) {
+                                                      if (c.isAvailable == 1) {
+                                                        if (c.isAmoount == 1) {
+                                                          couponId = c.id;
+                                                          couponAmount =
+                                                              c.offerAmount;
+                                                        }
+                                                        if (c.isPercent == 1) {
+                                                          couponId = c.id;
+                                                          couponAmount = (total *
+                                                                  (c.offerPercent /
+                                                                      100))
+                                                              .toInt();
+                                                        }
+                                                      } else {
+                                                        couponId = 0;
+                                                        couponAmount = 0;
+                                                        coupon = '';
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          SnackBar(
+                                                            content: const Text(
+                                                              'The Coupon Has Expired',
+                                                            ),
+                                                            backgroundColor:
+                                                                Colors.red,
+                                                            behavior:
+                                                                SnackBarBehavior
+                                                                    .floating,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                10,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                    } else {
+                                                      couponId = 0;
+                                                      couponAmount = 0;
+                                                      coupon = '';
+
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          content: const Text(
+                                                            'Your Total amount doesnot match for this coupon code',
+                                                          ),
+                                                          backgroundColor:
+                                                              Colors.red,
+                                                          behavior:
+                                                              SnackBarBehavior
+                                                                  .floating,
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                              10,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                  } else {
+                                                    couponId = 0;
+                                                    couponAmount = 0;
+                                                    coupon = '';
+
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                        content: const Text(
+                                                          'This Coupon in Invalid',
+                                                        ),
+                                                        backgroundColor:
+                                                            Colors.red,
+                                                        behavior:
+                                                            SnackBarBehavior
+                                                                .floating,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                            10,
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  );
+                                                    );
+                                                  }
                                                 }
-                                              } else {
-                                                couponId = 0;
-                                                couponAmount = 0;
-                                                coupon = '';
+                                                FocusScope.of(context)
+                                                    .nextFocus();
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: mediaQuery.width * 0.02,
+                                        ),
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            disabledBackgroundColor:
+                                                Colors.indigo.shade200,
+                                            disabledForegroundColor:
+                                                Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(7),
+                                            ),
+                                          ),
+                                          onPressed: coupon.isEmpty
+                                              ? null
+                                              : () {
+                                                  for (var c in coupons) {
+                                                    if (c.name.toLowerCase() ==
+                                                        coupon.toLowerCase()) {
+                                                      if (total <
+                                                              c.maxDisAmount &&
+                                                          total > c.minAmount) {
+                                                        if (c.isAvailable ==
+                                                            1) {
+                                                          if (c.isAmoount ==
+                                                              1) {
+                                                            couponId = c.id;
+                                                            couponAmount =
+                                                                c.offerAmount;
+                                                          }
+                                                          if (c.isPercent ==
+                                                              1) {
+                                                            couponId = c.id;
+                                                            couponAmount = (total *
+                                                                    (c.offerPercent /
+                                                                        100))
+                                                                .toInt();
+                                                          }
+                                                        } else {
+                                                          couponId = 0;
+                                                          couponAmount = 0;
+                                                          coupon = '';
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                            SnackBar(
+                                                              content:
+                                                                  const Text(
+                                                                'The Coupon Has Expired',
+                                                              ),
+                                                              backgroundColor:
+                                                                  Colors.red,
+                                                              behavior:
+                                                                  SnackBarBehavior
+                                                                      .floating,
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                  10,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }
+                                                      } else {
+                                                        couponId = 0;
+                                                        couponAmount = 0;
+                                                        coupon = '';
 
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: const Text(
-                                                      'Your Total amount doesnot match for this coupon code',
-                                                    ),
-                                                    backgroundColor: Colors.red,
-                                                    behavior: SnackBarBehavior
-                                                        .floating,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                        10,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                );
-                                              }
-                                            } else {
-                                              couponId = 0;
-                                              couponAmount = 0;
-                                              coupon = '';
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          SnackBar(
+                                                            content: const Text(
+                                                              'Your Total amount doesnot match for this coupon code',
+                                                            ),
+                                                            backgroundColor:
+                                                                Colors.red,
+                                                            behavior:
+                                                                SnackBarBehavior
+                                                                    .floating,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                10,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                    } else {
+                                                      couponId = 0;
+                                                      couponAmount = 0;
+                                                      coupon = '';
 
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: const Text(
-                                                    'This Coupon in Invalid',
-                                                  ),
-                                                  backgroundColor: Colors.red,
-                                                  behavior:
-                                                      SnackBarBehavior.floating,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                      10,
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                          }
-                                          FocusScope.of(context).nextFocus();
-                                        },
-                                      ),
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          content: const Text(
+                                                            'This Coupon in Invalid',
+                                                          ),
+                                                          backgroundColor:
+                                                              Colors.red,
+                                                          behavior:
+                                                              SnackBarBehavior
+                                                                  .floating,
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                              10,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                  }
+                                                },
+                                          child: const Text('Apply Coupon'),
+                                        )
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -593,7 +741,11 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
               );
             },
             error: (e, s) => Text(e.toString()),
-            loading: () => const CircularProgressIndicator(),
+            loading: () => const Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 0.7,
+              ),
+            ),
           ),
     );
   }
