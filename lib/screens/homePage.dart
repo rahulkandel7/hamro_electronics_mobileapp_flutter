@@ -273,6 +273,65 @@ class HomePageState extends ConsumerState<HomePage> {
                 const SizedBox(
                   height: 10,
                 ),
+
+                ref.watch(fetchProduct).when(
+                      data: (data) {
+                        List<Product> saleProducts = data
+                            .where(
+                              (element) => element.flashsale == 1,
+                            )
+                            .toList();
+
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: mediaQuery.height * 0.01,
+                                horizontal: mediaQuery.width * 0.02,
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Sales',
+                                    style:
+                                        Theme.of(context).textTheme.headline5,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: double.infinity,
+                              height: mediaQuery.height * 0.375,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: const BouncingScrollPhysics(),
+                                itemBuilder: (ctx, i) => ProductItem(
+                                  id: saleProducts[i].id,
+                                  discountedPrice:
+                                      saleProducts[i].discountedprice,
+                                  name: saleProducts[i].name,
+                                  photopath: saleProducts[i].photopath1,
+                                  price: saleProducts[i].price,
+                                  rating: saleProducts[i].rating ?? 0.0,
+                                  ratingNumber: saleProducts[i].ratingNumber,
+                                ),
+                                itemCount: saleProducts.length,
+                                scrollDirection: Axis.horizontal,
+                              ),
+                            )
+                          ],
+                        );
+                      },
+                      error: (e, s) {
+                        print(s.toString());
+                        return Text(e.toString());
+                      },
+                      loading: () => const HomeProductShimmer(),
+                    ),
+
                 Text(
                   'Categories',
                   style: Theme.of(context).textTheme.headline5,
@@ -328,64 +387,6 @@ class HomePageState extends ConsumerState<HomePage> {
 
                 ref.watch(fetchProduct).when(
                       data: (data) {
-                        List<Product> saleProducts = data
-                            .where(
-                              (element) => element.flashsale == 1,
-                            )
-                            .toList();
-
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: mediaQuery.height * 0.01,
-                                horizontal: mediaQuery.width * 0.02,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Sales',
-                                    style:
-                                        Theme.of(context).textTheme.headline5,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: double.infinity,
-                              height: mediaQuery.height * 0.374,
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                physics: const BouncingScrollPhysics(),
-                                itemBuilder: (ctx, i) => ProductItem(
-                                  id: saleProducts[i].id,
-                                  discountedPrice:
-                                      saleProducts[i].discountedprice,
-                                  name: saleProducts[i].name,
-                                  photopath: saleProducts[i].photopath1,
-                                  price: saleProducts[i].price,
-                                  rating: saleProducts[i].rating ?? 0.0,
-                                  ratingNumber: saleProducts[i].ratingNumber,
-                                ),
-                                itemCount: saleProducts.length,
-                                scrollDirection: Axis.horizontal,
-                              ),
-                            )
-                          ],
-                        );
-                      },
-                      error: (e, s) {
-                        print(s.toString());
-                        return Text(e.toString());
-                      },
-                      loading: () => const HomeProductShimmer(),
-                    ),
-
-                ref.watch(fetchProduct).when(
-                      data: (data) {
                         List<Category> categories =
                             ref.watch(categoryProvider.notifier).state;
 
@@ -429,7 +430,7 @@ class HomePageState extends ConsumerState<HomePage> {
                                   ),
                                   SizedBox(
                                     width: double.infinity,
-                                    height: mediaQuery.height * 0.374,
+                                    height: mediaQuery.height * 0.375,
                                     child: ListView.builder(
                                       shrinkWrap: true,
                                       physics: const BouncingScrollPhysics(),

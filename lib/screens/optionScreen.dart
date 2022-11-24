@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/controllers/userController.dart';
 import 'package:hamro_electronics/screens/editProfileScreen.dart';
 import 'package:hamro_electronics/screens/loginScreen.dart';
+import 'package:hamro_electronics/screens/ordersScreen.dart';
 import 'package:hamro_electronics/screens/wishlistScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -141,8 +142,15 @@ class _OptionScreenState extends State<OptionScreen> {
                         child: options(
                             mediaQuery, Icons.person_outline, 'Edit Profile'),
                       ),
-                      options(
-                          mediaQuery, Icons.receipt_long_outlined, 'Orders'),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            OrdersScreen.routeName,
+                          );
+                        },
+                        child: options(
+                            mediaQuery, Icons.receipt_long_outlined, 'Orders'),
+                      ),
                     ],
                   )
                 : const SizedBox(),

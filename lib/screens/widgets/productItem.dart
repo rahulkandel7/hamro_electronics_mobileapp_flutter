@@ -252,6 +252,8 @@ class _ProductItemState extends State<ProductItem> {
     return SizedBox(
       width: mediaQuery.width * 0.46,
       child: InkWell(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         onTap: () => Navigator.of(context)
             .pushNamed(ProductView.routeName, arguments: widget.id),
         child: Card(
@@ -283,9 +285,12 @@ class _ProductItemState extends State<ProductItem> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: mediaQuery.width * 0.012,
-                        vertical: mediaQuery.height * 0.01),
+                    padding: EdgeInsets.only(
+                      left: mediaQuery.width * 0.012,
+                      right: mediaQuery.width * 0.012,
+                      top: mediaQuery.height * 0.01,
+                      bottom: mediaQuery.height * 0.003,
+                    ),
                     child: Text(
                       widget.name,
                       style: Theme.of(context).textTheme.bodyLarge,

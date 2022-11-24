@@ -946,6 +946,11 @@ class ProductViewState extends ConsumerState<ProductView> {
                                                   10,
                                                 ),
                                               ),
+                                              action: SnackBarAction(
+                                                label: 'Close',
+                                                textColor: Colors.white,
+                                                onPressed: () {},
+                                              ),
                                             ),
                                           );
                                         },

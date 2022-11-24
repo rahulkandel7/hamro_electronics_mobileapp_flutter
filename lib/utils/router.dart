@@ -5,6 +5,7 @@ import 'package:hamro_electronics/screens/checkoutScreen.dart';
 import 'package:hamro_electronics/screens/editProfileScreen.dart';
 import 'package:hamro_electronics/screens/loginScreen.dart';
 import 'package:hamro_electronics/screens/navbar.dart';
+import 'package:hamro_electronics/screens/ordersScreen.dart';
 import 'package:hamro_electronics/screens/productView.dart';
 import 'package:hamro_electronics/screens/registerScreen.dart';
 import 'package:hamro_electronics/screens/searchScreen.dart';
@@ -21,4 +22,5 @@ Map<String, Widget Function(BuildContext)> routes = <String, WidgetBuilder>{
   CheckoutScreen.routeName: (context) => const CheckoutScreen(),
   WishlistScreen.routeName: (context) => const WishlistScreen(),
   EditProfileScreen.routeName: (context) => const EditProfileScreen(),
+  OrdersScreen.routeName: (context) => const OrdersScreen(),
 };

@@ -25,6 +25,7 @@ class CheckoutScreen extends ConsumerStatefulWidget {
 
 class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
   final orderKey = GlobalKey<FormState>();
+  final _couponKey = GlobalKey<FormState>();
 
   int deliveryCharge = 0;
   String phone = '';
@@ -264,51 +265,87 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                                             padding: EdgeInsets.symmetric(
                                                 vertical:
                                                     mediaQuery.height * 0.01),
-                                            child: TextFormField(
-                                              decoration: InputDecoration(
-                                                contentPadding:
-                                                    const EdgeInsets.all(0),
-                                                prefixIcon: Icon(
-                                                  Icons.discount,
-                                                  color: Colors.indigo.shade400,
+                                            child: Form(
+                                              key: _couponKey,
+                                              child: TextFormField(
+                                                decoration: InputDecoration(
+                                                  contentPadding:
+                                                      const EdgeInsets.all(0),
+                                                  prefixIcon: Icon(
+                                                    Icons.discount,
+                                                    color:
+                                                        Colors.indigo.shade400,
+                                                  ),
+                                                  labelText:
+                                                      'Apply Coupon Code',
                                                 ),
-                                                labelText: 'Apply Coupon Code',
-                                              ),
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  coupon = value;
-                                                });
-                                              },
-                                              onEditingComplete: () {
-                                                for (var c in coupons) {
-                                                  if (c.name.toLowerCase() ==
-                                                      coupon.toLowerCase()) {
-                                                    if (total <
-                                                            c.maxDisAmount &&
-                                                        total > c.minAmount) {
-                                                      if (c.isAvailable == 1) {
-                                                        if (c.isAmoount == 1) {
-                                                          couponId = c.id;
-                                                          couponAmount =
-                                                              c.offerAmount;
-                                                        }
-                                                        if (c.isPercent == 1) {
-                                                          couponId = c.id;
-                                                          couponAmount = (total *
-                                                                  (c.offerPercent /
-                                                                      100))
-                                                              .toInt();
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    coupon = value;
+                                                  });
+                                                },
+                                                onEditingComplete: () {
+                                                  for (var c in coupons) {
+                                                    if (c.name.toLowerCase() ==
+                                                        coupon.toLowerCase()) {
+                                                      if (total <
+                                                              c.maxDisAmount &&
+                                                          total > c.minAmount) {
+                                                        if (c.isAvailable ==
+                                                            1) {
+                                                          if (c.isAmoount ==
+                                                              1) {
+                                                            couponId = c.id;
+                                                            couponAmount =
+                                                                c.offerAmount;
+                                                          }
+                                                          if (c.isPercent ==
+                                                              1) {
+                                                            couponId = c.id;
+                                                            couponAmount = (total *
+                                                                    (c.offerPercent /
+                                                                        100))
+                                                                .toInt();
+                                                          }
+                                                        } else {
+                                                          couponId = 0;
+                                                          couponAmount = 0;
+                                                          coupon = '';
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                            SnackBar(
+                                                              content:
+                                                                  const Text(
+                                                                'The Coupon Has Expired',
+                                                              ),
+                                                              backgroundColor:
+                                                                  Colors.red,
+                                                              behavior:
+                                                                  SnackBarBehavior
+                                                                      .floating,
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                  10,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
                                                         }
                                                       } else {
                                                         couponId = 0;
                                                         couponAmount = 0;
                                                         coupon = '';
+
                                                         ScaffoldMessenger.of(
                                                                 context)
                                                             .showSnackBar(
                                                           SnackBar(
                                                             content: const Text(
-                                                              'The Coupon Has Expired',
+                                                              'Your Total amount doesnot match for this coupon code',
                                                             ),
                                                             backgroundColor:
                                                                 Colors.red,
@@ -336,7 +373,7 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                                                           .showSnackBar(
                                                         SnackBar(
                                                           content: const Text(
-                                                            'Your Total amount doesnot match for this coupon code',
+                                                            'This Coupon in Invalid',
                                                           ),
                                                           backgroundColor:
                                                               Colors.red,
@@ -354,38 +391,11 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                                                         ),
                                                       );
                                                     }
-                                                  } else {
-                                                    couponId = 0;
-                                                    couponAmount = 0;
-                                                    coupon = '';
-
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
-                                                      SnackBar(
-                                                        content: const Text(
-                                                          'This Coupon in Invalid',
-                                                        ),
-                                                        backgroundColor:
-                                                            Colors.red,
-                                                        behavior:
-                                                            SnackBarBehavior
-                                                                .floating,
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                            10,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    );
                                                   }
-                                                }
-                                                FocusScope.of(context)
-                                                    .nextFocus();
-                                              },
+                                                  FocusScope.of(context)
+                                                      .nextFocus();
+                                                },
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -406,6 +416,8 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                                           onPressed: coupon.isEmpty
                                               ? null
                                               : () {
+                                                  _couponKey.currentState!
+                                                      .save();
                                                   for (var c in coupons) {
                                                     if (c.name.toLowerCase() ==
                                                         coupon.toLowerCase()) {
