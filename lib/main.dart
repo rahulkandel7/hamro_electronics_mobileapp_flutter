@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hamro_electronics/screens/onboarding_screen.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens/navbar.dart';
-import '../screens/loginScreen.dart';
+
 import '../utils/router.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool isFirst = prefs.getBool('isFirst') != null ? true : false;
   runApp(
-    const ProviderScope(
-      child: MyApp(),
+    ProviderScope(
+      child: MyApp(
+        isFirst: isFirst,
+      ),
     ),
   );
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class MyApp extends StatelessWidget {
+  final bool isFirst;
+  const MyApp({super.key, required this.isFirst});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -101,7 +103,7 @@ class _MyAppState extends State<MyApp> {
           selectedColor: Colors.indigo,
         ),
       ),
-      home: const Navbar(),
+      home: isFirst ? const Navbar() : const OnBoardingScreen(),
       routes: routes,
     );
   }
