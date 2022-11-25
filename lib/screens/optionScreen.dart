@@ -99,8 +99,9 @@ class _OptionScreenState extends State<OptionScreen> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10000),
                     child: CachedNetworkImage(
-                      imageUrl:
-                          'https://api.hamroelectronics.com.np/public/$photopath',
+                      imageUrl: photopath == ''
+                          ? 'https://fakeimg.pl/350x350/?text=HamroElectronics'
+                          : 'https://api.hamroelectronics.com.np/public/$photopath',
                       height: mediaQuery.height * 0.15,
                       placeholder: (context, url) =>
                           Image.asset('assets/images/logo.png'),

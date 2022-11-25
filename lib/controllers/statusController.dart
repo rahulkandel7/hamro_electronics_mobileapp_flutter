@@ -19,6 +19,7 @@ class StatusController extends StateNotifier<List<Status>> {
       },
     );
 
+    print(response.body);
     final extractedData = json.decode(response.body);
 
     if (response.statusCode == 200) {

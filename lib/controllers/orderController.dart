@@ -24,7 +24,7 @@ class OrderController extends StateNotifier {
         '${url}order/store',
       ),
       body: {
-        'cart_id': cartId.toString(),
+        'cart_id': cartId.toString().replaceAll('[', '').replaceAll(']', ''),
         'shipping_id': shippingId.toString(),
         'coupon_id': couponId.toString(),
         'coupon_amount': couponAmount.toString(),

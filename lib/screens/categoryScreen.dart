@@ -32,7 +32,7 @@ class CategoryScreen extends StatelessWidget {
                       data: (data) {
                         return SingleChildScrollView(
                           child: SizedBox(
-                            height: size.height * 0.74,
+                            height: size.height * 0.735,
                             child: GridView.builder(
                               shrinkWrap: true,
                               itemBuilder: (ctx, i) {

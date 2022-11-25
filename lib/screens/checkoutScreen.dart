@@ -258,9 +258,11 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                                       color: Colors.indigo,
                                     ),
                                     Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         SizedBox(
-                                          width: mediaQuery.width * 0.64,
+                                          width: mediaQuery.width * 0.622,
                                           child: Padding(
                                             padding: EdgeInsets.symmetric(
                                                 vertical:
@@ -709,7 +711,7 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                                       .read(cartProvider.notifier)
                                       .updateOrder(cart.id);
                                 }
-                                ref.refresh(cartProvider);
+                                ref.refresh(cartProvider.notifier);
                                 Navigator.of(context).pop();
                               }
                             }

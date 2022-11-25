@@ -10,7 +10,9 @@ import 'package:hamro_electronics/controllers/commentController.dart';
 import 'package:hamro_electronics/controllers/wishlistController.dart';
 import 'package:hamro_electronics/models/comment.dart';
 import 'package:hamro_electronics/models/wishlist.dart';
+import 'package:hamro_electronics/screens/cartScreen.dart';
 import 'package:hamro_electronics/screens/loginScreen.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '/controllers/brandController.dart';
@@ -398,7 +400,7 @@ class ProductViewState extends ConsumerState<ProductView> {
                                 )
                               : CachedNetworkImage(
                                   imageUrl:
-                                      'https://api.hamroelectronics.com.np/public/${productPhotopath}',
+                                      'https://api.hamroelectronics.com.np/public/$productPhotopath',
                                   height: mediaQuery.height * 0.48,
                                   width: double.infinity,
                                   fit: BoxFit.cover,
@@ -531,7 +533,10 @@ class ProductViewState extends ConsumerState<ProductView> {
                               shape: BoxShape.circle,
                             ),
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Share.share(
+                                    'https://react.hamroelectronics.com.np/product/view/${product.id}');
+                              },
                               color: Colors.white,
                               icon: const Icon(
                                 Icons.share,
@@ -679,85 +684,95 @@ class ProductViewState extends ConsumerState<ProductView> {
 
                                 return SizedBox(
                                   height: mediaQuery.height * 0.3,
-                                  child: ListView.builder(
-                                    itemBuilder: (ctx, i) {
-                                      return Container(
-                                        margin: const EdgeInsets.only(top: 6),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Colors.grey.shade200,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              blurRadius: 10,
-                                              color: Colors.grey.shade300,
-                                            ),
-                                          ],
-                                        ),
-                                        child: ListTile(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
+                                  child: comments.isEmpty
+                                      ? const Center(
+                                          child: Text(
+                                            'No Reviews Yet',
                                           ),
-                                          title: Row(
-                                            children: [
-                                              Text(
-                                                comments[i].userName,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge!
-                                                    .copyWith(
-                                                      color:
-                                                          Colors.grey.shade700,
-                                                    ),
+                                        )
+                                      : ListView.builder(
+                                          itemBuilder: (ctx, i) {
+                                            return Container(
+                                              margin:
+                                                  const EdgeInsets.only(top: 6),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Colors.grey.shade200,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurRadius: 10,
+                                                    color: Colors.grey.shade300,
+                                                  ),
+                                                ],
                                               ),
-                                              Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal:
-                                                        mediaQuery.width *
-                                                            0.01),
-                                                child: Text(
-                                                  '-',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyLarge!
-                                                      .copyWith(
-                                                        color: Colors
-                                                            .grey.shade700,
+                                              child: ListTile(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                title: Row(
+                                                  children: [
+                                                    Text(
+                                                      comments[i].userName,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyLarge!
+                                                          .copyWith(
+                                                            color: Colors
+                                                                .grey.shade700,
+                                                          ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal:
+                                                                  mediaQuery
+                                                                          .width *
+                                                                      0.01),
+                                                      child: Text(
+                                                        '-',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .bodyLarge!
+                                                            .copyWith(
+                                                              color: Colors.grey
+                                                                  .shade700,
+                                                            ),
                                                       ),
+                                                    ),
+                                                    Text(
+                                                      '${DateTime.parse(comments[i].date).day}/${DateTime.parse(comments[i].date).month}/${DateTime.parse(comments[i].date).year}',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyLarge!
+                                                          .copyWith(
+                                                            color: Colors
+                                                                .grey.shade700,
+                                                          ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                subtitle: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 4.0),
+                                                  child: Text(
+                                                    comments[i].comment,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline6,
+                                                  ),
                                                 ),
                                               ),
-                                              Text(
-                                                '${DateTime.parse(comments[i].date).day}/${DateTime.parse(comments[i].date).month}/${DateTime.parse(comments[i].date).year}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge!
-                                                    .copyWith(
-                                                      color:
-                                                          Colors.grey.shade700,
-                                                    ),
-                                              ),
-                                            ],
-                                          ),
-                                          subtitle: Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 4.0),
-                                            child: Text(
-                                              comments[i].comment,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline6,
-                                            ),
-                                          ),
+                                            );
+                                          },
+                                          itemCount: comments.length,
                                         ),
-                                      );
-                                    },
-                                    itemCount: comments.length,
-                                  ),
                                 );
                               },
                               error: (e, s) => Text(e.toString()),
-                              loading: () => CircularProgressIndicator(),
+                              loading: () => const CircularProgressIndicator(),
                             )
                       ],
                     ),
@@ -802,7 +817,7 @@ class ProductViewState extends ConsumerState<ProductView> {
               ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           //* For add To Cart Section section
           Container(
             width: double.infinity,
@@ -918,6 +933,14 @@ class ProductViewState extends ConsumerState<ProductView> {
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(
                                               10,
+                                            ),
+                                          ),
+                                          action: SnackBarAction(
+                                            label: 'Go To Cart',
+                                            textColor: Colors.white,
+                                            onPressed: () =>
+                                                Navigator.of(context).pushNamed(
+                                              CartScreen.routeName,
                                             ),
                                           ),
                                         ),
