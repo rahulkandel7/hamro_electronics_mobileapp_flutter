@@ -41,8 +41,8 @@ class OrdersScreen extends ConsumerWidget {
                   data: (data) {
                     List<Status> orders = data
                         .where((element) =>
-                            element.status == 'Pending' ||
-                            element.status == 'Processing')
+                            element.status == 'pending' ||
+                            element.status == 'processing')
                         .toList();
                     return orders.isEmpty
                         ? Center(
@@ -58,6 +58,7 @@ class OrdersScreen extends ConsumerWidget {
                               name: orders[i].productName,
                               quantity: orders[i].quantity,
                               size: orders[i].size,
+                              reason: '',
                             ),
                             itemCount: orders.length,
                           );
@@ -74,7 +75,7 @@ class OrdersScreen extends ConsumerWidget {
             ref.watch(fetchStatus).when(
                   data: (data) {
                     List<Status> orders = data
-                        .where((element) => element.status == 'Completed')
+                        .where((element) => element.status == 'completed')
                         .toList();
                     return orders.isEmpty
                         ? Center(
@@ -90,6 +91,7 @@ class OrdersScreen extends ConsumerWidget {
                               name: orders[i].productName,
                               quantity: orders[i].quantity,
                               size: orders[i].size,
+                              reason: '',
                             ),
                             itemCount: orders.length,
                           );
@@ -106,7 +108,7 @@ class OrdersScreen extends ConsumerWidget {
             ref.watch(fetchStatus).when(
                   data: (data) {
                     List<Status> orders = data
-                        .where((element) => element.status == 'Cancelled')
+                        .where((element) => element.status == 'cancelled')
                         .toList();
                     return orders.isEmpty
                         ? Center(
@@ -122,6 +124,7 @@ class OrdersScreen extends ConsumerWidget {
                               name: orders[i].productName,
                               quantity: orders[i].quantity,
                               size: orders[i].size,
+                              reason: orders[i].reason,
                             ),
                             itemCount: orders.length,
                           );

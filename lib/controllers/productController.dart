@@ -36,7 +36,7 @@ class ProductController extends StateNotifier<List<Product>> {
               price: int.parse(element['price'] ?? ''),
               size: element['size'],
               sku: element['sku'],
-              status: int.parse(element['status']),
+              status: int.parse(element['available']),
               stock: int.parse(element['stock']),
               subCategoryId:
                   int.parse(element['sub_category_id'] ?? 0.toString()),

@@ -72,39 +72,44 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
                               height: size.height * 0.035,
                               child: ListView.builder(
                                 itemBuilder: (ctx, i) {
-                                  return ChoiceChip(
-                                    key: UniqueKey(),
-                                    labelPadding: EdgeInsets.symmetric(
-                                      vertical: 0,
-                                      horizontal: size.width * 0.01,
+                                  return Padding(
+                                    padding: EdgeInsets.only(
+                                        right: size.width * 0.01),
+                                    child: ChoiceChip(
+                                      key: UniqueKey(),
+                                      labelPadding: EdgeInsets.symmetric(
+                                        vertical: 0,
+                                        horizontal: size.width * 0.01,
+                                      ),
+                                      onSelected: (selected) {
+                                        setState(() {
+                                          _value = subCategory[i].id;
+                                          subProducts = ref
+                                              .read(productProvider.notifier)
+                                              .findBySubCategory(
+                                                  subCategory[i].id);
+                                        });
+                                      },
+                                      selectedColor: Theme.of(context)
+                                          .chipTheme
+                                          .selectedColor,
+                                      backgroundColor: Theme.of(context)
+                                          .chipTheme
+                                          .backgroundColor,
+                                      elevation: 1,
+                                      labelStyle: Theme.of(context)
+                                          .chipTheme
+                                          .labelStyle!
+                                          .copyWith(
+                                            fontSize: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .fontSize,
+                                          ),
+                                      label:
+                                          Text(subCategory[i].subCategoryName),
+                                      selected: _value == subCategory[i].id,
                                     ),
-                                    onSelected: (selected) {
-                                      setState(() {
-                                        _value = subCategory[i].id;
-                                        subProducts = ref
-                                            .read(productProvider.notifier)
-                                            .findBySubCategory(
-                                                subCategory[i].id);
-                                      });
-                                    },
-                                    selectedColor: Theme.of(context)
-                                        .chipTheme
-                                        .selectedColor,
-                                    backgroundColor: Theme.of(context)
-                                        .chipTheme
-                                        .backgroundColor,
-                                    elevation: 1,
-                                    labelStyle: Theme.of(context)
-                                        .chipTheme
-                                        .labelStyle!
-                                        .copyWith(
-                                          fontSize: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .fontSize,
-                                        ),
-                                    label: Text(subCategory[i].subCategoryName),
-                                    selected: _value == subCategory[i].id,
                                   );
                                 },
                                 itemCount: subCategory.length,

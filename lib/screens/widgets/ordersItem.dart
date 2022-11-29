@@ -9,6 +9,7 @@ class OrdersItem extends ConsumerStatefulWidget {
   final String photopath;
   final String color;
   final int quantity;
+  final String reason;
 
   const OrdersItem({
     required this.id,
@@ -17,6 +18,7 @@ class OrdersItem extends ConsumerStatefulWidget {
     required this.name,
     required this.quantity,
     required this.size,
+    required this.reason,
     super.key,
   });
 
@@ -34,7 +36,7 @@ class OrdersItemState extends ConsumerState<OrdersItem> {
         arguments: widget.id,
       ),
       child: Container(
-        margin: const EdgeInsets.all(5),
+        margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.grey.shade50,
@@ -57,8 +59,9 @@ class OrdersItemState extends ConsumerState<OrdersItem> {
               ),
             ),
             Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.05),
+              padding: EdgeInsets.symmetric(
+                  horizontal: mediaQuery.width * 0.05,
+                  vertical: mediaQuery.height * 0.01),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -111,6 +114,26 @@ class OrdersItemState extends ConsumerState<OrdersItem> {
                           width: 5,
                         ),
                         Text(widget.quantity.toString()),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: Row(
+                      children: [
+                        const Text(
+                          'Reason:',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          widget.reason,
+                          style: TextStyle(
+                            color: Colors.red.shade500,
+                          ),
+                        ),
                       ],
                     ),
                   ),
