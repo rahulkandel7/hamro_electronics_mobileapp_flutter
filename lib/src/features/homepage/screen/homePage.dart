@@ -9,7 +9,7 @@ import 'package:hamro_electronics/src/shimmers/homeProductShimmer.dart';
 import 'package:hamro_electronics/src/features/wishlist/screen/wishlistScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../controllers/brandController.dart';
+import '../../brand/controller/brandController.dart';
 import '../../auth/screen/loginScreen.dart';
 import '../../category/controller/categoryController.dart';
 import '../../category/screen/categoryViewScreen.dart';

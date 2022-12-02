@@ -20,9 +20,9 @@ import '../controller/commentController.dart';
 import '../controller/productController.dart';
 import '../model/comment.dart';
 import '../model/product.dart';
-import '/controllers/brandController.dart';
+import '../../brand/controller/brandController.dart';
 
-import '/models/brand.dart';
+import '../../brand/model/brand.dart';
 
 import 'widgets/productItem.dart';
 

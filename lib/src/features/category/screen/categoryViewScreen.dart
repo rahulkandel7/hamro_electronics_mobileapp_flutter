@@ -6,9 +6,9 @@ import '../../product/model/product.dart';
 import '../../product/screen/widgets/productItem.dart';
 import '../controller/categoryController.dart';
 import '../models/category.dart';
-import '/controllers/subCategoryController.dart';
+import '../../subcategory/controller/subCategoryController.dart';
 
-import '/models/subCategory.dart';
+import '../../subcategory/model/subCategory.dart';
 
 class CategoryViewScreen extends ConsumerStatefulWidget {
   static const routeName = '/categoryViewScreen';

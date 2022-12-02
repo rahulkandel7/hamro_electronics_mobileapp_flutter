@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/models/brand.dart';
+import 'package:hamro_electronics/src/features/brand/model/brand.dart';
 import 'package:http/http.dart' as http;
 
 class BrandController extends StateNotifier<List<Brand>> {
