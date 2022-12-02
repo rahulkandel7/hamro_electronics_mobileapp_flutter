@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hamro_electronics/src/constants/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:hamro_electronics/src/features/view_order/model/status.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,18 +9,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 class StatusController extends StateNotifier<List<Status>> {
   StatusController(super.state);
 
-  String url = 'https://api.hamroelectronics.com.np/api/v1/user/order';
-
   Future<List<Status>> fetchOrders() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final response = await http.get(
-      Uri.parse(url),
+      Uri.parse('${Constants.API}user/order'),
       headers: {
         'Authorization': 'Bearer ${prefs.getString('token')}',
       },
     );
 
-    print(response.body);
     final extractedData = json.decode(response.body);
 
     if (response.statusCode == 200) {

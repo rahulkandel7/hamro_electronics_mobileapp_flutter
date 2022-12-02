@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:hamro_electronics/src/constants/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/src/features/homepage/model/banner.dart';
@@ -7,11 +8,9 @@ import 'package:hamro_electronics/src/features/homepage/model/banner.dart';
 class BannerController extends StateNotifier<List<Banner>> {
   BannerController(super.state);
 
-  String url = 'https://api.hamroelectronics.com.np/api/v1/';
-
   Future<List<Banner>> fetchBanner() async {
     final response = await http.get(
-      Uri.parse('${url}fetchbanner'),
+      Uri.parse('${Constants.API}fetchbanner'),
     );
 
     final extractedData = json.decode(response.body);

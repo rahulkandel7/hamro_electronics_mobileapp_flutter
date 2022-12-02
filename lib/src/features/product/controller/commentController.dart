@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:hamro_electronics/src/constants/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,11 +9,9 @@ import '../model/comment.dart';
 class CommentController extends StateNotifier<List<Comment>> {
   CommentController(super.state);
 
-  String url = 'https://api.hamroelectronics.com.np/api/v1/';
-
   Future<List<Comment>> fetchComment(id) async {
     final response = await http.get(
-      Uri.parse('${url}product/view/$id'),
+      Uri.parse('${Constants.API}product/view/$id'),
     );
 
     final extractedData = json.decode(response.body);

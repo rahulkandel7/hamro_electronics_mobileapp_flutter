@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:hamro_electronics/src/constants/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,13 +11,11 @@ import '../model/shipping.dart';
 class ShippingController extends StateNotifier<List<Shipping>> {
   ShippingController(super.state);
 
-  String url = 'https://api.hamroelectronics.com.np/api/v1/shipping';
-
   Future<List<Shipping>> fetchShipping() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString('token') != null) {
       final response = await http.get(
-        Uri.parse(url),
+        Uri.parse('${Constants.API}shipping'),
         headers: {
           'Authorization': 'Bearer ${prefs.getString('token')}',
         },

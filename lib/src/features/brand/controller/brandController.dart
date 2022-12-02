@@ -1,16 +1,15 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hamro_electronics/src/constants/constants.dart';
 import 'package:hamro_electronics/src/features/brand/model/brand.dart';
 import 'package:http/http.dart' as http;
 
 class BrandController extends StateNotifier<List<Brand>> {
   BrandController(super.state);
 
-  String url = 'https://www.api.hamroelectronics.com.np/api/v1/';
-
   Future<List<Brand>> fetchBrand() async {
-    final response = await http.get(Uri.parse('${url}fetchBrand'));
+    final response = await http.get(Uri.parse('${Constants.API}fetchBrand'));
 
     final extractedData = json.decode(response.body);
     if (response.statusCode == 200) {

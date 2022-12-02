@@ -4,17 +4,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../constants/constants.dart';
 import '../../edit_profile/model/user.dart';
 
 class UserController extends StateNotifier<List<User>> {
-  final String url = 'https://www.api.hamroelectronics.com.np/api/v1/';
-
   UserController(super.createFn);
 
 //* Function to register user
   Future<http.Response> register(User user) async {
     final response = await http.post(
-      Uri.parse('${url}register'),
+      Uri.parse('${Constants.API}register'),
       body: {
         'name': user.name,
         'address': user.address,
@@ -40,7 +39,8 @@ class UserController extends StateNotifier<List<User>> {
   Future<http.Response> logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final response = await http.post(Uri.parse('${url}logout'), headers: {
+    final response =
+        await http.post(Uri.parse('${Constants.API}logout'), headers: {
       'Authorization': 'Bearer ${prefs.getString('token')}',
     });
 
@@ -55,7 +55,7 @@ class UserController extends StateNotifier<List<User>> {
   //* Function to Login User
   Future<http.Response> login(String email, String password) async {
     final response = await http.post(
-      Uri.parse('${url}login'),
+      Uri.parse('${Constants.API}login'),
       body: {'email': email, 'password': password},
     );
 
@@ -76,7 +76,7 @@ class UserController extends StateNotifier<List<User>> {
   ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final response =
-        await http.post(Uri.parse('${url}user/changepass'), headers: {
+        await http.post(Uri.parse('${Constants.API}user/changepass'), headers: {
       'Authorization': 'Bearer ${prefs.getString('token')}',
     }, body: {
       'current_password': currentPassword,
@@ -96,7 +96,7 @@ class UserController extends StateNotifier<List<User>> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (photopath == '') {
       final response =
-          await http.post(Uri.parse('${url}user/update'), headers: {
+          await http.post(Uri.parse('${Constants.API}user/update'), headers: {
         'Authorization': 'Bearer ${prefs.getString('token')}',
       }, body: {
         'name': name,
@@ -123,7 +123,7 @@ class UserController extends StateNotifier<List<User>> {
       };
 
       var request = http.MultipartRequest(
-          'POST', Uri.parse("${url}user/update"))
+          'POST', Uri.parse("${Constants.API}user/update"))
         ..fields.addAll(jsons)
         ..headers.addAll(headers)
         ..files

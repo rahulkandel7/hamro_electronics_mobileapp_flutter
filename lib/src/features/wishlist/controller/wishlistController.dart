@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:hamro_electronics/src/constants/constants.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,11 +10,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class WishlistController extends StateNotifier<List<Wishlist>> {
   WishlistController(super.state);
 
-  String url = "https://api.hamroelectronics.com.np/api/v1/";
-
   Future<List<Wishlist>> fetchWishlist() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final response = await http.get(Uri.parse('${url}wishlist'), headers: {
+    final response =
+        await http.get(Uri.parse('${Constants.API}wishlist'), headers: {
       'Authorization': 'Bearer ${prefs.getString('token')}',
     });
     final extractedData = json.decode(response.body);
@@ -38,7 +38,7 @@ class WishlistController extends StateNotifier<List<Wishlist>> {
   Future<http.Response> removeWishlist(int id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final response =
-        await http.delete(Uri.parse('${url}wishlist/$id'), headers: {
+        await http.delete(Uri.parse('${Constants.API}wishlist/$id'), headers: {
       'Authorization': 'Bearer ${prefs.getString('token')}',
     });
 
@@ -47,7 +47,8 @@ class WishlistController extends StateNotifier<List<Wishlist>> {
 
   Future<http.Response> addWishlist(int id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final response = await http.post(Uri.parse('${url}wishlist'), body: {
+    final response =
+        await http.post(Uri.parse('${Constants.API}wishlist'), body: {
       'product_id': id.toString(),
     }, headers: {
       'Authorization': 'Bearer ${prefs.getString('token')}',

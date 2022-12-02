@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hamro_electronics/src/constants/constants.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -9,10 +10,8 @@ import '../model/product.dart';
 class ProductController extends StateNotifier<List<Product>> {
   ProductController(super.state);
 
-  String url = 'https://api.hamroelectronics.com.np/api/v1/';
-
   Future<List<Product>> fetchProduct() async {
-    final response = await http.get(Uri.parse("${url}products"));
+    final response = await http.get(Uri.parse("${Constants.API}products"));
 
     final extractedData = json.decode(response.body);
 

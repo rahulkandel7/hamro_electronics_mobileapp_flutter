@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
+import 'package:hamro_electronics/src/constants/constants.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,12 +12,10 @@ import '../model/coupon.dart';
 class CouponController extends StateNotifier<List<Coupon>> {
   CouponController(super.state);
 
-  String url = 'https://api.hamroelectronics.com.np/api/v1/coupon';
-
   Future<List<Coupon>> fetchCoupon() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString('token') != null) {
-      final response = await http.get(Uri.parse(url), headers: {
+      final response = await http.get(Uri.parse(Constants.API), headers: {
         'Authorization': 'Bearer ${prefs.getString('token')}',
       });
       final extractedData = json.decode(response.body);

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:hamro_electronics/src/constants/constants.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,10 +10,8 @@ import '../models/category.dart';
 class CategoryController extends StateNotifier<List<Category>> {
   CategoryController(super.createFn);
 
-  String url = 'https://www.api.hamroelectronics.com.np/api/v1/';
-
   Future<List<Category>> fetchCategory() async {
-    final response = await http.get(Uri.parse('${url}fetchCategory'));
+    final response = await http.get(Uri.parse('${Constants.API}fetchCategory'));
 
     final extractedData = json.decode(response.body);
 

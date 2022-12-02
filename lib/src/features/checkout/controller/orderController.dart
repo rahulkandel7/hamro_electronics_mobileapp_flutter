@@ -1,3 +1,4 @@
+import 'package:hamro_electronics/src/constants/constants.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,8 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class OrderController extends StateNotifier {
   OrderController(super.state);
-
-  String url = 'https://api.hamroelectronics.com.np/api/v1/';
 
   Future<http.Response> placeOrder(
     List<String> cartId,
@@ -21,7 +20,7 @@ class OrderController extends StateNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final response = await http.post(
       Uri.parse(
-        '${url}order/store',
+        '${Constants.API}order/store',
       ),
       body: {
         'cart_id': cartId.toString().replaceAll('[', '').replaceAll(']', ''),
