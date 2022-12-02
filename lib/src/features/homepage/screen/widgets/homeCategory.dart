@@ -14,16 +14,18 @@ class HomeCategory extends StatelessWidget {
       children: [
         Container(
           height: mediaQuery.height * 0.07,
+          padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.02),
           margin: EdgeInsets.all(
             mediaQuery.width * 0.02,
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(
-              100,
+              1000,
             ),
             child: CachedNetworkImage(
               imageUrl:
-                  'https://www.api.hamroelectronics.com.np/public/${photopath}',
+                  'https://www.api.hamroelectronics.com.np/public/$photopath',
+              width: mediaQuery.width * 0.15,
               placeholder: (context, url) =>
                   Image.asset('assets/images/logo.png'),
               fit: BoxFit.cover,
@@ -33,7 +35,7 @@ class HomeCategory extends StatelessWidget {
         Text(
           name,
           style: Theme.of(context).textTheme.bodyLarge,
-        )
+        ),
       ],
     );
   }

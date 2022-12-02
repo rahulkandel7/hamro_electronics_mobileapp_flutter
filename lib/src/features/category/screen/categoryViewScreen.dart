@@ -177,7 +177,7 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          childAspectRatio: 0.555,
+                          childAspectRatio: 0.554,
                         ),
                       ),
                     )
@@ -186,10 +186,7 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
                           'No Products Yet!',
                           style: Theme.of(context).textTheme.headline4,
                         )
-                      : SizedBox(
-                          height: _value != 0
-                              ? size.height * 0.77
-                              : size.height * 0.82,
+                      : Expanded(
                           child: GridView.builder(
                             itemBuilder: (ctx, i) {
                               return Padding(
@@ -212,7 +209,7 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              childAspectRatio: 0.555,
+                              childAspectRatio: 0.554,
                             ),
                           ),
                         ),

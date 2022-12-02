@@ -15,7 +15,8 @@ class CouponController extends StateNotifier<List<Coupon>> {
   Future<List<Coupon>> fetchCoupon() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString('token') != null) {
-      final response = await http.get(Uri.parse(Constants.API), headers: {
+      final response =
+          await http.get(Uri.parse('${Constants.API}coupon'), headers: {
         'Authorization': 'Bearer ${prefs.getString('token')}',
       });
       final extractedData = json.decode(response.body);

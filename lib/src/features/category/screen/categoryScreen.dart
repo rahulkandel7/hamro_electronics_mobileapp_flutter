@@ -48,7 +48,7 @@ class CategoryScreen extends StatelessWidget {
                                         child: CachedNetworkImage(
                                           imageUrl:
                                               'https://api.hamroelectronics.com.np/public/${data[i].photopath}',
-                                          width: size.width * 0.3,
+                                          width: size.width * 0.29,
                                           placeholder: (context, url) =>
                                               Image.asset(
                                             'assets/images/logo.png',

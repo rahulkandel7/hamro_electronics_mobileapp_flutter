@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/src/features/wishlist/controller/wishlistController.dart';
@@ -256,8 +257,11 @@ class WishlistItem extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(
                         8,
                       ),
-                      child: Image.network(
-                        'https://api.hamroelectronics.com.np/public/${photopath}',
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            'https://api.hamroelectronics.com.np/public/${photopath}',
+                        placeholder: (context, url) =>
+                            Image.asset('assets/images/logo.png'),
                         // height: mediaQuery.height * 0.2,
                       ),
                     ),
