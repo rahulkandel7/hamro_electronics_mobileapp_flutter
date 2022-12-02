@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/screens/onboarding_screen.dart';
+import 'package:hamro_electronics/src/features/onboarding/screen/onboarding_screen.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../screens/navbar.dart';
+import 'src/navbar.dart';
 
-import '../utils/router.dart';
+import 'src/utils/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
