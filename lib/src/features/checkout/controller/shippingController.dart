@@ -14,33 +14,37 @@ class ShippingController extends StateNotifier<List<Shipping>> {
 
   Future<List<Shipping>> fetchShipping() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final response = await http.get(
-      Uri.parse(url),
-      headers: {
-        'Authorization': 'Bearer ${prefs.getString('token')}',
-      },
-    );
+    if (prefs.getString('token') != null) {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Authorization': 'Bearer ${prefs.getString('token')}',
+        },
+      );
 
-    final extractedData = json.decode(response.body);
+      final extractedData = json.decode(response.body);
 
-    if (response.statusCode == 200) {
-      state.clear();
-      final shippings = extractedData['data'] as List<dynamic>;
+      if (response.statusCode == 200) {
+        state.clear();
+        final shippings = extractedData['data'] as List<dynamic>;
 
-      for (var shipping in shippings) {
-        state.add(
-          Shipping(
-            id: shipping['id'],
-            name: shipping['area_name'],
-            price: int.parse(
-              shipping['price'],
+        for (var shipping in shippings) {
+          state.add(
+            Shipping(
+              id: shipping['id'],
+              name: shipping['area_name'],
+              price: int.parse(
+                shipping['price'],
+              ),
             ),
-          ),
-        );
+          );
+        }
       }
-    }
 
-    return state;
+      return state;
+    } else {
+      throw Exception('No Token Found');
+    }
   }
 }
 
