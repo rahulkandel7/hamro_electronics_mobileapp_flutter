@@ -136,7 +136,7 @@ class UserController extends StateNotifier<List<User>> {
         final res = json.decode(response.body);
         prefs.setString('user', json.encode(res['data']));
       }
-      print(response.body);
+
       return response;
     }
   }

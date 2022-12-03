@@ -260,7 +260,7 @@ class WishlistItem extends ConsumerWidget {
                       ),
                       child: CachedNetworkImage(
                         imageUrl:
-                            'https://api.hamroelectronics.com.np/public/${photopath}',
+                            'https://api.hamroelectronics.com.np/public/$photopath',
                         placeholder: (context, url) =>
                             Image.asset('assets/images/logo.png'),
                         // height: mediaQuery.height * 0.2,

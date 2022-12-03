@@ -13,22 +13,12 @@ class CategoryController extends StateNotifier<List<Category>> {
   Future<List<Category>> fetchCategory() async {
     final response = await http.get(Uri.parse('${Constants.API}fetchCategory'));
 
-    final extractedData = json.decode(response.body);
-
     if (response.statusCode == 200) {
-      final categories = extractedData['categories'] as List<dynamic>;
-      state.clear();
+      final categories =
+          jsonDecode(response.body)['categories'] as List<dynamic>;
 
-      for (var element in categories) {
-        state.add(
-          Category(
-            categoryName: element['category_name'],
-            id: element['id'],
-            photopath: element['photopath'],
-            priority: int.parse(element['priority']),
-          ),
-        );
-      }
+      state.clear();
+      state = categories.map((category) => Category.fromMap(category)).toList();
     }
 
     return state;

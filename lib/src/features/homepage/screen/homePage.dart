@@ -78,9 +78,7 @@ class HomePageState extends ConsumerState<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        onPressed: () {
-                          print('Goes to Notification Page');
-                        },
+                        onPressed: () {},
                         enableFeedback: true,
                         splashColor: Colors.indigo.shade100,
                         iconSize:
@@ -324,7 +322,6 @@ class HomePageState extends ConsumerState<HomePage> {
                         );
                       },
                       error: (e, s) {
-                        print(s.toString());
                         return Text(e.toString());
                       },
                       loading: () => const HomeProductShimmer(),
@@ -456,7 +453,6 @@ class HomePageState extends ConsumerState<HomePage> {
                         );
                       },
                       error: (e, s) {
-                        print(s.toString());
                         return Text(e.toString());
                       },
                       loading: () => const HomeProductShimmer(),

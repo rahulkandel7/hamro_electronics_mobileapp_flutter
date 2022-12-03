@@ -599,7 +599,7 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               );
             },
             error: (e, s) => Text(e.toString()),
-            loading: () => Center(
+            loading: () => const Center(
               child: CircularProgressIndicator(),
             ),
           ),

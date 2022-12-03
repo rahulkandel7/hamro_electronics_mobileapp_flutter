@@ -74,8 +74,8 @@ class CartController extends StateNotifier<List<Cart>> {
 
   updateOrder(int id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final response =
-        await http.post(Uri.parse('${Constants.API}update/ordered/$id'), body: {
+
+    await http.post(Uri.parse('${Constants.API}update/ordered/$id'), body: {
       'ordered': 1.toString(),
     }, headers: {
       'Authorization': 'Bearer ${prefs.getString('token')}',
