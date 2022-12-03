@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/src/features/product/screen/productView.dart';
+
+import '../../../product/screen/productView.dart';
 
 class OrdersItem extends ConsumerStatefulWidget {
   final int id;

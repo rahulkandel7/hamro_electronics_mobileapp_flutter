@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/src/constants/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:hamro_electronics/src/features/view_order/model/status.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../constants/constants.dart';
+import '../model/status.dart';
 
 class StatusController extends StateNotifier<List<Status>> {
   StatusController(super.state);

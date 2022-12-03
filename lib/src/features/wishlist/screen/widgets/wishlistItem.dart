@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/src/features/wishlist/controller/wishlistController.dart';
-import 'package:hamro_electronics/src/features/product/screen/productView.dart';
+
+import '../../../product/screen/productView.dart';
+import '../../controller/wishlistController.dart';
 
 class WishlistItem extends ConsumerWidget {
   final int id;

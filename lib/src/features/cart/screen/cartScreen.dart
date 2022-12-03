@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:hamro_electronics/src/features/cart/controller/cartController.dart';
-
-import 'package:hamro_electronics/src/features/cart/model/cart.dart';
-
-import 'package:hamro_electronics/src/features/checkout/screen/checkoutScreen.dart';
-import 'package:hamro_electronics/src/features/cart/screen/widgets/cartItem.dart';
-
+import '../../checkout/screen/checkoutScreen.dart';
 import '../../product/controller/productController.dart';
 import '../../product/model/product.dart';
+import '../controller/cartController.dart';
+import '../model/cart.dart';
+import 'widgets/cartItem.dart';
 
 class CartScreen extends ConsumerWidget {
   static const routeName = "/cart";
@@ -71,75 +68,6 @@ class CartScreen extends ConsumerWidget {
                           ),
                           //* For Place Order section
 
-                          // Container(
-                          //   width: double.infinity,
-                          //   margin: EdgeInsets.only(top: mediaQuery.height * 0.01),
-                          //   height: mediaQuery.height * 0.06,
-                          //   decoration: BoxDecoration(
-                          //     color: Colors.indigo,
-                          //     borderRadius: BorderRadius.circular(
-                          //       1000,
-                          //     ),
-                          //     boxShadow: [
-                          //       BoxShadow(
-                          //         offset: const Offset(0, 3),
-                          //         blurRadius: 6,
-                          //         color: Colors.grey.shade300,
-                          //         spreadRadius: 3,
-                          //       ),
-                          //     ],
-                          //   ),
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //     children: [
-                          //       Padding(
-                          //         padding: const EdgeInsets.only(left: 10.0),
-                          //         child: Row(
-                          //           children: [
-                          //             Text(
-                          //               'Total: Rs ',
-                          //               style: Theme.of(context)
-                          //                   .textTheme
-                          //                   .headline6!
-                          //                   .copyWith(
-                          //                     color: Colors.white,
-                          //                   ),
-                          //             ),
-                          //             Text(
-                          //               '1000 ',
-                          //               style: Theme.of(context)
-                          //                   .textTheme
-                          //                   .headline6!
-                          //                   .copyWith(
-                          //                     color: Colors.white,
-                          //                   ),
-                          //             ),
-                          //           ],
-                          //         ),
-                          //       ),
-                          //       Padding(
-                          //         padding: const EdgeInsets.all(8.0),
-                          //         child: ElevatedButton(
-                          //           style: ElevatedButton.styleFrom(
-                          //             backgroundColor: Colors.white,
-                          //             shape: RoundedRectangleBorder(
-                          //               borderRadius: BorderRadius.circular(
-                          //                 1000,
-                          //               ),
-                          //             ),
-                          //           ),
-                          //           onPressed: () {},
-                          //           child: const Text(
-                          //             'Place Order',
-                          //             style: TextStyle(
-                          //               color: Colors.indigo,
-                          //             ),
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
                           data.isNotEmpty
                               ? Container(
                                   alignment: Alignment.centerRight,

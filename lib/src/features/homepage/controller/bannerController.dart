@@ -1,9 +1,10 @@
 import 'dart:convert';
 
-import 'package:hamro_electronics/src/constants/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/src/features/homepage/model/banner.dart';
+
+import '../../../constants/constants.dart';
+import '../model/banner.dart';
 
 class BannerController extends StateNotifier<List<Banner>> {
   BannerController(super.state);

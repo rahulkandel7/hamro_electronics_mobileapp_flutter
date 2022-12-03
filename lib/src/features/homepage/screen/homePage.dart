@@ -2,26 +2,24 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/src/features/homepage/controller/bannerController.dart';
-
-import 'package:hamro_electronics/src/shimmers/homeCategoryShimmer.dart';
-import 'package:hamro_electronics/src/shimmers/homeProductShimmer.dart';
-import 'package:hamro_electronics/src/features/wishlist/screen/wishlistScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../brand/controller/brandController.dart';
+import '../../../shimmers/homeCategoryShimmer.dart';
+import '../../../shimmers/homeProductShimmer.dart';
 import '../../auth/screen/loginScreen.dart';
+import '../../brand/controller/brandController.dart';
 import '../../category/controller/categoryController.dart';
+import '../../category/models/category.dart';
 import '../../category/screen/categoryViewScreen.dart';
 import '../../checkout/controller/couponController.dart';
 import '../../checkout/controller/shippingController.dart';
 import '../../product/controller/productController.dart';
 import '../../product/model/product.dart';
 import '../../product/screen/productView.dart';
-import 'widgets/homeCategory.dart';
 import '../../product/screen/widgets/productItem.dart';
-
-import '../../category/models/category.dart';
+import '../../wishlist/screen/wishlistScreen.dart';
+import '../controller/bannerController.dart';
+import 'widgets/homeCategory.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});

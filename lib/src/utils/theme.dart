@@ -1,11 +1,31 @@
 import 'package:flutter/material.dart';
 
 ThemeData lightTheme = ThemeData(
-  scaffoldBackgroundColor: Colors.grey.shade100,
+  scaffoldBackgroundColor: Colors.grey.shade200,
   primarySwatch: Colors.indigo,
-  textTheme: const TextTheme(
+  textTheme: TextTheme(
     headline1: TextStyle(
       fontWeight: FontWeight.bold,
+      color: Colors.indigo.shade900,
+      fontFamily: 'Poppins',
+    ),
+    headline5: const TextStyle(
+      color: Colors.black,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Poppins',
+    ),
+    headline6: const TextStyle(
+      fontFamily: 'Poppins',
+    ),
+    headline4: const TextStyle(
+      color: Colors.indigo,
+      fontFamily: 'Poppins',
+    ),
+    bodyText1: const TextStyle(
+      fontFamily: 'Poppins',
+    ),
+    bodyText2: const TextStyle(
+      fontFamily: 'Poppins',
     ),
   ),
   inputDecorationTheme: InputDecorationTheme(
@@ -46,5 +66,11 @@ ThemeData lightTheme = ThemeData(
   ),
   iconTheme: const IconThemeData(
     color: Colors.black,
+  ),
+  chipTheme: ChipThemeData(
+    pressElevation: 2.0,
+    labelStyle: const TextStyle(color: Colors.white),
+    backgroundColor: Colors.grey.shade500,
+    selectedColor: Colors.indigo,
   ),
 );

@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/src/constants/constants.dart';
+
 import 'package:http/http.dart' as http;
 
-import 'package:hamro_electronics/src/features/subcategory/model/subCategory.dart';
+import '../../../constants/constants.dart';
+import '../model/subCategory.dart';
 
 class SubCategoryController extends StateNotifier<List<SubCategory>> {
   SubCategoryController(super.createFn);

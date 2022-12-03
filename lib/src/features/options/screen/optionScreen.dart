@@ -3,14 +3,13 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/src/features/auth/controller/userController.dart';
-import 'package:hamro_electronics/src/features/edit_profile/screen/editProfileScreen.dart';
-
-import 'package:hamro_electronics/src/features/view_order/screens/ordersScreen.dart';
-import 'package:hamro_electronics/src/features/wishlist/screen/wishlistScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../auth/controller/userController.dart';
 import '../../auth/screen/loginScreen.dart';
+import '../../edit_profile/screen/editProfileScreen.dart';
+import '../../view_order/screens/ordersScreen.dart';
+import '../../wishlist/screen/wishlistScreen.dart';
 
 class OptionScreen extends StatefulWidget {
   const OptionScreen({super.key});

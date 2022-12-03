@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:hamro_electronics/src/features/product/screen/productView.dart';
+
+import '../productView.dart';
 
 class ProductItem extends StatefulWidget {
   final int id;

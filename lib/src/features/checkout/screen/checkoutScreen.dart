@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:hamro_electronics/src/features/cart/controller/cartController.dart';
-import 'package:hamro_electronics/src/features/checkout/controller/orderController.dart';
-
+import '../../cart/controller/cartController.dart';
 import '../../product/controller/productController.dart';
 import '../../product/model/product.dart';
 import '../controller/couponController.dart';
+import '../controller/orderController.dart';
 import '../controller/shippingController.dart';
 import '../model/coupon.dart';
 import '../model/shipping.dart';

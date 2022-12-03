@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/src/features/cart/controller/cartController.dart';
+
+import '../../controller/cartController.dart';
 
 class CartItem extends ConsumerStatefulWidget {
   final int id;

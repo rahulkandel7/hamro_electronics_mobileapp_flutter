@@ -3,27 +3,21 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/src/features/cart/controller/cartController.dart';
-
-import 'package:hamro_electronics/src/features/wishlist/controller/wishlistController.dart';
-
-import 'package:hamro_electronics/src/features/wishlist/model/wishlist.dart';
-import 'package:hamro_electronics/src/features/cart/screen/cartScreen.dart';
-
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../auth/screen/loginScreen.dart';
+import '../../brand/controller/brandController.dart';
+import '../../brand/model/brand.dart';
+import '../../cart/controller/cartController.dart';
+import '../../cart/screen/cartScreen.dart';
+import '../../wishlist/controller/wishlistController.dart';
+import '../../wishlist/model/wishlist.dart';
 import '../controller/commentController.dart';
 import '../controller/productController.dart';
 import '../model/comment.dart';
 import '../model/product.dart';
-import '../../brand/controller/brandController.dart';
-
-import '../../brand/model/brand.dart';
-
 import 'widgets/productItem.dart';
 
 class ProductView extends ConsumerStatefulWidget {

@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:hamro_electronics/src/features/cart/screen/cartScreen.dart';
-
-import 'package:hamro_electronics/src/features/checkout/screen/checkoutScreen.dart';
-import 'package:hamro_electronics/src/features/edit_profile/screen/editProfileScreen.dart';
-
-import 'package:hamro_electronics/src/navbar.dart';
-import 'package:hamro_electronics/src/features/onboarding/screen/onboarding_screen.dart';
-import 'package:hamro_electronics/src/features/view_order/screens/ordersScreen.dart';
-import 'package:hamro_electronics/src/features/product/screen/productView.dart';
-
-import 'package:hamro_electronics/src/features/wishlist/screen/wishlistScreen.dart';
 
 import '../features/auth/screen/loginScreen.dart';
 import '../features/auth/screen/registerScreen.dart';
+import '../features/cart/screen/cartScreen.dart';
 import '../features/category/screen/categoryViewScreen.dart';
+import '../features/checkout/screen/checkoutScreen.dart';
+import '../features/edit_profile/screen/editProfileScreen.dart';
+import '../features/onboarding/screen/onboarding_screen.dart';
+import '../features/product/screen/productView.dart';
+import '../features/view_order/screens/ordersScreen.dart';
+import '../features/wishlist/screen/wishlistScreen.dart';
+import '../navbar.dart';
 
 Map<String, Widget Function(BuildContext)> routes = <String, WidgetBuilder>{
   LoginScreen.routeName: (context) => const LoginScreen(),

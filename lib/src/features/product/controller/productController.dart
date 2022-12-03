@@ -1,10 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/src/constants/constants.dart';
-
 import 'package:http/http.dart' as http;
 
+import '../../../constants/constants.dart';
 import '../model/product.dart';
 
 class ProductController extends StateNotifier<List<Product>> {

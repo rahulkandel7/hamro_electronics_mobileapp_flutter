@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/src/constants/constants.dart';
-import 'package:hamro_electronics/src/features/cart/model/cart.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../constants/constants.dart';
+import '../model/cart.dart';
 
 class CartController extends StateNotifier<List<Cart>> {
   CartController(super.state);

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:hamro_electronics/src/features/view_order/controller/statusController.dart';
-import 'package:hamro_electronics/src/features/view_order/model/status.dart';
-
-import 'package:hamro_electronics/src/features/view_order/screens/widgets/ordersItem.dart';
+import '../controller/statusController.dart';
+import '../model/status.dart';
+import 'widgets/ordersItem.dart';
 
 class OrdersScreen extends ConsumerWidget {
   static const routeName = '/orders';

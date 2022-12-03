@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:hamro_electronics/src/features/wishlist/controller/wishlistController.dart';
-
-import 'package:hamro_electronics/src/shimmers/wishlistShimmer.dart';
-
-import 'package:hamro_electronics/src/features/wishlist/screen/widgets/wishlistItem.dart';
-
+import '../../../shimmers/wishlistShimmer.dart';
 import '../../product/controller/productController.dart';
 import '../../product/model/product.dart';
+import '../controller/wishlistController.dart';
+import 'widgets/wishlistItem.dart';
 
 class WishlistScreen extends ConsumerStatefulWidget {
   static const routeName = "/wishlist";
