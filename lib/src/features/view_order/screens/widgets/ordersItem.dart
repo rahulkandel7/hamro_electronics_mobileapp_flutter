@@ -118,26 +118,28 @@ class OrdersItemState extends ConsumerState<OrdersItem> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0),
-                    child: Row(
-                      children: [
-                        const Text(
-                          'Reason:',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          widget.reason,
-                          style: TextStyle(
-                            color: Colors.red.shade500,
+                  widget.reason.isEmpty
+                      ? const SizedBox()
+                      : Padding(
+                          padding: const EdgeInsets.only(top: 5.0),
+                          child: Row(
+                            children: [
+                              const Text(
+                                'Reason:',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                widget.reason,
+                                style: TextStyle(
+                                  color: Colors.red.shade500,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
                 ],
               ),
             ),

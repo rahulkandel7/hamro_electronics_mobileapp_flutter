@@ -40,8 +40,8 @@ class OrdersScreen extends ConsumerWidget {
                   data: (data) {
                     List<Status> orders = data
                         .where((element) =>
-                            element.status == 'pending' ||
-                            element.status == 'processing')
+                            element.status.toLowerCase() == 'pending' ||
+                            element.status.toLowerCase() == 'processing')
                         .toList();
                     return orders.isEmpty
                         ? Center(
@@ -74,7 +74,8 @@ class OrdersScreen extends ConsumerWidget {
             ref.watch(fetchStatus).when(
                   data: (data) {
                     List<Status> orders = data
-                        .where((element) => element.status == 'completed')
+                        .where((element) =>
+                            element.status.toLowerCase() == 'completed')
                         .toList();
                     return orders.isEmpty
                         ? Center(
@@ -107,7 +108,8 @@ class OrdersScreen extends ConsumerWidget {
             ref.watch(fetchStatus).when(
                   data: (data) {
                     List<Status> orders = data
-                        .where((element) => element.status == 'cancelled')
+                        .where((element) =>
+                            element.status.toLowerCase() == 'cancelled')
                         .toList();
                     return orders.isEmpty
                         ? Center(
