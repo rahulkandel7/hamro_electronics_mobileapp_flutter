@@ -12,19 +12,11 @@ class BrandController extends StateNotifier<List<Brand>> {
   Future<List<Brand>> fetchBrand() async {
     final response = await http.get(Uri.parse('${Constants.API}fetchBrand'));
 
-    final extractedData = json.decode(response.body);
     if (response.statusCode == 200) {
-      final brands = extractedData['data'] as List<dynamic>;
-      state.clear();
+      final brands = jsonDecode(response.body)['data'] as List<dynamic>;
 
-      for (var element in brands) {
-        state.add(
-          Brand(
-            id: element['id'],
-            brandName: element['brand_name'],
-          ),
-        );
-      }
+      state.clear();
+      state = brands.map((brand) => Brand.fromMap(brand)).toList();
     }
 
     return state;

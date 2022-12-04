@@ -20,23 +20,11 @@ class ShippingController extends StateNotifier<List<Shipping>> {
         },
       );
 
-      final extractedData = json.decode(response.body);
-
       if (response.statusCode == 200) {
         state.clear();
-        final shippings = extractedData['data'] as List<dynamic>;
-
-        for (var shipping in shippings) {
-          state.add(
-            Shipping(
-              id: shipping['id'],
-              name: shipping['area_name'],
-              price: int.parse(
-                shipping['price'],
-              ),
-            ),
-          );
-        }
+        final shippings = jsonDecode(response.body)['data'] as List<dynamic>;
+        state =
+            shippings.map((shipping) => Shipping.fromMap(shipping)).toList();
       }
 
       return state;

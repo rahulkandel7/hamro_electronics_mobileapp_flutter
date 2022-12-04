@@ -16,21 +16,13 @@ class WishlistController extends StateNotifier<List<Wishlist>> {
         await http.get(Uri.parse('${Constants.API}wishlist'), headers: {
       'Authorization': 'Bearer ${prefs.getString('token')}',
     });
-    final extractedData = json.decode(response.body);
 
     if (response.statusCode == 200) {
-      final wishlists = extractedData['data'] as List<dynamic>;
+      final wishlists = jsonDecode(response.body)['data'] as List<dynamic>;
 
       state.clear();
 
-      for (var wishlist in wishlists) {
-        state.add(
-          Wishlist(
-            id: wishlist['id'],
-            productId: int.parse(wishlist['product_id']),
-          ),
-        );
-      }
+      state = wishlists.map((wishlist) => Wishlist.fromMap(wishlist)).toList();
     }
     return state;
   }

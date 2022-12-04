@@ -15,21 +15,12 @@ class SubCategoryController extends StateNotifier<List<SubCategory>> {
       Uri.parse('${Constants.API}fetchSubCategory'),
     );
 
-    final extractedData = json.decode(response.body);
     if (response.statusCode == 200) {
-      final subcategories = extractedData['data'] as List<dynamic>;
+      final subcategories = jsonDecode(response.body)['data'] as List<dynamic>;
       state.clear();
-
-      for (var subCategory in subcategories) {
-        state.add(
-          SubCategory(
-            categoryId: int.parse(subCategory['category_id']),
-            id: subCategory['id'],
-            priority: int.parse(subCategory['priority']),
-            subCategoryName: subCategory['subcategory_name'],
-          ),
-        );
-      }
+      state = subcategories
+          .map((subCategory) => SubCategory.fromMap((subCategory)))
+          .toList();
     }
     return state;
   }

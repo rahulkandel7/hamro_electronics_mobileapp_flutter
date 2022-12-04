@@ -20,4 +20,18 @@ class Coupon {
     required this.offerAmount,
     required this.offerPercent,
   });
+
+  factory Coupon.fromMap(Map<String, dynamic> map) {
+    return Coupon(
+      id: map['id'] as int,
+      name: map['name'] as String,
+      isAvailable: int.parse(map['isAvailable']),
+      isAmoount: int.parse(map['isAmount']),
+      offerAmount: int.parse(map['offerAmount']),
+      isPercent: int.parse(map['isPercent']),
+      offerPercent: int.parse(map['offerPercent']),
+      maxDisAmount: int.parse(map['maxDisAmount']),
+      minAmount: int.parse(map['minAmount']),
+    );
+  }
 }

@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 class SubCategory {
   int id;
   String subCategoryName;
@@ -10,4 +13,13 @@ class SubCategory {
     required this.priority,
     required this.subCategoryName,
   });
+
+  factory SubCategory.fromMap(Map<String, dynamic> map) {
+    return SubCategory(
+      id: map['id'] as int,
+      subCategoryName: map['subCategoryName'] as String,
+      priority: int.parse(map['priority']),
+      categoryId: int.parse(map['category_id']),
+    );
+  }
 }

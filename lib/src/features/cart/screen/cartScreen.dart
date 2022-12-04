@@ -93,7 +93,10 @@ class CartScreen extends ConsumerWidget {
                         ],
                       );
               },
-              error: (e, s) => Text(s.toString()),
+              error: (e, s) {
+                print(s.toString());
+                return Text(s.toString());
+              },
               loading: () => const Center(
                   child: CircularProgressIndicator(
                 strokeWidth: 0.7,

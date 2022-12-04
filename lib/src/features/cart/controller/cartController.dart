@@ -20,26 +20,11 @@ class CartController extends StateNotifier<List<Cart>> {
       },
     );
 
-    final extractedData = json.decode(response.body);
-
     if (response.statusCode == 200) {
-      final carts = extractedData['data'] as List<dynamic>;
+      final carts = json.decode(response.body)['data'] as List<dynamic>;
+
       state.clear();
-      for (var cart in carts) {
-        state.add(
-          Cart(
-            id: cart['id'],
-            productId: int.parse(cart['product_id']),
-            userId: int.parse(cart['user_id']),
-            quantity: int.parse(cart['quantity']),
-            color: cart['color'],
-            size: cart['size'],
-            status: cart['status'],
-            ordered: int.parse(cart['ordered']),
-            price: int.parse(cart['price']),
-          ),
-        );
-      }
+      state = carts.map((cart) => Cart.fromMap(cart)).toList();
     }
     return state;
   }

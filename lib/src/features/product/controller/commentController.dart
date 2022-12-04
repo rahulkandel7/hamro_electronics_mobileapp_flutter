@@ -14,23 +14,11 @@ class CommentController extends StateNotifier<List<Comment>> {
       Uri.parse('${Constants.API}product/view/$id'),
     );
 
-    final extractedData = json.decode(response.body);
-
     if (response.statusCode == 200) {
-      final comments = extractedData['comments'] as List<dynamic>;
-      state.cast();
-      for (var comment in comments) {
-        state.add(
-          Comment(
-            id: comment['id'],
-            comment: comment['comment'],
-            productId: int.parse(comment['product_id']),
-            userId: int.parse(comment['user_id']),
-            userName: comment['user_name'] ?? '',
-            date: comment['created_at'],
-          ),
-        );
-      }
+      final comments = jsonDecode(response.body)['comments'] as List<dynamic>;
+      state.clear();
+      state = comments.map((comment) => Comment.fromMap(comment)).toList();
+      print(state);
     }
 
     return state;

@@ -17,26 +17,11 @@ class CouponController extends StateNotifier<List<Coupon>> {
           await http.get(Uri.parse('${Constants.API}coupon'), headers: {
         'Authorization': 'Bearer ${prefs.getString('token')}',
       });
-      final extractedData = json.decode(response.body);
 
       if (response.statusCode == 200) {
+        final coupons = jsonDecode(response.body)['data'] as List<dynamic>;
         state.clear();
-        final coupons = extractedData['data'];
-        for (var coupon in coupons) {
-          state.add(
-            Coupon(
-              id: coupon['id'],
-              isAmoount: int.parse(coupon['isAmount']),
-              isAvailable: int.parse(coupon['isAvailable']),
-              isPercent: int.parse(coupon['isPercent']),
-              maxDisAmount: int.parse(coupon['maxDisAmount']),
-              minAmount: int.parse(coupon['minAmount']),
-              name: coupon['name'],
-              offerAmount: int.parse(coupon['offerAmount']),
-              offerPercent: int.parse(coupon['offerPercent']),
-            ),
-          );
-        }
+        state = coupons.map((coupon) => Coupon.fromMap(coupon)).toList();
       }
       return state;
     } else {

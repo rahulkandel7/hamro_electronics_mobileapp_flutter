@@ -14,22 +14,10 @@ class BannerController extends StateNotifier<List<Banner>> {
       Uri.parse('${Constants.API}fetchbanner'),
     );
 
-    final extractedData = json.decode(response.body);
-
     if (response.statusCode == 200) {
-      final banners = extractedData['data'] as List<dynamic>;
-      state.cast();
-      for (var banner in banners) {
-        state.add(
-          Banner(
-            id: banner['id'],
-            photopath: banner['photopath'],
-            priority: int.parse(
-              banner['priority'],
-            ),
-          ),
-        );
-      }
+      final banners = jsonDecode(response.body)['data'] as List<dynamic>;
+      state.clear();
+      state = banners.map((banner) => Banner.fromMap(banner)).toList();
     }
 
     return state;
