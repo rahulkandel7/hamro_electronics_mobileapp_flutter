@@ -94,7 +94,6 @@ class CartScreen extends ConsumerWidget {
                       );
               },
               error: (e, s) {
-                print(s.toString());
                 return Text(s.toString());
               },
               loading: () => const Center(

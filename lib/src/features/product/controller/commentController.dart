@@ -18,7 +18,6 @@ class CommentController extends StateNotifier<List<Comment>> {
       final comments = jsonDecode(response.body)['comments'] as List<dynamic>;
       state.clear();
       state = comments.map((comment) => Comment.fromMap(comment)).toList();
-      print(state);
     }
 
     return state;
