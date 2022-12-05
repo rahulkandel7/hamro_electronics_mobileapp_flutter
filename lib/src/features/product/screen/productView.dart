@@ -310,7 +310,7 @@ class ProductViewState extends ConsumerState<ProductView> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.indigo,
+            color: Theme.of(context).iconTheme.color,
             size: Theme.of(context).textTheme.headline6!.fontSize,
           ),
           onPressed: () => Navigator.of(context).pop(),
@@ -340,7 +340,8 @@ class ProductViewState extends ConsumerState<ProductView> {
                                 content: Text(
                                   extractedData['message'],
                                 ),
-                                backgroundColor: Colors.indigo,
+                                backgroundColor:
+                                    Theme.of(context).iconTheme.color,
                                 behavior: SnackBarBehavior.floating,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(
@@ -358,7 +359,9 @@ class ProductViewState extends ConsumerState<ProductView> {
                       },
                       icon: Icon(
                         isWishlist ? Icons.favorite : Icons.favorite_border,
-                        color: isWishlist ? Colors.red : Colors.indigo,
+                        color: isWishlist
+                            ? Colors.red
+                            : Theme.of(context).iconTheme.color,
                       ),
                     );
                   },
@@ -840,7 +843,7 @@ class ProductViewState extends ConsumerState<ProductView> {
                   child: Container(
                     height: mediaQuery.height * 0.04,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Theme.of(context).cardColor,
                       borderRadius: BorderRadius.circular(
                         1000,
                       ),

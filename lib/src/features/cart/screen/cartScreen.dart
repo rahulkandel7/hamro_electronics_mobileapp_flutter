@@ -23,7 +23,7 @@ class CartScreen extends ConsumerWidget {
         title: Text(
           'My Cart',
           style: Theme.of(context).textTheme.headline5!.copyWith(
-                color: Colors.indigo,
+                color: Theme.of(context).backgroundColor,
               ),
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,

@@ -61,7 +61,7 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
             content: const Text(
               'Registration Successful',
             ),
-            backgroundColor: Colors.indigo,
+            backgroundColor: Theme.of(context).backgroundColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -95,8 +95,9 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
                   child: Text(
                     'Welcome to ,',
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.indigo.shade400),
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).textTheme.headline4!.color,
+                        ),
                   ),
                 ),
                 Padding(
@@ -104,7 +105,9 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
                   child: Text(
                     'Hamro Electronics',
                     style: Theme.of(context).textTheme.headline5!.copyWith(
-                        fontWeight: FontWeight.bold, color: Colors.indigo),
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).textTheme.headline4!.color,
+                        ),
                   ),
                 ),
                 Padding(
@@ -112,8 +115,9 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
                   child: Text(
                     'Register to Continue',
                     style: Theme.of(context).textTheme.headline6!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.indigo.shade400),
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).textTheme.headline4!.color,
+                        ),
                   ),
                 ),
                 Form(
@@ -130,7 +134,8 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
                           decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.person_outline,
-                              color: Colors.indigo.shade400,
+                              color:
+                                  Theme.of(context).textTheme.headline4!.color,
                             ),
                             labelText: 'Enter Your Full Name',
                           ),
@@ -153,7 +158,8 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
                           decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.email_outlined,
-                              color: Colors.indigo.shade400,
+                              color:
+                                  Theme.of(context).textTheme.headline4!.color,
                             ),
                             labelText: 'Enter Your Email Address',
                           ),
@@ -179,7 +185,8 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
                           decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.lock_outline,
-                              color: Colors.indigo.shade400,
+                              color:
+                                  Theme.of(context).textTheme.headline4!.color,
                             ),
                             labelText: 'Enter Your Password ',
                           ),
@@ -209,7 +216,8 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
                           decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.lock_outline,
-                              color: Colors.indigo.shade400,
+                              color:
+                                  Theme.of(context).textTheme.headline4!.color,
                             ),
                             labelText: 'Confirm Your Password ',
                           ),
@@ -236,7 +244,8 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
                           decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.location_city_outlined,
-                              color: Colors.indigo.shade400,
+                              color:
+                                  Theme.of(context).textTheme.headline4!.color,
                             ),
                             labelText: 'Enter Your Address',
                           ),
@@ -259,7 +268,8 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
                           decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.phone_android_outlined,
-                              color: Colors.indigo.shade400,
+                              color:
+                                  Theme.of(context).textTheme.headline4!.color,
                             ),
                             labelText: 'Enter Your Phone Number',
                           ),
@@ -283,7 +293,8 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
                           decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.person_pin_circle_outlined,
-                              color: Colors.indigo.shade400,
+                              color:
+                                  Theme.of(context).textTheme.headline4!.color,
                             ),
                             labelText: 'Select Your Gender',
                           ),
@@ -331,7 +342,7 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
                         ),
                       ),
                       Divider(
-                        color: Colors.indigo.shade400,
+                        color: Theme.of(context).textTheme.headline4!.color,
                         thickness: 0.3,
                         height: mediaQuery.height * 0.05,
                       ),
@@ -339,10 +350,10 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
                         onTap: () => Navigator.of(context)
                             .pushNamed(LoginScreen.routeName),
                         splashColor: Colors.indigo.shade100,
-                        child: const Text(
+                        child: Text(
                           'Already Have an Account ? Login',
                           style: TextStyle(
-                            color: Colors.indigo,
+                            color: Theme.of(context).textTheme.headline4!.color,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

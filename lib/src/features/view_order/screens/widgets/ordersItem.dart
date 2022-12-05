@@ -40,7 +40,7 @@ class OrdersItemState extends ConsumerState<OrdersItem> {
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.grey.shade50,
+          color: Theme.of(context).cardColor,
           boxShadow: [
             BoxShadow(
               offset: const Offset(2, 3),

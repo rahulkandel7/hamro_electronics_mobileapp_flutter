@@ -52,7 +52,7 @@ class _NavbarState extends State<Navbar> {
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
           backgroundColor: Colors.transparent,
-          indicatorColor: Colors.indigo.shade100,
+          indicatorColor: Theme.of(context).indicatorColor,
           height: MediaQuery.of(context).size.height * 0.07,
           indicatorShape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(
@@ -62,11 +62,16 @@ class _NavbarState extends State<Navbar> {
           labelTextStyle: MaterialStateProperty.all(
             TextStyle(
               fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
-              color: Colors.indigo.shade900,
+              color: Theme.of(context).textTheme.headline2!.color,
               fontWeight: FontWeight.bold,
             ),
           ),
           labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+          iconTheme: MaterialStateProperty.all(
+            IconThemeData(
+              color: Theme.of(context).backgroundColor,
+            ),
+          ),
         ),
         child: NavigationBar(
           animationDuration: const Duration(seconds: 1),

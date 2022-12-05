@@ -25,15 +25,15 @@ class WishlistScreenState extends ConsumerState<WishlistScreen> {
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.indigo,
+            color: Theme.of(context).backgroundColor,
           ),
         ),
         title: Text(
           'My Wishlist',
           style: Theme.of(context).textTheme.headline5!.copyWith(
-                color: Colors.indigo,
+                color: Theme.of(context).backgroundColor,
               ),
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,

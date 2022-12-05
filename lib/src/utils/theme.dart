@@ -2,11 +2,20 @@ import 'package:flutter/material.dart';
 
 ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: Colors.grey.shade200,
+  backgroundColor: Colors.indigo,
+  cardColor: Colors.grey.shade100,
+  errorColor: Colors.red.shade800,
+  indicatorColor: Colors.indigo.shade100,
   primarySwatch: Colors.indigo,
   textTheme: TextTheme(
     headline1: TextStyle(
       fontWeight: FontWeight.bold,
       color: Colors.indigo.shade900,
+      fontFamily: 'Poppins',
+    ),
+    headline2: TextStyle(
+      color: Colors.indigo.shade900,
+      fontWeight: FontWeight.normal,
       fontFamily: 'Poppins',
     ),
     headline5: const TextStyle(

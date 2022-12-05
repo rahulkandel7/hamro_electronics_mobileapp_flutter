@@ -37,7 +37,7 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.indigo,
+            color: Theme.of(context).backgroundColor,
             size: Theme.of(context).textTheme.headline6!.fontSize,
           ),
           onPressed: () => Navigator.of(context).pop(),
@@ -46,7 +46,7 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
           category.categoryName,
           style: Theme.of(context).textTheme.headline5!.copyWith(
                 fontWeight: FontWeight.w500,
-                color: Colors.indigo,
+                color: Theme.of(context).backgroundColor,
               ),
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,

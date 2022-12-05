@@ -64,7 +64,7 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
+            color: Theme.of(context).backgroundColor,
             size: Theme.of(context).textTheme.headline6!.fontSize,
           ),
           onPressed: () => Navigator.of(context).pop(),
@@ -73,6 +73,7 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
           'Checkout',
           style: Theme.of(context).textTheme.headline5!.copyWith(
                 fontWeight: FontWeight.w500,
+                color: Theme.of(context).backgroundColor,
               ),
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,

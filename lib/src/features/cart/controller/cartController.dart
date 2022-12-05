@@ -72,7 +72,7 @@ class CartController extends StateNotifier<List<Cart>> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final response = await http.post(
-      Uri.parse(Constants.API),
+      Uri.parse('${Constants.API}cart'),
       body: {
         'product_id': productId.toString(),
         'color': color,

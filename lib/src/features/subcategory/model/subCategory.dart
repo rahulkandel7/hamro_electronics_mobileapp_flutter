@@ -14,7 +14,7 @@ class SubCategory {
   factory SubCategory.fromMap(Map<String, dynamic> map) {
     return SubCategory(
       id: map['id'] as int,
-      subCategoryName: map['subCategoryName'] as String,
+      subCategoryName: map['subcategory_name'] as String,
       priority: int.parse(map['priority']),
       categoryId: int.parse(map['category_id']),
     );

@@ -264,7 +264,7 @@ class _ProductItemState extends State<ProductItem> {
               8,
             ),
           ),
-          color: Colors.grey.shade100,
+          color: Theme.of(context).cardColor,
           shadowColor: Colors.grey.shade100,
           margin: EdgeInsets.only(right: mediaQuery.width * 0.05),
           child: Stack(
@@ -343,7 +343,7 @@ class _ProductItemState extends State<ProductItem> {
                                         .copyWith(
                                           decoration:
                                               TextDecoration.lineThrough,
-                                          color: Colors.red.shade800,
+                                          color: Theme.of(context).errorColor,
                                         ),
                                   ),
                                 ),

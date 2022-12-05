@@ -245,7 +245,7 @@ class WishlistItem extends ConsumerWidget {
               8,
             ),
           ),
-          color: Colors.grey.shade100,
+          color: Theme.of(context).cardColor,
           shadowColor: Colors.grey.shade100,
           margin: EdgeInsets.only(right: mediaQuery.width * 0.05),
           child: Stack(

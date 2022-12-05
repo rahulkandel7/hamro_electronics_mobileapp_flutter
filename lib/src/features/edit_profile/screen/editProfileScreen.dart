@@ -100,15 +100,15 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.indigo,
+            color: Theme.of(context).backgroundColor,
           ),
         ),
         title: Text(
           'Edit Profile',
           style: Theme.of(context).textTheme.headline5!.copyWith(
-                color: Colors.indigo,
+                color: Theme.of(context).backgroundColor,
               ),
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,

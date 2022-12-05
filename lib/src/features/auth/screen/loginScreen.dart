@@ -80,8 +80,9 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                   child: Text(
                     'Welcome to ,',
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.indigo.shade400),
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).textTheme.headline4!.color,
+                        ),
                   ),
                 ),
                 Padding(
@@ -89,7 +90,9 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                   child: Text(
                     'Hamro Electronics',
                     style: Theme.of(context).textTheme.headline5!.copyWith(
-                        fontWeight: FontWeight.bold, color: Colors.indigo),
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).textTheme.headline4!.color,
+                        ),
                   ),
                 ),
                 Padding(
@@ -97,8 +100,9 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                   child: Text(
                     'Login to Continue',
                     style: Theme.of(context).textTheme.headline6!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.indigo.shade400),
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).textTheme.headline4!.color,
+                        ),
                   ),
                 ),
                 Form(
@@ -112,7 +116,8 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                           decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.email_outlined,
-                              color: Colors.indigo.shade400,
+                              color:
+                                  Theme.of(context).textTheme.headline4!.color,
                             ),
                             labelText: 'Enter Your Email Address',
                           ),
@@ -138,7 +143,8 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                           decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.lock_outline,
-                              color: Colors.indigo.shade400,
+                              color:
+                                  Theme.of(context).textTheme.headline4!.color,
                             ),
                             labelText: 'Enter Your Password ',
                           ),
@@ -161,11 +167,14 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                         children: [
                           InkWell(
                             onTap: () {},
-                            child: const Text(
+                            child: Text(
                               'Forget Password ?',
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                color: Colors.indigo,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .headline4!
+                                    .color,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -204,10 +213,10 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                         onTap: () => Navigator.of(context)
                             .pushReplacementNamed('/register'),
                         splashColor: Colors.indigo.shade100,
-                        child: const Text(
+                        child: Text(
                           'Don\'t have an account ? Sign Up',
                           style: TextStyle(
-                            color: Colors.indigo,
+                            color: Theme.of(context).textTheme.headline4!.color,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
