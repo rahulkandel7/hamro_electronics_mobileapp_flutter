@@ -3,6 +3,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/controllers/bannerController.dart';
+import 'package:hamro_electronics/features/category/data/models/Category.dart';
+import 'package:hamro_electronics/features/category/presentation/controller/categoryController.dart';
 import 'package:hamro_electronics/screens/loginScreen.dart';
 
 import 'package:hamro_electronics/screens/widgets/shimmers/homeCategoryShimmer.dart';
@@ -11,17 +13,15 @@ import 'package:hamro_electronics/screens/wishlistScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controllers/brandController.dart';
-import '../controllers/categoryController.dart';
+
 import '../controllers/couponController.dart';
 import '../controllers/productController.dart';
 import '../controllers/shippingController.dart';
 import '../models/product.dart';
-import '../screens/categoryViewScreen.dart';
+import '../features/category/presentation/screen/categoryViewScreen.dart';
 import '../screens/productView.dart';
 import '../screens/widgets/homeCategory.dart';
 import '../screens/widgets/productItem.dart';
-
-import '../models/category.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -176,12 +176,12 @@ class HomePageState extends ConsumerState<HomePage> {
                         return Center(
                           child: GestureDetector(
                             onTap: () async {
-                              List<Product> _products =
+                              List<Product> products =
                                   ref.read(productProvider.notifier).state;
                               showSearch(
                                 context: context,
                                 delegate: CustomSearch(
-                                  products: _products,
+                                  products: products,
                                 ),
                               );
                             },
@@ -337,7 +337,7 @@ class HomePageState extends ConsumerState<HomePage> {
                   style: Theme.of(context).textTheme.headline5,
                 ),
 
-                ref.watch(fetchCategory).when(
+                ref.watch(categoryControllerProvider).when(
                   data: (data) {
                     data.sort(
                       (a, b) => a.priority.compareTo(b.priority),
@@ -387,8 +387,11 @@ class HomePageState extends ConsumerState<HomePage> {
 
                 ref.watch(fetchProduct).when(
                       data: (data) {
-                        List<Category> categories =
-                            ref.watch(categoryProvider.notifier).state;
+                        List<Category> categories = [];
+
+                        ref
+                            .watch(categoryControllerProvider)
+                            .whenData((value) => categories = value);
 
                         return Column(
                           children: categories.map(

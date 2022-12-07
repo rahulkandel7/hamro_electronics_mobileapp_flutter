@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hamro_electronics/screens/cartScreen.dart';
-import 'package:hamro_electronics/screens/categoryViewScreen.dart';
+import 'package:hamro_electronics/features/category/presentation/screen/categoryViewScreen.dart';
 import 'package:hamro_electronics/screens/checkoutScreen.dart';
 import 'package:hamro_electronics/screens/editProfileScreen.dart';
 import 'package:hamro_electronics/screens/loginScreen.dart';

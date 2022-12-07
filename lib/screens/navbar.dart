@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hamro_electronics/screens/cartScreen.dart';
-import 'package:hamro_electronics/screens/categoryScreen.dart';
+import 'package:hamro_electronics/features/category/presentation/screen/categoryScreen.dart';
 import 'package:hamro_electronics/screens/loginScreen.dart';
 import 'package:hamro_electronics/screens/optionScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,14 +41,14 @@ class _NavbarState extends State<Navbar> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _widgets = [
+    final List<Widget> widgets = [
       const HomePage(),
       const CategoryScreen(),
       isLogin ? const CartScreen() : const LoginScreen(),
       const OptionScreen(),
     ];
     return Scaffold(
-      body: _widgets[_selectedIndex],
+      body: widgets[_selectedIndex],
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
           backgroundColor: Colors.transparent,

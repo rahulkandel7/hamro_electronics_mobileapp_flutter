@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hamro_electronics/features/category/data/models/Category.dart';
 
-import '/controllers/categoryController.dart';
+import 'package:hamro_electronics/features/category/presentation/controller/categoryController.dart';
+
 import '/controllers/productController.dart';
 import '/controllers/subCategoryController.dart';
-import '/models/category.dart';
+
 import '/models/product.dart';
 import '/models/subCategory.dart';
 import '/screens/widgets/productItem.dart';
@@ -26,7 +28,8 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     int id = ModalRoute.of(context)!.settings.arguments as int;
-    Category category = ref.watch(categoryProvider.notifier).findCategory(id);
+    Category category =
+        ref.watch(categoryControllerProvider.notifier).findCategory(id);
     List<Product> products =
         ref.watch(productProvider.notifier).findByCategory(id);
     return Scaffold(
