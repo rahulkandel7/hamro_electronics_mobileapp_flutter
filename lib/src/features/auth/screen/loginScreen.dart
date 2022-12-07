@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,6 +26,10 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
     if (!_loginKey.currentState!.validate()) {
       return;
     }
+
+    FirebaseMessaging.instance.getToken().then((token) {
+      log(token.toString());
+    });
 
     ref.read(userProvider.notifier).login(email, password).then((res) {
       if (res.statusCode == 422) {

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "823992218546",
+    "project_id": "hamroelectronics-project",
+    "storage_bucket": "hamroelectronics-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:823992218546:android:b01f941275454e4131aaab",
+        "android_client_info": {
+          "package_name": "com.example.hamro_electronics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "823992218546-ft1ubg7bomvjr9brgscvptopdocurq4r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBypUWo0Fo_zDIPE_PmT6vQq-O_Ef57Ucc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "823992218546-ft1ubg7bomvjr9brgscvptopdocurq4r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
