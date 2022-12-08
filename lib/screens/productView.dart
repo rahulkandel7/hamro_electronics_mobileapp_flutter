@@ -333,8 +333,20 @@ class ProductViewState extends ConsumerState<ProductView> {
                       onPressed: () {
                         ref
                             .read(wishlistControllerProvider.notifier)
-                            .addToWishlist(product.id);
-                        ref.refresh(wishlistControllerProvider);
+                            .addToWishlist(product.id)
+                            .then((value) {
+                          if (value) {
+                            ref.refresh(wishlistControllerProvider);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'Something Went Wrong',
+                                ),
+                              ),
+                            );
+                          }
+                        });
                       },
                       icon: Icon(
                         isWishlist ? Icons.favorite : Icons.favorite_border,

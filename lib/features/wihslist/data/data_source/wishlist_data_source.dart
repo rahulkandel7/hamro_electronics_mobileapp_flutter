@@ -33,7 +33,7 @@ class WishlistDataSourceImpl extends WishlistDataSource {
   @override
   Future<void> removeFromWishlist(id) async {
     final result =
-        await _apiService.deleteWithAuthorize(endpoint: 'wishlisst/$id');
+        await _apiService.deleteWithAuthorize(endpoint: 'wishlist/$id');
     return result;
   }
 }

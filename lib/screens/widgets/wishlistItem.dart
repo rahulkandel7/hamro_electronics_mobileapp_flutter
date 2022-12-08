@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/controllers/wishlistController.dart';
 import 'package:hamro_electronics/features/wihslist/presentation/controller/wishlistController.dart';
 import 'package:hamro_electronics/screens/productView.dart';
 
@@ -299,13 +296,11 @@ class WishlistItem extends ConsumerWidget {
                         .read(wishlistControllerProvider.notifier)
                         .removeFromWishlist(id)
                         .then((value) {
-                      final extractedData = json.decode(value.body);
-
-                      if (extractedData['status'] == true) {
+                      if (value) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text(
-                              extractedData['message'],
+                            content: const Text(
+                              'Removed From Wishlist',
                             ),
                             backgroundColor: Colors.indigo,
                             behavior: SnackBarBehavior.floating,
@@ -317,6 +312,21 @@ class WishlistItem extends ConsumerWidget {
                           ),
                         );
                         ref.refresh(wishlistControllerProvider);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text(
+                              'Something Went Wrong',
+                            ),
+                            backgroundColor: Colors.red,
+                            behavior: SnackBarBehavior.floating,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                            ),
+                          ),
+                        );
                       }
                     });
                   },
