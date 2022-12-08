@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/features/category/data/models/Category.dart';
 import 'package:hamro_electronics/features/category/data/repositories/category_repositories.dart';
@@ -20,7 +18,6 @@ class CategoryController extends StateNotifier<AsyncValue<List<Category>>> {
         ),
       ),
       (r) {
-        log(r.toString());
         return state = AsyncData(r);
       },
     );

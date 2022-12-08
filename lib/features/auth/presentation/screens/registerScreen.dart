@@ -1,12 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hamro_electronics/features/auth/presentation/controllers/authController.dart';
 
-import '../screens/navbar.dart';
-import '../screens/loginScreen.dart';
-import '../controllers/userController.dart';
-import '../models/user.dart';
+import '../../../../screens/navbar.dart';
+import 'loginScreen.dart';
+import '../../../../models/user.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
   static const routeName = "/register";
@@ -30,52 +28,34 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
     confirmPassword: '',
   );
 
-  register() {
-    _registerKey.currentState!.save();
-    if (!_registerKey.currentState!.validate()) {
-      return;
-    }
-    ref.read(userProvider.notifier).register(_user).then((res) {
-      if (res.statusCode == 422) {
-        var error = json.decode(res.body);
-        Map<String, dynamic> errorDetails =
-            error['details'] as Map<String, dynamic>;
-        errorDetails.map((key, value) {
+  @override
+  Widget build(BuildContext context) {
+    Size mediaQuery = MediaQuery.of(context).size;
+    final state = ref.watch(authControllerProvider);
+    ref.listen<AsyncValue>(
+      authControllerProvider,
+      (_, state) {
+        if (!state.isRefreshing && state.hasError) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Something went Wrong'),
+          ));
+        } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(
-                value.toString().replaceAll('[', '').replaceAll(']', ''),
+              content: const Text(
+                'Register Successful',
               ),
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.indigo,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
               behavior: SnackBarBehavior.floating,
             ),
           );
-          throw 'Invalid Data Send';
-        });
-      } else if (res.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text(
-              'Registration Successful',
-            ),
-            backgroundColor: Colors.indigo,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
-        Navigator.of(context).pushReplacementNamed(Navbar.routeName);
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Size mediaQuery = MediaQuery.of(context).size;
+          Navigator.of(context).pushReplacementNamed(Navbar.routeName);
+        }
+      },
+    );
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -308,9 +288,27 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
                       Padding(
                         padding: EdgeInsets.only(top: mediaQuery.height * 0.03),
                         child: ElevatedButton(
-                          onPressed: () {
-                            register();
-                          },
+                          onPressed: state.isLoading
+                              ? null
+                              : () {
+                                  _registerKey.currentState!.save();
+                                  if (!_registerKey.currentState!.validate()) {
+                                    return;
+                                  }
+                                  var data = {
+                                    'name': _user.name.toString(),
+                                    'address': _user.address.toString(),
+                                    'email': _user.email.toString(),
+                                    'phone_number': _user.mobile.toString(),
+                                    'password': _user.password.toString(),
+                                    'confirm_password':
+                                        _user.confirmPassword.toString(),
+                                    'gender': _user.gender.toString()
+                                  };
+                                  ref
+                                      .read(authControllerProvider.notifier)
+                                      .register(data);
+                                },
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(
                               vertical: mediaQuery.height * 0.014,

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/constants/api_constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final apiServiceProvider = Provider<ApiService>((ref) {
   return ApiService();
@@ -17,6 +18,78 @@ class ApiService {
       final result = await dio.get(endpoint);
       return result.data;
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  getDataWithAuthorize({required String endpoint}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final Dio dio = Dio(
+      BaseOptions(baseUrl: ApiConstants.url, headers: {
+        "accept": "application/json",
+        'Authorization': 'Bearer ${prefs.getString('token')}',
+      }),
+    );
+    try {
+      final result = await dio.get(endpoint);
+      return result.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  postData({required String endpoint, var pdata}) async {
+    final Dio dio = Dio(
+      BaseOptions(
+        baseUrl: ApiConstants.url,
+        headers: {
+          "accept": "application/json",
+        },
+      ),
+    );
+    try {
+      final result = await dio.post(endpoint, data: pdata);
+      return result.data;
+    } on DioError {
+      rethrow;
+    }
+  }
+
+  postDataWithAuthorize({required String endpoint, var pdata}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final Dio dio = Dio(
+      BaseOptions(
+        baseUrl: ApiConstants.url,
+        headers: {
+          "accept": "application/json",
+          'Authorization': 'Bearer ${prefs.getString('token')}',
+        },
+      ),
+    );
+    try {
+      final result = await dio.post(endpoint, data: pdata);
+      return result.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  deleteWithAuthorize({required String endpoint}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final Dio dio = Dio(
+      BaseOptions(
+        baseUrl: ApiConstants.url,
+        headers: {
+          "accept": "application/json",
+          "authorization": 'Bearer ${prefs.getString('token')}',
+        },
+      ),
+    );
+    try {
+      final result = await dio.delete(endpoint);
+      return result.data;
+    } on DioError {
       rethrow;
     }
   }

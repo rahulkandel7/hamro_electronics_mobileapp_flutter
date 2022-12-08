@@ -3,14 +3,14 @@ import 'package:hamro_electronics/screens/cartScreen.dart';
 import 'package:hamro_electronics/features/category/presentation/screen/categoryViewScreen.dart';
 import 'package:hamro_electronics/screens/checkoutScreen.dart';
 import 'package:hamro_electronics/screens/editProfileScreen.dart';
-import 'package:hamro_electronics/screens/loginScreen.dart';
+import 'package:hamro_electronics/features/auth/presentation/screens/loginScreen.dart';
 import 'package:hamro_electronics/screens/navbar.dart';
 import 'package:hamro_electronics/screens/onboarding_screen.dart';
 import 'package:hamro_electronics/screens/ordersScreen.dart';
 import 'package:hamro_electronics/screens/productView.dart';
-import 'package:hamro_electronics/screens/registerScreen.dart';
+import 'package:hamro_electronics/features/auth/presentation/screens/registerScreen.dart';
 import 'package:hamro_electronics/screens/searchScreen.dart';
-import 'package:hamro_electronics/screens/wishlistScreen.dart';
+import 'package:hamro_electronics/features/wihslist/presentation/screens/wishlistScreen.dart';
 
 Map<String, Widget Function(BuildContext)> routes = <String, WidgetBuilder>{
   LoginScreen.routeName: (context) => const LoginScreen(),

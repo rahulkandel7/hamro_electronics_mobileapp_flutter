@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hamro_electronics/features/auth/presentation/controllers/authController.dart';
 
-import '../screens/navbar.dart';
-import '../controllers/userController.dart';
+import '../../../../screens/navbar.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   static const routeName = "/login";
@@ -19,48 +17,34 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
   String email = "";
   String password = "";
 
-  login() {
-    _loginKey.currentState!.save();
-    if (!_loginKey.currentState!.validate()) {
-      return;
-    }
-
-    ref.read(userProvider.notifier).login(email, password).then((res) {
-      if (res.statusCode == 422) {
-        var error = json.decode(res.body);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              error['message'].toString(),
-            ),
-            backgroundColor: Colors.red,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
-      } else if (res.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text(
-              'Login Successful',
-            ),
-            backgroundColor: Colors.indigo,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
-        Navigator.of(context).pushReplacementNamed(Navbar.routeName);
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     Size mediaQuery = MediaQuery.of(context).size;
+    final state = ref.watch(authControllerProvider);
+    ref.listen<AsyncValue>(
+      authControllerProvider,
+      (_, state) {
+        if (!state.isRefreshing && state.hasError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("error")),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text(
+                'Login Successful',
+              ),
+              backgroundColor: Colors.indigo,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+          Navigator.of(context).pushReplacementNamed(Navbar.routeName);
+        }
+      },
+    );
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -175,7 +159,18 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                       Padding(
                         padding: EdgeInsets.only(top: mediaQuery.height * 0.03),
                         child: ElevatedButton(
-                          onPressed: () => login(),
+                          onPressed: state.isLoading
+                              ? null
+                              : () {
+                                  _loginKey.currentState!.save();
+                                  if (!_loginKey.currentState!.validate()) {
+                                    return;
+                                  }
+
+                                  ref
+                                      .read(authControllerProvider.notifier)
+                                      .loginUser(email, password);
+                                },
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(
                               vertical: mediaQuery.height * 0.014,

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:hamro_electronics/controllers/productController.dart';
-import 'package:hamro_electronics/controllers/wishlistController.dart';
+import 'package:hamro_electronics/features/wihslist/presentation/controller/wishlistController.dart';
+
 import 'package:hamro_electronics/models/product.dart';
 
 import 'package:hamro_electronics/screens/widgets/shimmers/wishlistShimmer.dart';
@@ -41,7 +42,7 @@ class WishlistScreenState extends ConsumerState<WishlistScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
       ),
-      body: ref.watch(fetchWishlist).when(
+      body: ref.watch(wishlistControllerProvider).when(
             data: (data) {
               return data.isEmpty
                   ? Center(

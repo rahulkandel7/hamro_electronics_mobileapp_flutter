@@ -7,18 +7,17 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/controllers/cartController.dart';
 import 'package:hamro_electronics/controllers/commentController.dart';
-import 'package:hamro_electronics/controllers/wishlistController.dart';
+import 'package:hamro_electronics/features/brand/presentation/controllers/brandController.dart';
+import 'package:hamro_electronics/features/wihslist/presentation/controller/wishlistController.dart';
 import 'package:hamro_electronics/models/comment.dart';
-import 'package:hamro_electronics/models/wishlist.dart';
+import 'package:hamro_electronics/features/wihslist/data/model/wishlist.dart';
 import 'package:hamro_electronics/screens/cartScreen.dart';
-import 'package:hamro_electronics/screens/loginScreen.dart';
+import 'package:hamro_electronics/features/auth/presentation/screens/loginScreen.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '/controllers/brandController.dart';
-
 import '/controllers/productController.dart';
-import '/models/brand.dart';
+import '../features/brand/data/models/brand.dart';
 
 import '/models/product.dart';
 import 'widgets/productItem.dart';
@@ -299,7 +298,8 @@ class ProductViewState extends ConsumerState<ProductView> {
     Size mediaQuery = MediaQuery.of(context).size;
     int id = ModalRoute.of(context)!.settings.arguments as int;
     Product product = ref.watch(productProvider.notifier).findProduct(id);
-    Brand brand = ref.watch(brandProvider.notifier).getBrand(product.brandId);
+    Brand brand =
+        ref.watch(brandControllerProvider.notifier).getBrand(product.brandId);
     int off = ((product.price - product.discountedprice) / product.price * 100)
         .toInt();
 
@@ -322,7 +322,7 @@ class ProductViewState extends ConsumerState<ProductView> {
         elevation: 0,
         actions: [
           isLogin
-              ? ref.watch(fetchWishlist).when(
+              ? ref.watch(wishlistControllerProvider).when(
                   data: (data) {
                     List<Wishlist> wishlists = data
                         .where((element) => element.productId == id)
@@ -332,32 +332,9 @@ class ProductViewState extends ConsumerState<ProductView> {
                     return IconButton(
                       onPressed: () {
                         ref
-                            .read(wishlistProvider.notifier)
-                            .addWishlist(product.id)
-                            .then((value) {
-                          final extractedData = json.decode(value.body);
-
-                          if (extractedData['status'] == true) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  extractedData['message'],
-                                ),
-                                backgroundColor: Colors.indigo,
-                                behavior: SnackBarBehavior.floating,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    10,
-                                  ),
-                                ),
-                              ),
-                            );
-                            ref.refresh(wishlistProvider);
-                            setState(() {
-                              isWishlist = true;
-                            });
-                          }
-                        });
+                            .read(wishlistControllerProvider.notifier)
+                            .addToWishlist(product.id);
+                        ref.refresh(wishlistControllerProvider);
                       },
                       icon: Icon(
                         isWishlist ? Icons.favorite : Icons.favorite_border,

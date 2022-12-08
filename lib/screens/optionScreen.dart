@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/controllers/userController.dart';
+import 'package:hamro_electronics/features/auth/presentation/controllers/authController.dart';
 import 'package:hamro_electronics/screens/editProfileScreen.dart';
-import 'package:hamro_electronics/screens/loginScreen.dart';
+import 'package:hamro_electronics/features/auth/presentation/screens/loginScreen.dart';
 import 'package:hamro_electronics/screens/ordersScreen.dart';
-import 'package:hamro_electronics/screens/wishlistScreen.dart';
+import 'package:hamro_electronics/features/wihslist/presentation/screens/wishlistScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OptionScreen extends StatefulWidget {
@@ -161,18 +161,35 @@ class _OptionScreenState extends State<OptionScreen> {
             isLogin
                 ? Consumer(
                     builder: (context, ref, child) {
+                      final state = ref.watch(authControllerProvider);
+                      ref.listen<AsyncValue>(
+                        authControllerProvider,
+                        (_, state) {
+                          if (!state.isRefreshing && state.hasError) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("error")),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: const Text(
+                                  'Logout Successful',
+                                ),
+                                backgroundColor: Colors.indigo,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                behavior: SnackBarBehavior.floating,
+                              ),
+                            );
+                            Navigator.of(context)
+                                .pushReplacementNamed(LoginScreen.routeName);
+                          }
+                        },
+                      );
                       return InkWell(
                         onTap: () {
-                          ref
-                              .read(userProvider.notifier)
-                              .logout()
-                              .then((response) {
-                            final extractedData = json.decode(response.body);
-                            if (extractedData['success'] == true) {
-                              Navigator.of(context)
-                                  .pushReplacementNamed(LoginScreen.routeName);
-                            }
-                          });
+                          ref.read(authControllerProvider.notifier).logout();
                         },
                         child: options(
                             mediaQuery, Icons.logout_outlined, 'Logout'),

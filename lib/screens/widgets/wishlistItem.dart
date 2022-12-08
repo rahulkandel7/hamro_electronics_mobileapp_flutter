@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/controllers/wishlistController.dart';
+import 'package:hamro_electronics/features/wihslist/presentation/controller/wishlistController.dart';
 import 'package:hamro_electronics/screens/productView.dart';
 
 class WishlistItem extends ConsumerWidget {
@@ -257,7 +258,7 @@ class WishlistItem extends ConsumerWidget {
                         8,
                       ),
                       child: Image.network(
-                        'https://api.hamroelectronics.com.np/public/${photopath}',
+                        'https://api.hamroelectronics.com.np/public/$photopath',
                         // height: mediaQuery.height * 0.2,
                       ),
                     ),
@@ -295,8 +296,8 @@ class WishlistItem extends ConsumerWidget {
                 child: IconButton(
                   onPressed: () {
                     ref
-                        .read(wishlistProvider.notifier)
-                        .removeWishlist(id)
+                        .read(wishlistControllerProvider.notifier)
+                        .removeFromWishlist(id)
                         .then((value) {
                       final extractedData = json.decode(value.body);
 
@@ -315,7 +316,7 @@ class WishlistItem extends ConsumerWidget {
                             ),
                           ),
                         );
-                        ref.refresh(wishlistProvider);
+                        ref.refresh(wishlistControllerProvider);
                       }
                     });
                   },

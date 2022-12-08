@@ -2,26 +2,26 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/controllers/bannerController.dart';
+
+import 'package:hamro_electronics/features/brand/presentation/controllers/brandController.dart';
 import 'package:hamro_electronics/features/category/data/models/Category.dart';
 import 'package:hamro_electronics/features/category/presentation/controller/categoryController.dart';
-import 'package:hamro_electronics/screens/loginScreen.dart';
+import 'package:hamro_electronics/features/auth/presentation/screens/loginScreen.dart';
+import 'package:hamro_electronics/features/home/presentation/controller/bannerController.dart';
 
 import 'package:hamro_electronics/screens/widgets/shimmers/homeCategoryShimmer.dart';
 import 'package:hamro_electronics/screens/widgets/shimmers/homeProductShimmer.dart';
-import 'package:hamro_electronics/screens/wishlistScreen.dart';
+import 'package:hamro_electronics/features/wihslist/presentation/screens/wishlistScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../controllers/brandController.dart';
-
-import '../controllers/couponController.dart';
-import '../controllers/productController.dart';
-import '../controllers/shippingController.dart';
-import '../models/product.dart';
-import '../features/category/presentation/screen/categoryViewScreen.dart';
-import '../screens/productView.dart';
-import '../screens/widgets/homeCategory.dart';
-import '../screens/widgets/productItem.dart';
+import '../../../../controllers/couponController.dart';
+import '../../../../controllers/productController.dart';
+import '../../../../controllers/shippingController.dart';
+import '../../../../models/product.dart';
+import '../../../category/presentation/screen/categoryViewScreen.dart';
+import '../../../../screens/productView.dart';
+import '../../../../screens/widgets/homeCategory.dart';
+import '../../../../screens/widgets/productItem.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -48,9 +48,8 @@ class HomePageState extends ConsumerState<HomePage> {
 
   @override
   void initState() {
-    ref.read(brandProvider.notifier).fetchBrand();
-
-    ref.read(bannerProvider.notifier).fetchBanner();
+    ref.read(bannerControllerProvider.notifier);
+    ref.read(brandControllerProvider.notifier);
     checkIsLogin();
 
     ref.read(shippingProvider.notifier).fetchShipping();
@@ -241,34 +240,45 @@ class HomePageState extends ConsumerState<HomePage> {
                       10,
                     ),
                   ),
-                  child: CarouselSlider(
-                    items: ref.watch(bannerProvider.notifier).state.map((e) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                          10,
+                  child: ref.watch(bannerControllerProvider).when(
+                        data: (data) {
+                          return CarouselSlider(
+                            items: data.map((e) {
+                              return ClipRRect(
+                                borderRadius: BorderRadius.circular(
+                                  10,
+                                ),
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      'https://api.hamroelectronics.com.np/public/${e.photopath}',
+                                  placeholder: (context, url) => Center(
+                                    child:
+                                        Image.asset('assets/images/logo.png'),
+                                  ),
+                                  fit: BoxFit.fill,
+                                ),
+                              );
+                            }).toList(),
+                            options: CarouselOptions(
+                              autoPlay: true,
+                              pauseAutoPlayOnTouch: true,
+                              viewportFraction: 1,
+                              aspectRatio: 21 / 9,
+                              initialPage: 0,
+                              autoPlayInterval: const Duration(seconds: 3),
+                              autoPlayAnimationDuration:
+                                  const Duration(milliseconds: 800),
+                              autoPlayCurve: Curves.fastOutSlowIn,
+                            ),
+                          );
+                        },
+                        error: (e, s) => Text(
+                          e.toString(),
                         ),
-                        child: CachedNetworkImage(
-                          imageUrl:
-                              'https://api.hamroelectronics.com.np/public/${e.photopath}',
-                          placeholder: (context, url) => Center(
-                            child: Image.asset('assets/images/logo.png'),
-                          ),
-                          fit: BoxFit.fill,
+                        loading: () => const Center(
+                          child: CircularProgressIndicator(),
                         ),
-                      );
-                    }).toList(),
-                    options: CarouselOptions(
-                      autoPlay: true,
-                      pauseAutoPlayOnTouch: true,
-                      viewportFraction: 1,
-                      aspectRatio: 21 / 9,
-                      initialPage: 0,
-                      autoPlayInterval: const Duration(seconds: 3),
-                      autoPlayAnimationDuration:
-                          const Duration(milliseconds: 800),
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                    ),
-                  ),
+                      ),
                 ),
                 const SizedBox(
                   height: 10,
