@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/features/home/data/model/banner.dart';
-import 'package:hamro_electronics/features/home/data/repository/banner_repository.dart';
+import 'package:hamro_electronics/features/home/data/models/banner.dart';
+import 'package:hamro_electronics/features/home/data/repositories/banner_repository.dart';
 
 class BannerController extends StateNotifier<AsyncValue<List<Banner>>> {
   BannerController(this._bannerRepository) : super(const AsyncLoading()) {

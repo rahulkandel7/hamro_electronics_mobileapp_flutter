@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/features/wihslist/presentation/controller/wishlistController.dart';
+import 'package:hamro_electronics/features/wihslist/presentation/controllers/wishlistController.dart';
 import 'package:hamro_electronics/screens/productView.dart';
 
 class WishlistItem extends ConsumerWidget {

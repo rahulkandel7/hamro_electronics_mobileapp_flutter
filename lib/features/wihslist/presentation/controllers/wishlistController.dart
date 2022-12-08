@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/features/wihslist/data/model/wishlist.dart';
-import 'package:hamro_electronics/features/wihslist/data/repository/wishlist_repository.dart';
+import 'package:hamro_electronics/features/wihslist/data/models/wishlist.dart';
+import 'package:hamro_electronics/features/wihslist/data/repositories/wishlist_repository.dart';
 
 class WishlistController extends StateNotifier<AsyncValue<List<Wishlist>>> {
   WishlistController(this._wishlistRepository) : super(const AsyncLoading()) {

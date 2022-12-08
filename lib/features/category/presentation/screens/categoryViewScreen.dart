@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/features/category/data/models/Category.dart';
 
-import 'package:hamro_electronics/features/category/presentation/controller/categoryController.dart';
+import 'package:hamro_electronics/features/category/presentation/controllers/categoryController.dart';
+import 'package:hamro_electronics/features/subcategory/presentation/controllers/subCategoryController.dart';
 
 import '/controllers/productController.dart';
-import '/controllers/subCategoryController.dart';
 
 import '/models/product.dart';
-import '/models/subCategory.dart';
+import '../../../subcategory/data/models/subCategory.dart';
 import '/screens/widgets/productItem.dart';
 
 class CategoryViewScreen extends ConsumerStatefulWidget {
@@ -59,7 +59,7 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
           padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
           child: Column(
             children: [
-              ref.watch(fetchSubCategory).when(
+              ref.watch(subCategoryControllerProvider).when(
                     data: (data) {
                       data.sort(
                         (a, b) => a.priority.compareTo(b.priority),

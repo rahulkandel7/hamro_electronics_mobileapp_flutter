@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hamro_electronics/screens/cartScreen.dart';
-import 'package:hamro_electronics/features/category/presentation/screen/categoryScreen.dart';
+import 'package:hamro_electronics/features/category/presentation/screens/categoryScreen.dart';
 import 'package:hamro_electronics/features/auth/presentation/screens/loginScreen.dart';
 import 'package:hamro_electronics/screens/optionScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../features/home/presentation/screen/homePage.dart';
+import '../features/home/presentation/screens/homePage.dart';
 
 class Navbar extends StatefulWidget {
   static const routeName = "/home";

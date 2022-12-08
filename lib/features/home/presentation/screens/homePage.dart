@@ -5,9 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:hamro_electronics/features/brand/presentation/controllers/brandController.dart';
 import 'package:hamro_electronics/features/category/data/models/Category.dart';
-import 'package:hamro_electronics/features/category/presentation/controller/categoryController.dart';
+import 'package:hamro_electronics/features/category/presentation/controllers/categoryController.dart';
 import 'package:hamro_electronics/features/auth/presentation/screens/loginScreen.dart';
-import 'package:hamro_electronics/features/home/presentation/controller/bannerController.dart';
+import 'package:hamro_electronics/features/home/presentation/controllers/bannerController.dart';
 
 import 'package:hamro_electronics/screens/widgets/shimmers/homeCategoryShimmer.dart';
 import 'package:hamro_electronics/screens/widgets/shimmers/homeProductShimmer.dart';
@@ -18,7 +18,7 @@ import '../../../../controllers/couponController.dart';
 import '../../../../controllers/productController.dart';
 import '../../../../controllers/shippingController.dart';
 import '../../../../models/product.dart';
-import '../../../category/presentation/screen/categoryViewScreen.dart';
+import '../../../category/presentation/screens/categoryViewScreen.dart';
 import '../../../../screens/productView.dart';
 import '../../../../screens/widgets/homeCategory.dart';
 import '../../../../screens/widgets/productItem.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/core/api/api_service.dart';
-import 'package:hamro_electronics/features/wihslist/data/model/wishlist.dart';
+import 'package:hamro_electronics/features/wihslist/data/models/wishlist.dart';
 
 abstract class WishlistDataSource {
   Future<List<Wishlist>> getWishlist();

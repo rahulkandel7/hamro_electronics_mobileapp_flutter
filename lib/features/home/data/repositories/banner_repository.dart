@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/core/api/api_error.dart';
-import 'package:hamro_electronics/features/home/data/data_source/banner_data_source.dart';
-import 'package:hamro_electronics/features/home/data/model/banner.dart';
+import 'package:hamro_electronics/features/home/data/data_sources/banner_data_source.dart';
+import 'package:hamro_electronics/features/home/data/models/banner.dart';
 
 abstract class BannerRepository {
   Future<Either<ApiError, List<Banner>>> getBanner();

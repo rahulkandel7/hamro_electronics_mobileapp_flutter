@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/core/api/api_error.dart';
-import 'package:hamro_electronics/features/wihslist/data/data_source/wishlist_data_source.dart';
-import 'package:hamro_electronics/features/wihslist/data/model/wishlist.dart';
+import 'package:hamro_electronics/features/wihslist/data/data_sources/wishlist_data_source.dart';
+import 'package:hamro_electronics/features/wihslist/data/models/wishlist.dart';
 
 abstract class WishlistRepository {
   Future<Either<ApiError, List<Wishlist>>> getWishlist();

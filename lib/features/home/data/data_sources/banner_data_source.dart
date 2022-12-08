@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/core/api/api_service.dart';
-import 'package:hamro_electronics/features/home/data/model/banner.dart';
+import 'package:hamro_electronics/features/home/data/models/banner.dart';
 
 abstract class BannerDataSource {
   Future<List<Banner>> getBanner();
