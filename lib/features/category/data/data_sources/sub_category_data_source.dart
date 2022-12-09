@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/core/api/api_service.dart';
-import 'package:hamro_electronics/features/subcategory/data/models/subCategory.dart';
+import 'package:hamro_electronics/features/category/data/models/subCategory.dart';
 
 abstract class SubCategoryDataSource {
   Future<List<SubCategory>> getSubCategory();

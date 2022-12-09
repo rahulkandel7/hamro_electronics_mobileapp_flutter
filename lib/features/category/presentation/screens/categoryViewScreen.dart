@@ -3,12 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/features/category/data/models/Category.dart';
 
 import 'package:hamro_electronics/features/category/presentation/controllers/categoryController.dart';
-import 'package:hamro_electronics/features/subcategory/presentation/controllers/subCategoryController.dart';
+import 'package:hamro_electronics/features/category/presentation/controllers/subCategoryController.dart';
 
 import '/controllers/productController.dart';
 
 import '/models/product.dart';
-import '../../../subcategory/data/models/subCategory.dart';
+import '../../data/models/subCategory.dart';
 import '/screens/widgets/productItem.dart';
 
 class CategoryViewScreen extends ConsumerStatefulWidget {
