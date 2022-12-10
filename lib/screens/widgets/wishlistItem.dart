@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/features/wihslist/presentation/controllers/wishlistController.dart';
 import 'package:hamro_electronics/screens/productView.dart';
 
+import '../../core/utils/toast.dart';
+
 class WishlistItem extends ConsumerWidget {
   final int id;
   final String name;
@@ -296,37 +298,16 @@ class WishlistItem extends ConsumerWidget {
                         .read(wishlistControllerProvider.notifier)
                         .removeFromWishlist(id)
                         .then((value) {
-                      if (value) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: const Text(
-                              'Removed From Wishlist',
-                            ),
-                            backgroundColor: Colors.indigo,
-                            behavior: SnackBarBehavior.floating,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                10,
-                              ),
-                            ),
-                          ),
-                        );
-                        ref.refresh(wishlistControllerProvider);
+                      if (value[0] == "true") {
+                        toast(
+                            context: context,
+                            label: value[1],
+                            color: Colors.indigo);
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: const Text(
-                              'Something Went Wrong',
-                            ),
-                            backgroundColor: Colors.red,
-                            behavior: SnackBarBehavior.floating,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                10,
-                              ),
-                            ),
-                          ),
-                        );
+                        toast(
+                            context: context,
+                            label: value[1],
+                            color: Colors.red);
                       }
                     });
                   },

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:hamro_electronics/controllers/cartController.dart';
 import 'package:hamro_electronics/controllers/productController.dart';
-import 'package:hamro_electronics/models/cart.dart';
+import 'package:hamro_electronics/features/cart/data/models/cart.dart';
+import 'package:hamro_electronics/features/cart/presentation/controllers/cartController.dart';
 import 'package:hamro_electronics/models/product.dart';
 import 'package:hamro_electronics/screens/checkoutScreen.dart';
 import 'package:hamro_electronics/screens/widgets/cartItem.dart';
@@ -31,7 +31,7 @@ class CartScreen extends ConsumerWidget {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.04),
-        child: ref.watch(fetchCart).when(
+        child: ref.watch(cartControllerProvider).when(
               data: (datas) {
                 List<Cart> data = datas
                     .where(
@@ -149,7 +149,7 @@ class CartScreen extends ConsumerWidget {
                                         ),
                                         padding: const EdgeInsets.all(16)),
                                     onPressed: () {
-                                      ref.refresh(cartProvider);
+                                      ref.refresh(cartControllerProvider);
                                       Navigator.of(context)
                                           .pushNamed(CheckoutScreen.routeName);
                                     },

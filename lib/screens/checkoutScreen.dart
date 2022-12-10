@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:hamro_electronics/controllers/cartController.dart';
 import 'package:hamro_electronics/controllers/couponController.dart';
 import 'package:hamro_electronics/controllers/orderController.dart';
 import 'package:hamro_electronics/controllers/productController.dart';
 import 'package:hamro_electronics/controllers/shippingController.dart';
+import 'package:hamro_electronics/features/cart/presentation/controllers/cartController.dart';
 
 import 'package:hamro_electronics/models/coupon.dart';
 import 'package:hamro_electronics/models/product.dart';
@@ -80,7 +80,7 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
       ),
-      body: ref.watch(fetchCart).when(
+      body: ref.watch(cartControllerProvider).when(
             data: (data) {
               int total = 0;
               List<String> cartId = [];
@@ -708,10 +708,14 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                                 );
                                 for (var cart in data) {
                                   ref
-                                      .read(cartProvider.notifier)
-                                      .updateOrder(cart.id);
+                                      .read(cartControllerProvider.notifier)
+                                      .updateOrder(cart.id)
+                                      .then((value) {
+                                    if (value) {
+                                      ref.refresh(cartControllerProvider);
+                                    }
+                                  });
                                 }
-                                ref.refresh(cartProvider.notifier);
                                 Navigator.of(context).pop();
                               }
                             }

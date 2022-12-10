@@ -1,17 +1,16 @@
-import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/controllers/cartController.dart';
 import 'package:hamro_electronics/controllers/commentController.dart';
+import 'package:hamro_electronics/core/utils/toast.dart';
 import 'package:hamro_electronics/features/brand/presentation/controllers/brandController.dart';
+import 'package:hamro_electronics/features/cart/presentation/controllers/cartController.dart';
 import 'package:hamro_electronics/features/wihslist/presentation/controllers/wishlistController.dart';
 import 'package:hamro_electronics/models/comment.dart';
 import 'package:hamro_electronics/features/wihslist/data/models/wishlist.dart';
-import 'package:hamro_electronics/screens/cartScreen.dart';
+import 'package:hamro_electronics/features/cart/presentation/screens/cartScreen.dart';
 import 'package:hamro_electronics/features/auth/presentation/screens/loginScreen.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -306,6 +305,8 @@ class ProductViewState extends ConsumerState<ProductView> {
     List<Product> suggestedProducts =
         ref.watch(productProvider.notifier).findByCategory(product.categoryId);
 
+    final state = ref.watch(cartControllerProvider);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -335,16 +336,16 @@ class ProductViewState extends ConsumerState<ProductView> {
                             .read(wishlistControllerProvider.notifier)
                             .addToWishlist(product.id)
                             .then((value) {
-                          if (value) {
-                            ref.refresh(wishlistControllerProvider);
+                          if (value[0] == "true") {
+                            toast(
+                                context: context,
+                                label: value[1],
+                                color: Colors.indigo);
                           } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  'Something Went Wrong',
-                                ),
-                              ),
-                            );
+                            toast(
+                                context: context,
+                                label: value[1],
+                                color: Colors.red);
                           }
                         });
                       },
@@ -354,8 +355,10 @@ class ProductViewState extends ConsumerState<ProductView> {
                       ),
                     );
                   },
-                  error: (e, s) => Text(e.toString()),
-                  loading: () => const SizedBox())
+                  error: (e, s) => Text('hello$e'),
+                  loading: () => const Center(
+                        child: CircularProgressIndicator(),
+                      ))
               : const SizedBox(),
         ],
       ),
@@ -895,27 +898,53 @@ class ProductViewState extends ConsumerState<ProductView> {
                             ),
                           ),
                           onPressed: () {
+                            // if (color == '') {
+                            //   ScaffoldMessenger.of(context).showSnackBar(
+                            //     SnackBar(
+                            //       content: const Text('Please Select Color'),
+                            //       backgroundColor: Colors.red,
+                            //       behavior: SnackBarBehavior.floating,
+                            //       shape: RoundedRectangleBorder(
+                            //         borderRadius: BorderRadius.circular(
+                            //           10,
+                            //         ),
+                            //       ),
+                            //       action: SnackBarAction(
+                            //         label: 'Close',
+                            //         textColor: Colors.white,
+                            //         onPressed: () {},
+                            //       ),
+                            //     ),
+                            //   );
+                            // }
+
+                            var pdata = {
+                              'product_id': product.id,
+                              'color': color,
+                              'size': size,
+                              'price': product.discountedprice > 0
+                                  ? product.discountedprice
+                                  : product.price,
+                              'quantity': quantity.toString(),
+                              'ordered': '0',
+                            };
+
+                            if (state.hasError) {
+                              print(state);
+                              print(state.stackTrace);
+                            }
+
                             isLogin
                                 ? ref
-                                    .read(cartProvider.notifier)
-                                    .addToCart(
-                                        product.id,
-                                        color,
-                                        size,
-                                        product.discountedprice > 0
-                                            ? product.discountedprice
-                                            : product.price,
-                                        quantity)
+                                    .read(cartControllerProvider.notifier)
+                                    .addToCart(pdata)
                                     .then((value) {
-                                    final extractedData =
-                                        json.decode(value.body);
-
-                                    if (extractedData['status'] == true) {
+                                    if (value) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
-                                          content: Text(
-                                            extractedData['message'],
+                                          content: const Text(
+                                            'Product Added To Cart Successfully',
                                           ),
                                           backgroundColor: Colors.indigo,
                                           behavior: SnackBarBehavior.floating,
@@ -934,38 +963,21 @@ class ProductViewState extends ConsumerState<ProductView> {
                                           ),
                                         ),
                                       );
-                                    }
-                                    if (extractedData['details'] != null) {
-                                      final errors = extractedData['details']
-                                          as Map<String, dynamic>;
-                                      errors.forEach(
-                                        (key, value) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                value
-                                                    .toString()
-                                                    .replaceAll('[', '')
-                                                    .replaceAll(']', ''),
-                                              ),
-                                              backgroundColor: Colors.red,
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                  10,
-                                                ),
-                                              ),
-                                              action: SnackBarAction(
-                                                label: 'Close',
-                                                textColor: Colors.white,
-                                                onPressed: () {},
-                                              ),
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: const Text(
+                                            'Something went wrong',
+                                          ),
+                                          backgroundColor: Colors.indigo,
+                                          behavior: SnackBarBehavior.floating,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              10,
                                             ),
-                                          );
-                                        },
+                                          ),
+                                        ),
                                       );
                                     }
                                   })

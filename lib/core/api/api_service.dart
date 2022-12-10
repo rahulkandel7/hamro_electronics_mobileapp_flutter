@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/constants/api_constants.dart';
+import 'package:hamro_electronics/core/api/dio_exception.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final apiServiceProvider = Provider<ApiService>((ref) {
@@ -17,8 +18,8 @@ class ApiService {
     try {
       final result = await dio.get(endpoint);
       return result.data;
-    } catch (e) {
-      rethrow;
+    } on DioError catch (e) {
+      throw DioException.fromDioError(e);
     }
   }
 
@@ -33,7 +34,7 @@ class ApiService {
     try {
       final result = await dio.get(endpoint);
       return result.data;
-    } catch (e) {
+    } on DioError {
       rethrow;
     }
   }
@@ -70,8 +71,8 @@ class ApiService {
     try {
       final result = await dio.post(endpoint, data: pdata);
       return result.data;
-    } catch (e) {
-      rethrow;
+    } on DioError catch (e) {
+      throw DioException.fromDioError(e);
     }
   }
 

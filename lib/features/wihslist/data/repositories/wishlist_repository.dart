@@ -2,13 +2,14 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/core/api/api_error.dart';
+import 'package:hamro_electronics/core/api/dio_exception.dart';
 import 'package:hamro_electronics/features/wihslist/data/data_sources/wishlist_data_source.dart';
 import 'package:hamro_electronics/features/wihslist/data/models/wishlist.dart';
 
 abstract class WishlistRepository {
   Future<Either<ApiError, List<Wishlist>>> getWishlist();
-  Future<Either<ApiError, void>> addToWishlist(var pdata);
-  Future<Either<ApiError, void>> removeFromWishlist(int id);
+  Future<Either<ApiError, String>> addToWishlist(var pdata);
+  Future<Either<ApiError, String>> removeFromWishlist(int id);
 }
 
 final wishlistRepositoryProvider = Provider<WishlistRepositoryImpl>((ref) {
@@ -34,28 +35,28 @@ class WishlistRepositoryImpl extends WishlistRepository {
   }
 
   @override
-  Future<Either<ApiError, void>> addToWishlist(pdata) async {
+  Future<Either<ApiError, String>> addToWishlist(pdata) async {
     try {
       final result = await _wishlistDataSource.addToWishlist(pdata);
       return Right(result);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Left(
         ApiError(
-          message: e.message,
+          message: e.message!,
         ),
       );
     }
   }
 
   @override
-  Future<Either<ApiError, void>> removeFromWishlist(id) async {
+  Future<Either<ApiError, String>> removeFromWishlist(id) async {
     try {
       final result = await _wishlistDataSource.removeFromWishlist(id);
       return Right(result);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Left(
         ApiError(
-          message: e.message,
+          message: e.message!,
         ),
       );
     }

@@ -48,8 +48,8 @@ class HomePageState extends ConsumerState<HomePage> {
 
   @override
   void initState() {
-    ref.read(bannerControllerProvider.notifier);
-    ref.read(brandControllerProvider.notifier);
+    ref.read(bannerControllerProvider);
+    ref.read(brandControllerProvider);
     checkIsLogin();
 
     ref.read(shippingProvider.notifier).fetchShipping();

@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/controllers/cartController.dart';
+import 'package:hamro_electronics/features/cart/presentation/controllers/cartController.dart';
 
 class CartItem extends ConsumerStatefulWidget {
   final int id;
@@ -55,10 +53,12 @@ class CartItemState extends ConsumerState<CartItem> {
       ),
       direction: DismissDirection.endToStart,
       onDismissed: (direction) {
-        ref.read(cartProvider.notifier).deleteCart(widget.id).then((value) {
-          final extractedData = json.decode(value.body);
-          if (extractedData['status'] == true) {
-            ref.refresh(cartProvider);
+        ref
+            .read(cartControllerProvider.notifier)
+            .deleteCart(widget.id)
+            .then((value) {
+          if (value) {
+            ref.refresh(cartControllerProvider);
             return ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: const Text(
@@ -184,7 +184,7 @@ class CartItemState extends ConsumerState<CartItem> {
                           widget.quantity--;
                         });
                         ref
-                            .read(cartProvider.notifier)
+                            .read(cartControllerProvider.notifier)
                             .updateQuantity(widget.id, widget.quantity);
                       }
                     });
@@ -205,7 +205,7 @@ class CartItemState extends ConsumerState<CartItem> {
                         widget.quantity++;
                       });
                       ref
-                          .read(cartProvider.notifier)
+                          .read(cartControllerProvider.notifier)
                           .updateQuantity(widget.id, widget.quantity);
                     }
                   },

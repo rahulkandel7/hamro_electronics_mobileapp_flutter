@@ -4,8 +4,8 @@ import 'package:hamro_electronics/features/wihslist/data/models/wishlist.dart';
 
 abstract class WishlistDataSource {
   Future<List<Wishlist>> getWishlist();
-  Future<void> addToWishlist(var pdata);
-  Future<void> removeFromWishlist(int id);
+  Future<String> addToWishlist(var pdata);
+  Future<String> removeFromWishlist(int id);
 }
 
 final wishlistDataSourceProvider = Provider<WishlistDataSourceImpl>((ref) {
@@ -24,16 +24,17 @@ class WishlistDataSourceImpl extends WishlistDataSource {
   }
 
   @override
-  Future<void> addToWishlist(var pdata) async {
+  Future<String> addToWishlist(var pdata) async {
     final result = await _apiService.postDataWithAuthorize(
         endpoint: 'wishlist', pdata: pdata);
-    return result;
+
+    return result['message'];
   }
 
   @override
-  Future<void> removeFromWishlist(id) async {
+  Future<String> removeFromWishlist(id) async {
     final result =
         await _apiService.deleteWithAuthorize(endpoint: 'wishlist/$id');
-    return result;
+    return result['message'];
   }
 }

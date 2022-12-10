@@ -17,18 +17,29 @@ class WishlistController extends StateNotifier<AsyncValue<List<Wishlist>>> {
     );
   }
 
-  Future<bool> addToWishlist(int id) async {
+  Future<List<String>> addToWishlist(int id) async {
     var data = {'product_id': id};
     final result = await _wishlistRepository.addToWishlist(data);
-    return result.fold(
-      (error) => false,
-      (sucess) => true,
-    );
+    return result.fold((error) {
+      List<String> msg = ['false', error.message];
+      return msg;
+    }, (sucess) {
+      fetchWishlist();
+      List<String> msg = ['true', sucess];
+      return msg;
+    });
   }
 
-  Future<bool> removeFromWishlist(int id) async {
+  Future<List<String>> removeFromWishlist(int id) async {
     final result = await _wishlistRepository.removeFromWishlist(id);
-    return result.fold((error) => false, (sucess) => true);
+    return result.fold((error) {
+      List<String> msg = ['false', error.message];
+      return msg;
+    }, (sucess) {
+      fetchWishlist();
+      List<String> msg = ['true', sucess];
+      return msg;
+    });
   }
 
   bool isWishlist(int id) {

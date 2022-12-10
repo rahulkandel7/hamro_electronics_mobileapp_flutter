@@ -23,7 +23,7 @@ class CategoryRepositoryImpl extends CategoryRepository {
       final result = await _categoryDataSource.getCategory();
       return Right(result);
     } on DioError catch (e) {
-      return Left(ApiError(message: e.error));
+      return Left(ApiError(message: e.message));
     }
   }
 }
