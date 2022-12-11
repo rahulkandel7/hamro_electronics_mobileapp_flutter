@@ -3,17 +3,20 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:hamro_electronics/controllers/couponController.dart';
-import 'package:hamro_electronics/controllers/orderController.dart';
 import 'package:hamro_electronics/controllers/productController.dart';
-import 'package:hamro_electronics/controllers/shippingController.dart';
-import 'package:hamro_electronics/features/cart/presentation/controllers/cartController.dart';
 
-import 'package:hamro_electronics/models/coupon.dart';
+import 'package:hamro_electronics/core/utils/toast.dart';
+import 'package:hamro_electronics/features/cart/presentation/controllers/cartController.dart';
+import 'package:hamro_electronics/features/checkout/presentation/controllers/checkoutController.dart';
+import 'package:hamro_electronics/features/checkout/presentation/controllers/shippingController.dart';
+
 import 'package:hamro_electronics/models/product.dart';
-import 'package:hamro_electronics/models/shipping.dart';
+import 'package:hamro_electronics/features/checkout/data/models/shipping.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../data/models/coupon.dart';
+import '../controllers/couponController.dart';
 
 class CheckoutScreen extends ConsumerStatefulWidget {
   static const routeName = "/checkout";
@@ -97,8 +100,8 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                 cartId.add(cart.id.toString());
               }
               List<Shipping> shipping =
-                  ref.watch(shippingProvider.notifier).state;
-              List<Coupon> coupons = ref.watch(couponProvider.notifier).state;
+                  ref.watch(shippingControllerProvider).value!;
+              List<Coupon> coupons = ref.watch(couponControllerProvider).value!;
 
               return Padding(
                 padding:
@@ -676,43 +679,43 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                             return;
                           }
 
+                          var data = {
+                            'cart_id': cartId
+                                .toString()
+                                .replaceAll('[', '')
+                                .replaceAll(']', ''),
+                            'shipping_id': shippingId.toString(),
+                            'coupon_id': couponId.toString(),
+                            'coupon_amount': couponAmount.toString(),
+                            'delivery_charge': deliveryCharge.toString(),
+                            'shipping_address': shippingAddress,
+                            'phone': phone,
+                            'fullname': fullname,
+                          };
+
                           ref
-                              .read(orderProvider.notifier)
-                              .placeOrder(
-                                cartId,
-                                shippingId,
-                                couponId,
-                                couponAmount,
-                                deliveryCharge,
-                                shippingAddress,
-                                phone,
-                                fullname,
-                              )
+                              .read(checkoutControllerProvider.notifier)
+                              .checkout(data)
                               .then((value) {
-                            final extractedData = json.decode(value.body);
-                            if (value.statusCode == 200) {
-                              if (extractedData['status'] == true) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      extractedData['message'],
-                                    ),
-                                    backgroundColor: Colors.indigo,
-                                    behavior: SnackBarBehavior.floating,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                        10,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                                for (var cart in data) {
-                                  ref
-                                      .read(cartControllerProvider.notifier)
-                                      .updateOrder(cart.id);
-                                }
-                                Navigator.of(context).pop();
+                            if (value[0] == 'true') {
+                              for (var cart in cartId) {
+                                ref
+                                    .read(cartControllerProvider.notifier)
+                                    .updateOrder(
+                                      int.parse(cart),
+                                    );
                               }
+                              Navigator.of(context).pop();
+                              return toast(
+                                context: context,
+                                label: value[1],
+                                color: Colors.indigo,
+                              );
+                            } else {
+                              return toast(
+                                  context: context,
+                                  label: value[1],
+                                  color: Colors.red);
                             }
                           });
                         },

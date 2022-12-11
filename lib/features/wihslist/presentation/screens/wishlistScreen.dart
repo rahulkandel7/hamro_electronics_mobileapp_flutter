@@ -8,7 +8,7 @@ import 'package:hamro_electronics/models/product.dart';
 
 import 'package:hamro_electronics/screens/widgets/shimmers/wishlistShimmer.dart';
 
-import 'package:hamro_electronics/screens/widgets/wishlistItem.dart';
+import 'package:hamro_electronics/features/wihslist/presentation/widgets/wishlistItem.dart';
 
 class WishlistScreen extends ConsumerStatefulWidget {
   static const routeName = "/wishlist";

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/features/wihslist/presentation/controllers/wishlistController.dart';
 import 'package:hamro_electronics/screens/productView.dart';
 
-import '../../core/utils/toast.dart';
+import '../../../../core/utils/toast.dart';
 
 class WishlistItem extends ConsumerWidget {
   final int id;

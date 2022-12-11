@@ -7,6 +7,8 @@ import 'package:hamro_electronics/features/brand/presentation/controllers/brandC
 import 'package:hamro_electronics/features/category/data/models/Category.dart';
 import 'package:hamro_electronics/features/category/presentation/controllers/categoryController.dart';
 import 'package:hamro_electronics/features/auth/presentation/screens/loginScreen.dart';
+import 'package:hamro_electronics/features/checkout/presentation/controllers/couponController.dart';
+import 'package:hamro_electronics/features/checkout/presentation/controllers/shippingController.dart';
 import 'package:hamro_electronics/features/home/presentation/controllers/bannerController.dart';
 
 import 'package:hamro_electronics/screens/widgets/shimmers/homeCategoryShimmer.dart';
@@ -14,13 +16,12 @@ import 'package:hamro_electronics/screens/widgets/shimmers/homeProductShimmer.da
 import 'package:hamro_electronics/features/wihslist/presentation/screens/wishlistScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../controllers/couponController.dart';
 import '../../../../controllers/productController.dart';
-import '../../../../controllers/shippingController.dart';
+
 import '../../../../models/product.dart';
 import '../../../category/presentation/screens/categoryViewScreen.dart';
 import '../../../../screens/productView.dart';
-import '../../../../screens/widgets/homeCategory.dart';
+import '../widgets/homeCategory.dart';
 import '../../../../screens/widgets/productItem.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -52,8 +53,8 @@ class HomePageState extends ConsumerState<HomePage> {
     ref.read(brandControllerProvider);
     checkIsLogin();
 
-    ref.read(shippingProvider.notifier).fetchShipping();
-    ref.read(couponProvider.notifier).fetchCoupon();
+    ref.read(shippingControllerProvider);
+    ref.read(couponControllerProvider);
 
     super.initState();
   }

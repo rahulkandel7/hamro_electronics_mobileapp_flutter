@@ -5,8 +5,8 @@ import 'package:hamro_electronics/controllers/productController.dart';
 import 'package:hamro_electronics/features/cart/data/models/cart.dart';
 import 'package:hamro_electronics/features/cart/presentation/controllers/cartController.dart';
 import 'package:hamro_electronics/models/product.dart';
-import 'package:hamro_electronics/screens/checkoutScreen.dart';
-import 'package:hamro_electronics/screens/widgets/cartItem.dart';
+import 'package:hamro_electronics/features/checkout/presentation/screens/checkoutScreen.dart';
+import 'package:hamro_electronics/features/cart/presentation/widgets/cartItem.dart';
 
 class CartScreen extends ConsumerWidget {
   static const routeName = "/cart";
