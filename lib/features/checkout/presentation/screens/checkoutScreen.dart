@@ -3,15 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:hamro_electronics/controllers/productController.dart';
-
 import 'package:hamro_electronics/core/utils/toast.dart';
 import 'package:hamro_electronics/features/cart/presentation/controllers/cartController.dart';
 import 'package:hamro_electronics/features/checkout/presentation/controllers/checkoutController.dart';
 import 'package:hamro_electronics/features/checkout/presentation/controllers/shippingController.dart';
 
-import 'package:hamro_electronics/models/product.dart';
 import 'package:hamro_electronics/features/checkout/data/models/shipping.dart';
+import 'package:hamro_electronics/features/product_view/data/models/product.dart';
+import 'package:hamro_electronics/features/product_view/presentation/controllers/productController.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -90,7 +89,7 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
 
               for (var cart in data) {
                 Product product = ref
-                    .read(productProvider.notifier)
+                    .read(productControllerProvider.notifier)
                     .findProduct(cart.productId);
                 if (product.discountedprice > 0) {
                   total = total + product.discountedprice * cart.quantity;

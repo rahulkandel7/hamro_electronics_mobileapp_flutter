@@ -4,10 +4,9 @@ import 'package:hamro_electronics/features/category/data/models/Category.dart';
 
 import 'package:hamro_electronics/features/category/presentation/controllers/categoryController.dart';
 import 'package:hamro_electronics/features/category/presentation/controllers/subCategoryController.dart';
+import 'package:hamro_electronics/features/product_view/presentation/controllers/productController.dart';
 
-import '/controllers/productController.dart';
-
-import '/models/product.dart';
+import '../../../product_view/data/models/product.dart';
 import '../../data/models/subCategory.dart';
 import '/screens/widgets/productItem.dart';
 
@@ -31,7 +30,7 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
     Category category =
         ref.watch(categoryControllerProvider.notifier).findCategory(id);
     List<Product> products =
-        ref.watch(productProvider.notifier).findByCategory(id);
+        ref.watch(productControllerProvider.notifier).findByCategory(id);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -88,7 +87,8 @@ class CategoryViewScreenState extends ConsumerState<CategoryViewScreen> {
                                         setState(() {
                                           _value = subCategory[i].id;
                                           subProducts = ref
-                                              .read(productProvider.notifier)
+                                              .read(productControllerProvider
+                                                  .notifier)
                                               .findBySubCategory(
                                                   subCategory[i].id);
                                         });

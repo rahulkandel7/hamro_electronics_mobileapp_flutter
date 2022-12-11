@@ -3,22 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/controllers/commentController.dart';
+
 import 'package:hamro_electronics/core/utils/toast.dart';
 import 'package:hamro_electronics/features/brand/presentation/controllers/brandController.dart';
 import 'package:hamro_electronics/features/cart/presentation/controllers/cartController.dart';
+import 'package:hamro_electronics/features/product_view/data/models/comment.dart';
+import 'package:hamro_electronics/features/product_view/data/models/product.dart';
+import 'package:hamro_electronics/features/product_view/presentation/controllers/commentController.dart';
+import 'package:hamro_electronics/features/product_view/presentation/controllers/productController.dart';
 import 'package:hamro_electronics/features/wihslist/presentation/controllers/wishlistController.dart';
-import 'package:hamro_electronics/models/comment.dart';
+
 import 'package:hamro_electronics/features/wihslist/data/models/wishlist.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../features/auth/presentation/screens/loginScreen.dart';
-import '/controllers/productController.dart';
-import '../features/brand/data/models/brand.dart';
+import '../../../auth/presentation/screens/loginScreen.dart';
+import '../../../brand/data/models/brand.dart';
 
-import '/models/product.dart';
-import 'widgets/productItem.dart';
+import '../../../../screens/widgets/productItem.dart';
 
 class ProductView extends ConsumerStatefulWidget {
   static const routeName = '/productView';
@@ -295,14 +297,18 @@ class ProductViewState extends ConsumerState<ProductView> {
   Widget build(BuildContext context) {
     Size mediaQuery = MediaQuery.of(context).size;
     int id = ModalRoute.of(context)!.settings.arguments as int;
-    Product product = ref.watch(productProvider.notifier).findProduct(id);
+    Product product =
+        ref.watch(productControllerProvider.notifier).findProduct(id);
     Brand brand =
         ref.watch(brandControllerProvider.notifier).getBrand(product.brandId);
     int off = ((product.price - product.discountedprice) / product.price * 100)
         .toInt();
 
-    List<Product> suggestedProducts =
-        ref.watch(productProvider.notifier).findByCategory(product.categoryId);
+    List<Product> suggestedProducts = ref
+        .watch(productControllerProvider.notifier)
+        .findByCategory(product.categoryId);
+
+    ref.watch(commentControllerProvider.notifier).fetchComments(product.id);
 
     return Scaffold(
       appBar: AppBar(
@@ -664,7 +670,7 @@ class ProductViewState extends ConsumerState<ProductView> {
                         style: Theme.of(context).textTheme.headline5,
                       ),
                       children: [
-                        ref.watch(fetchComment(id)).when(
+                        ref.watch(commentControllerProvider).when(
                               data: (data) {
                                 List<Comment> comments = data
                                     .where((comment) =>
@@ -895,26 +901,6 @@ class ProductViewState extends ConsumerState<ProductView> {
                             ),
                           ),
                           onPressed: () {
-                            // if (color == '') {
-                            //   ScaffoldMessenger.of(context).showSnackBar(
-                            //     SnackBar(
-                            //       content: const Text('Please Select Color'),
-                            //       backgroundColor: Colors.red,
-                            //       behavior: SnackBarBehavior.floating,
-                            //       shape: RoundedRectangleBorder(
-                            //         borderRadius: BorderRadius.circular(
-                            //           10,
-                            //         ),
-                            //       ),
-                            //       action: SnackBarAction(
-                            //         label: 'Close',
-                            //         textColor: Colors.white,
-                            //         onPressed: () {},
-                            //       ),
-                            //     ),
-                            //   );
-                            // }
-
                             var pdata = {
                               'product_id': product.id,
                               'color': color,

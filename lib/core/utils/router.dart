@@ -6,8 +6,8 @@ import 'package:hamro_electronics/screens/editProfileScreen.dart';
 import 'package:hamro_electronics/features/auth/presentation/screens/loginScreen.dart';
 import 'package:hamro_electronics/screens/navbar.dart';
 import 'package:hamro_electronics/screens/onboarding_screen.dart';
-import 'package:hamro_electronics/screens/ordersScreen.dart';
-import 'package:hamro_electronics/screens/productView.dart';
+import 'package:hamro_electronics/features/viewOrder/presentation/screen/ordersScreen.dart';
+import 'package:hamro_electronics/features/product_view/presentation/screens/productView.dart';
 import 'package:hamro_electronics/features/auth/presentation/screens/registerScreen.dart';
 import 'package:hamro_electronics/features/wihslist/presentation/screens/wishlistScreen.dart';
 

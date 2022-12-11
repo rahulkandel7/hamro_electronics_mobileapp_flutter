@@ -11,64 +11,6 @@ class UserController extends StateNotifier<List<User>> {
 
   UserController(super.createFn);
 
-//* Function to register user
-  Future<http.Response> register(User user) async {
-    final response = await http.post(
-      Uri.parse('${url}register'),
-      body: {
-        'name': user.name,
-        'address': user.address,
-        'email': user.email,
-        'phone_number': user.mobile,
-        'password': user.password,
-        'confirm_password': user.confirmPassword,
-        'gender': user.gender
-      },
-    );
-
-    if (response.statusCode == 200) {
-      var res = json.decode(response.body);
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('token', res['token']);
-      prefs.setString('user', json.encode(res['user']));
-    }
-
-    return response;
-  }
-
-  //* Function to Logout User
-  Future<http.Response> logout() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    final response = await http.post(Uri.parse('${url}logout'), headers: {
-      'Authorization': 'Bearer ${prefs.getString('token')}',
-    });
-
-    if (response.statusCode == 200) {
-      prefs.remove('token');
-      prefs.remove('user');
-    }
-
-    return response;
-  }
-
-  //* Function to Login User
-  Future<http.Response> login(String email, String password) async {
-    final response = await http.post(
-      Uri.parse('${url}login'),
-      body: {'email': email, 'password': password},
-    );
-
-    if (response.statusCode == 200) {
-      final res = json.decode(response.body);
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('token', res['token']);
-      prefs.setString('user', json.encode(res['user']));
-    }
-
-    return response;
-  }
-
   //* Function to change password
   Future<http.Response> changePassword(
     String currentPassword,

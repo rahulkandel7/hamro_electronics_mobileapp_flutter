@@ -10,17 +10,16 @@ import 'package:hamro_electronics/features/auth/presentation/screens/loginScreen
 import 'package:hamro_electronics/features/checkout/presentation/controllers/couponController.dart';
 import 'package:hamro_electronics/features/checkout/presentation/controllers/shippingController.dart';
 import 'package:hamro_electronics/features/home/presentation/controllers/bannerController.dart';
+import 'package:hamro_electronics/features/product_view/data/models/product.dart';
+import 'package:hamro_electronics/features/product_view/presentation/controllers/productController.dart';
 
 import 'package:hamro_electronics/screens/widgets/shimmers/homeCategoryShimmer.dart';
 import 'package:hamro_electronics/screens/widgets/shimmers/homeProductShimmer.dart';
 import 'package:hamro_electronics/features/wihslist/presentation/screens/wishlistScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../controllers/productController.dart';
-
-import '../../../../models/product.dart';
 import '../../../category/presentation/screens/categoryViewScreen.dart';
-import '../../../../screens/productView.dart';
+import '../../../product_view/presentation/screens/productView.dart';
 import '../widgets/homeCategory.dart';
 import '../../../../screens/widgets/productItem.dart';
 
@@ -177,7 +176,7 @@ class HomePageState extends ConsumerState<HomePage> {
                           child: GestureDetector(
                             onTap: () async {
                               List<Product> products =
-                                  ref.read(productProvider.notifier).state;
+                                  ref.read(productControllerProvider).value!;
                               showSearch(
                                 context: context,
                                 delegate: CustomSearch(
@@ -285,7 +284,7 @@ class HomePageState extends ConsumerState<HomePage> {
                   height: 10,
                 ),
 
-                ref.watch(fetchProduct).when(
+                ref.watch(productControllerProvider).when(
                       data: (data) {
                         List<Product> saleProducts = data
                             .where(
@@ -396,7 +395,7 @@ class HomePageState extends ConsumerState<HomePage> {
                   },
                 ),
 
-                ref.watch(fetchProduct).when(
+                ref.watch(productControllerProvider).when(
                       data: (data) {
                         List<Category> categories = [];
 

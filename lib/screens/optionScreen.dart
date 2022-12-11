@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/features/auth/presentation/controllers/authController.dart';
 import 'package:hamro_electronics/screens/editProfileScreen.dart';
 import 'package:hamro_electronics/features/auth/presentation/screens/loginScreen.dart';
-import 'package:hamro_electronics/screens/ordersScreen.dart';
+import 'package:hamro_electronics/features/viewOrder/presentation/screen/ordersScreen.dart';
 import 'package:hamro_electronics/features/wihslist/presentation/screens/wishlistScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
