@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/core/utils/toast.dart';
-import 'package:hamro_electronics/features/editProfile/presentation/controllers/edit_profile_controller.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/providers/userInfoProvider.dart';
+import '../../../../core/utils/toast.dart';
+import '../controllers/edit_profile_controller.dart';
 
 class EditProfileScreen extends ConsumerStatefulWidget {
   static const routeName = "/edit-profile";
