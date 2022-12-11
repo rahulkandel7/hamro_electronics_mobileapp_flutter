@@ -14,7 +14,7 @@ abstract class CartRepository {
   Future<Either<ApiError, void>> updateOrder(int cartId, var pdata);
 }
 
-final cartRepositoryProvider = Provider<CartRepositoryImpl>((ref) {
+final cartRepositoryProvider = Provider<CartRepository>((ref) {
   return CartRepositoryImpl(ref.read(cartDataSourceProvider));
 });
 

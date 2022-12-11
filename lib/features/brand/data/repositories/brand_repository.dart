@@ -9,7 +9,7 @@ abstract class BrandRepository {
   Future<Either<ApiError, List<Brand>>> getBrand();
 }
 
-final brandRepositoryProvider = Provider<BrandRepositoryImpl>((ref) {
+final brandRepositoryProvider = Provider<BrandRepository>((ref) {
   return BrandRepositoryImpl(ref.read(brandDataSourceProvider));
 });
 

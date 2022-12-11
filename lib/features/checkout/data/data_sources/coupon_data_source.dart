@@ -6,7 +6,7 @@ abstract class CouponDataSource {
   Future<List<Coupon>> getCoupon();
 }
 
-final couponDataSourceProvider = Provider<CouponDataSourceImpl>((ref) {
+final couponDataSourceProvider = Provider<CouponDataSource>((ref) {
   return CouponDataSourceImpl(ref.read(apiServiceProvider));
 });
 

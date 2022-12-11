@@ -10,7 +10,7 @@ abstract class AuthDataSources {
   Future<void> register(var pdata);
 }
 
-final authDataSourceProvider = Provider<AuthDataSourcesImpl>((ref) {
+final authDataSourceProvider = Provider<AuthDataSources>((ref) {
   return AuthDataSourcesImpl(ref.read(apiServiceProvider));
 });
 

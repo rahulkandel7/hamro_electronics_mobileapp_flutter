@@ -9,7 +9,7 @@ abstract class ShippingRepository {
   Future<Either<ApiError, List<Shipping>>> getShipping();
 }
 
-final shippingRepositoryProvider = Provider<ShippingRepositoryImpl>((ref) {
+final shippingRepositoryProvider = Provider<ShippingRepository>((ref) {
   return ShippingRepositoryImpl(ref.read(shippingDataSourceProvider));
 });
 

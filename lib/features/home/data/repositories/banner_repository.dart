@@ -9,7 +9,7 @@ abstract class BannerRepository {
   Future<Either<ApiError, List<Banner>>> getBanner();
 }
 
-final bannerRepositoryProvider = Provider<BannerRepositoryImpl>((ref) {
+final bannerRepositoryProvider = Provider<BannerRepository>((ref) {
   return BannerRepositoryImpl(ref.read(bannerDataSourceProvider));
 });
 

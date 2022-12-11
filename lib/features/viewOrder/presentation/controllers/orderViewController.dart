@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/features/view_order/data/models/orderView.dart';
-import 'package:hamro_electronics/features/view_order/data/repositories/order_view_repository.dart';
+import 'package:hamro_electronics/features/viewOrder/data/models/orderView.dart';
+import 'package:hamro_electronics/features/viewOrder/data/repositories/order_view_repository.dart';
 
 class OrderViewController extends StateNotifier<AsyncValue<List<OrderView>>> {
   OrderViewController(this._orderViewRepository) : super(const AsyncLoading()) {

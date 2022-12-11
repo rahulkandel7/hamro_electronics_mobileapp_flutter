@@ -6,7 +6,7 @@ abstract class BrandDataSource {
   Future<List<Brand>> getBrand();
 }
 
-final brandDataSourceProvider = Provider<BrandDataSourceImpl>((ref) {
+final brandDataSourceProvider = Provider<BrandDataSource>((ref) {
   return BrandDataSourceImpl(ref.read(apiServiceProvider));
 });
 

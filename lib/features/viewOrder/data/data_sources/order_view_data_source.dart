@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/core/api/api_service.dart';
-import 'package:hamro_electronics/features/view_order/data/models/orderView.dart';
+import 'package:hamro_electronics/features/viewOrder/data/models/orderView.dart';
 
 abstract class OrderViewDataSource {
   Future<List<OrderView>> getOrders();
 }
 
-final orderViewDataSourceProvider = Provider<OrderViewDataSourceImpl>((ref) {
+final orderViewDataSourceProvider = Provider<OrderViewDataSource>((ref) {
   return OrderViewDataSourceImpl(ref.read(apiServiceProvider));
 });
 

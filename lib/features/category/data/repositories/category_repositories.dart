@@ -9,7 +9,7 @@ abstract class CategoryRepository {
   Future<Either<ApiError, List<Category>>> getCategory();
 }
 
-final categoryRepoProvider = Provider<CategoryRepositoryImpl>((ref) {
+final categoryRepoProvider = Provider<CategoryRepository>((ref) {
   return CategoryRepositoryImpl(ref.read(categoryDataSourceProvider));
 });
 

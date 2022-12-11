@@ -9,7 +9,7 @@ abstract class CouponRepository {
   Future<Either<ApiError, List<Coupon>>> getCoupon();
 }
 
-final couponRepositoryProvider = Provider<CouponRepositoryImpl>((ref) {
+final couponRepositoryProvider = Provider<CouponRepository>((ref) {
   return CouponRepositoryImpl(ref.read(couponDataSourceProvider));
 });
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:hamro_electronics/features/view_order/data/models/orderView.dart';
-import 'package:hamro_electronics/features/view_order/presentation/controllers/orderViewController.dart';
+import 'package:hamro_electronics/features/viewOrder/data/models/orderView.dart';
+import 'package:hamro_electronics/features/viewOrder/presentation/controllers/orderViewController.dart';
 
-import 'package:hamro_electronics/features/view_order/presentation/widgets/ordersItem.dart';
+import 'package:hamro_electronics/features/viewOrder/presentation/widgets/ordersItem.dart';
 
 class OrdersScreen extends ConsumerWidget {
   static const routeName = '/orders';

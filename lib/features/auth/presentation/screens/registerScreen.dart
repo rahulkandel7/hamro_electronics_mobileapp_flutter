@@ -4,7 +4,7 @@ import 'package:hamro_electronics/features/auth/presentation/controllers/authCon
 
 import '../../../../screens/navbar.dart';
 import 'loginScreen.dart';
-import '../../../../models/user.dart';
+import '../../data/models/user.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
   static const routeName = "/register";

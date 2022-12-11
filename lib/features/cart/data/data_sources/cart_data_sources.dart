@@ -10,7 +10,7 @@ abstract class CartDataSource {
   Future<void> updateOrder(int cartId, var pdata);
 }
 
-final cartDataSourceProvider = Provider<CartDataSourceImpl>((ref) {
+final cartDataSourceProvider = Provider<CartDataSource>((ref) {
   return CartDataSourceImpl(ref.read(apiServiceProvider));
 });
 

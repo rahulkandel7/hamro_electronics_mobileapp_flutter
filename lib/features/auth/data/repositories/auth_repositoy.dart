@@ -10,7 +10,7 @@ abstract class AuthRepository {
   Future<Either<ApiError, void>> logout();
 }
 
-final authRepositoryProvider = Provider<AuthRepositoryImpl>((ref) {
+final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepositoryImpl(ref.read(authDataSourceProvider));
 });
 

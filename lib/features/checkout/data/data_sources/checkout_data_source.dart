@@ -5,7 +5,7 @@ abstract class CheckoutDataSource {
   Future<String> checkout(var pdata);
 }
 
-final checkoutDataSourceProvider = Provider<CheckoutDataSourceImpl>((ref) {
+final checkoutDataSourceProvider = Provider<CheckoutDataSource>((ref) {
   return CheckoutDataSourceImpl(ref.read(apiServiceProvider));
 });
 

@@ -6,8 +6,7 @@ abstract class SubCategoryDataSource {
   Future<List<SubCategory>> getSubCategory();
 }
 
-final subCategoryDataSourceProvider =
-    Provider<SubCategoryDataSourceImpl>((ref) {
+final subCategoryDataSourceProvider = Provider<SubCategoryDataSource>((ref) {
   return SubCategoryDataSourceImpl(ref.read(apiServiceProvider));
 });
 

@@ -6,7 +6,7 @@ abstract class ShippingDataSource {
   Future<List<Shipping>> getShipping();
 }
 
-final shippingDataSourceProvider = Provider<ShippingDataSourceImpl>((ref) {
+final shippingDataSourceProvider = Provider<ShippingDataSource>((ref) {
   return ShippingDataSourceImpl(ref.read(apiServiceProvider));
 });
 

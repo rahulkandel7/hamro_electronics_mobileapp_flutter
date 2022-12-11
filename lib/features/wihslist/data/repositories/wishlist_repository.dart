@@ -11,7 +11,7 @@ abstract class WishlistRepository {
   Future<Either<ApiError, String>> removeFromWishlist(int id);
 }
 
-final wishlistRepositoryProvider = Provider<WishlistRepositoryImpl>((ref) {
+final wishlistRepositoryProvider = Provider<WishlistRepository>((ref) {
   return WishlistRepositoryImpl(ref.read(wishlistDataSourceProvider));
 });
 

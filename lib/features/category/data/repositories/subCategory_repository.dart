@@ -9,8 +9,7 @@ abstract class SubCategoryRepository {
   Future<Either<ApiError, List<SubCategory>>> getSubCategory();
 }
 
-final subCategoryRepositoryProvider =
-    Provider<SubCategoryRepositoryImpl>((ref) {
+final subCategoryRepositoryProvider = Provider<SubCategoryRepository>((ref) {
   return SubCategoryRepositoryImpl(ref.read(subCategoryDataSourceProvider));
 });
 

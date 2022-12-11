@@ -6,7 +6,7 @@ abstract class BannerDataSource {
   Future<List<Banner>> getBanner();
 }
 
-final bannerDataSourceProvider = Provider<BannerDataSourceImpl>((ref) {
+final bannerDataSourceProvider = Provider<BannerDataSource>((ref) {
   return BannerDataSourceImpl(ref.read(apiServiceProvider));
 });
 

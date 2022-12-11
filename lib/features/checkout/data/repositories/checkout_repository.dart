@@ -8,7 +8,7 @@ abstract class CheckoutRepository {
   Future<Either<ApiError, String>> checkout(var pdata);
 }
 
-final checkoutRepositoryProvider = Provider<CheckoutRepositoryImpl>((ref) {
+final checkoutRepositoryProvider = Provider<CheckoutRepository>((ref) {
   return CheckoutRepositoryImpl(ref.read(checkoutDataSourceProvider));
 });
 

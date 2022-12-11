@@ -8,7 +8,7 @@ abstract class WishlistDataSource {
   Future<String> removeFromWishlist(int id);
 }
 
-final wishlistDataSourceProvider = Provider<WishlistDataSourceImpl>((ref) {
+final wishlistDataSourceProvider = Provider<WishlistDataSource>((ref) {
   return WishlistDataSourceImpl(ref.read(apiServiceProvider));
 });
 

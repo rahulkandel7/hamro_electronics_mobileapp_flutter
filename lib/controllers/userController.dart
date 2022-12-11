@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/user.dart';
+import '../features/auth/data/models/user.dart';
 
 class UserController extends StateNotifier<List<User>> {
   final String url = 'https://www.api.hamroelectronics.com.np/api/v1/';

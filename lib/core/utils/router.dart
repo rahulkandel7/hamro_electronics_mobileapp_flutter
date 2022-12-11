@@ -9,7 +9,6 @@ import 'package:hamro_electronics/screens/onboarding_screen.dart';
 import 'package:hamro_electronics/screens/ordersScreen.dart';
 import 'package:hamro_electronics/screens/productView.dart';
 import 'package:hamro_electronics/features/auth/presentation/screens/registerScreen.dart';
-import 'package:hamro_electronics/screens/searchScreen.dart';
 import 'package:hamro_electronics/features/wihslist/presentation/screens/wishlistScreen.dart';
 
 Map<String, Widget Function(BuildContext)> routes = <String, WidgetBuilder>{
@@ -19,7 +18,6 @@ Map<String, Widget Function(BuildContext)> routes = <String, WidgetBuilder>{
   CategoryViewScreen.routeName: (context) => const CategoryViewScreen(),
   ProductView.routeName: (context) => const ProductView(),
   CartScreen.routeName: (context) => const CartScreen(),
-  SearchScreen.routeName: (context) => const SearchScreen(),
   CheckoutScreen.routeName: (context) => const CheckoutScreen(),
   WishlistScreen.routeName: (context) => const WishlistScreen(),
   EditProfileScreen.routeName: (context) => const EditProfileScreen(),
