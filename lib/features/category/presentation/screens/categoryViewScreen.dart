@@ -8,7 +8,7 @@ import 'package:hamro_electronics/features/product_view/presentation/controllers
 
 import '../../../product_view/data/models/product.dart';
 import '../../data/models/subCategory.dart';
-import '/screens/widgets/productItem.dart';
+import '../../../product_view/presentation/widgets/productItem.dart';
 
 class CategoryViewScreen extends ConsumerStatefulWidget {
   static const routeName = '/categoryViewScreen';

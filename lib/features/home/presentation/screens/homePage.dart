@@ -21,7 +21,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../category/presentation/screens/categoryViewScreen.dart';
 import '../../../product_view/presentation/screens/productView.dart';
 import '../widgets/homeCategory.dart';
-import '../../../../screens/widgets/productItem.dart';
+import '../../../product_view/presentation/widgets/productItem.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});

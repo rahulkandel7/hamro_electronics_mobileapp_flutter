@@ -20,7 +20,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../auth/presentation/screens/loginScreen.dart';
 import '../../../brand/data/models/brand.dart';
 
-import '../../../../screens/widgets/productItem.dart';
+import '../widgets/productItem.dart';
 
 class ProductView extends ConsumerStatefulWidget {
   static const routeName = '/productView';
