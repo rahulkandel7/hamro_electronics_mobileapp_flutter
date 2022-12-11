@@ -11,23 +11,6 @@ class UserController extends StateNotifier<List<User>> {
 
   UserController(super.createFn);
 
-  // //* Function to change password
-  // Future<http.Response> changePassword(
-  //   String currentPassword,
-  //   String newPassword,
-  // ) async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   final response =
-  //       await http.post(Uri.parse('${url}user/changepass'), headers: {
-  //     'Authorization': 'Bearer ${prefs.getString('token')}',
-  //   }, body: {
-  //     'current_password': currentPassword,
-  //     'new_password': newPassword,
-  //   });
-
-  //   return response;
-  // }
-
   //* Function to update Info
   Future<http.Response> updateInfo(
     String name,

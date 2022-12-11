@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/features/auth/presentation/controllers/authController.dart';
-import 'package:hamro_electronics/features/editProfile/presentation/screens/editProfileScreen.dart';
-import 'package:hamro_electronics/features/auth/presentation/screens/loginScreen.dart';
-import 'package:hamro_electronics/features/viewOrder/presentation/screen/ordersScreen.dart';
-import 'package:hamro_electronics/features/wihslist/presentation/screens/wishlistScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/auth/presentation/controllers/authController.dart';
+import '../../features/auth/presentation/screens/loginScreen.dart';
+import '../../features/editProfile/presentation/screens/editProfileScreen.dart';
+import '../../features/viewOrder/presentation/screen/ordersScreen.dart';
+import '../../features/wihslist/presentation/screens/wishlistScreen.dart';
 import '../core/utils/toast.dart';
 
 class OptionScreen extends StatefulWidget {

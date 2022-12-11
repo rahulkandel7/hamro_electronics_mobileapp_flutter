@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/core/api/api_service.dart';
-import 'package:hamro_electronics/features/cart/data/models/cart.dart';
+
+import '../../../../core/api/api_service.dart';
+import '../models/cart.dart';
 
 abstract class CartDataSource {
   Future<List<Cart>> fetchCart();

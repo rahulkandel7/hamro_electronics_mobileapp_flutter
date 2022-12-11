@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/features/cart/data/models/cart.dart';
-import 'package:hamro_electronics/features/cart/data/repositories/cart_repository.dart';
+
+import '../../data/models/cart.dart';
+import '../../data/repositories/cart_repository.dart';
 
 class CartController extends StateNotifier<AsyncValue<List<Cart>>> {
   CartController(this._cartRepository) : super(const AsyncLoading()) {

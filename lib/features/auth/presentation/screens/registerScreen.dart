@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/features/auth/presentation/controllers/authController.dart';
 
 import '../../../../core/screens/navbar.dart';
 import '../../../../core/utils/toast.dart';
+import '../controllers/authController.dart';
 import 'loginScreen.dart';
 import '../../data/models/user.dart';
 

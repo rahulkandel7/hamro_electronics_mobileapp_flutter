@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/features/auth/data/repositories/auth_repositoy.dart';
+
+import '../../data/repositories/auth_repositoy.dart';
 
 class AuthController extends StateNotifier<AsyncValue<void>> {
   // set the initial value

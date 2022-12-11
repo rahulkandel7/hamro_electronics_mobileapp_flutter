@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/core/api/api_error.dart';
-import 'package:hamro_electronics/core/api/dio_exception.dart';
-import 'package:hamro_electronics/features/cart/data/data_sources/cart_data_sources.dart';
 
+import '../../../../core/api/api_error.dart';
+import '../../../../core/api/dio_exception.dart';
+import '../data_sources/cart_data_sources.dart';
 import '../models/cart.dart';
 
 abstract class CartRepository {

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:hamro_electronics/features/cart/data/models/cart.dart';
-import 'package:hamro_electronics/features/cart/presentation/controllers/cartController.dart';
-import 'package:hamro_electronics/features/checkout/presentation/screens/checkoutScreen.dart';
-import 'package:hamro_electronics/features/cart/presentation/widgets/cartItem.dart';
-import 'package:hamro_electronics/features/product_view/presentation/controllers/productController.dart';
-
+import '../../../checkout/presentation/screens/checkoutScreen.dart';
 import '../../../product_view/data/models/product.dart';
+import '../../../product_view/presentation/controllers/productController.dart';
+import '../../data/models/cart.dart';
+import '../controllers/cartController.dart';
+import '../widgets/cartItem.dart';
 
 class CartScreen extends ConsumerWidget {
   static const routeName = "/cart";

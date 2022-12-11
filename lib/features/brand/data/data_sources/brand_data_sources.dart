@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/core/api/api_service.dart';
-import 'package:hamro_electronics/features/brand/data/models/brand.dart';
+
+import '../../../../core/api/api_service.dart';
+import '../models/brand.dart';
 
 abstract class BrandDataSource {
   Future<List<Brand>> getBrand();

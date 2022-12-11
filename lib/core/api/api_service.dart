@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/constants/api_constants.dart';
-import 'package:hamro_electronics/core/api/dio_exception.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../constants/api_constants.dart';
+import 'dio_exception.dart';
 
 final apiServiceProvider = Provider<ApiService>((ref) {
   return ApiService();

@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/core/api/api_error.dart';
-import 'package:hamro_electronics/features/brand/data/data_sources/brand_data_sources.dart';
-import 'package:hamro_electronics/features/brand/data/models/brand.dart';
+
+import '../../../../core/api/api_error.dart';
+import '../data_sources/brand_data_sources.dart';
+import '../models/brand.dart';
 
 abstract class BrandRepository {
   Future<Either<ApiError, List<Brand>>> getBrand();

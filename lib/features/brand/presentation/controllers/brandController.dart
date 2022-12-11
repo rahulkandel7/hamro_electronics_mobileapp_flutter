@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/features/brand/data/models/brand.dart';
-import 'package:hamro_electronics/features/brand/data/repositories/brand_repository.dart';
+
+import '../../data/models/brand.dart';
+import '../../data/repositories/brand_repository.dart';
 
 class BrandController extends StateNotifier<AsyncValue<List<Brand>>> {
   BrandController(this._brandRepository) : super(const AsyncLoading()) {
