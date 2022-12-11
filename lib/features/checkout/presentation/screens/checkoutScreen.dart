@@ -55,6 +55,8 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
   @override
   void initState() {
     super.initState();
+    ref.read(shippingControllerProvider);
+    ref.read(couponControllerProvider);
     getuserInfo();
   }
 

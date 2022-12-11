@@ -7,8 +7,6 @@ import 'package:hamro_electronics/features/brand/presentation/controllers/brandC
 import 'package:hamro_electronics/features/category/data/models/Category.dart';
 import 'package:hamro_electronics/features/category/presentation/controllers/categoryController.dart';
 import 'package:hamro_electronics/features/auth/presentation/screens/loginScreen.dart';
-import 'package:hamro_electronics/features/checkout/presentation/controllers/couponController.dart';
-import 'package:hamro_electronics/features/checkout/presentation/controllers/shippingController.dart';
 import 'package:hamro_electronics/features/home/presentation/controllers/bannerController.dart';
 import 'package:hamro_electronics/features/product_view/data/models/product.dart';
 import 'package:hamro_electronics/features/product_view/presentation/controllers/productController.dart';
@@ -51,10 +49,6 @@ class HomePageState extends ConsumerState<HomePage> {
     ref.read(bannerControllerProvider);
     ref.read(brandControllerProvider);
     checkIsLogin();
-
-    ref.read(shippingControllerProvider);
-    ref.read(couponControllerProvider);
-
     super.initState();
   }
 
