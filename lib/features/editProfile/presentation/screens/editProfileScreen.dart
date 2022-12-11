@@ -57,6 +57,7 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               ),
               child: Image.file(
                 _image,
+                height: mediaQuery.height * 0.17,
                 fit: BoxFit.cover,
               ),
             ),
@@ -72,7 +73,6 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   String email = '';
   String phonenumber = '';
   String gender = '';
-  String photopath = "";
 
 //* For Password
   String currentpassword = "";
@@ -116,6 +116,7 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       ),
       body: ref.watch(userInfoProvider).when(
             data: (data) {
+              print(data);
               return Padding(
                 padding:
                     EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.03),
@@ -164,11 +165,12 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                                       BorderRadius.circular(
                                                     10,
                                                   ),
-                                                  child: photopath.isEmpty
+                                                  child: data['profile_photo'] ==
+                                                          null
                                                       ? Image.asset(
                                                           'assets/images/dummy.png')
                                                       : Image.network(
-                                                          'https://api.hamroelectronics.com.np/public/$photopath',
+                                                          'https://api.hamroelectronics.com.np/public/${data['profile_photo']}',
                                                           height: mediaQuery
                                                                   .height *
                                                               0.18,
@@ -314,8 +316,12 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                   ref
                                       .read(editProfileControllerProvider
                                           .notifier)
-                                      .changeUserInfo(fullname, phonenumber,
-                                          address, _image.path)
+                                      .changeUserInfo(
+                                          name: fullname,
+                                          phone: phonenumber,
+                                          address: address,
+                                          photopath: _image,
+                                          email: email)
                                       .then((value) {
                                     if (value[0] == 'true') {
                                       toast(

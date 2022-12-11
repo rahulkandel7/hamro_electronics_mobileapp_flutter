@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/features/editProfile/data/repositories/edit_profile_repository.dart';
 
@@ -25,18 +28,22 @@ class EditProfileController extends StateNotifier<AsyncValue> {
     });
   }
 
-  Future<List<String>> changeUserInfo(
-    String name,
-    String phone,
-    String address,
-    String photopath,
-  ) async {
-    var pdata = {
+  Future<List<String>> changeUserInfo({
+    required String name,
+    required String phone,
+    required String address,
+    required File photopath,
+    required String email,
+  }) async {
+    var formData = FormData.fromMap({
       'name': name,
       'address': address,
+      'email': email,
       'phone_number': phone,
-    };
-    final result = await _editProfileRepository.changeUserInfo(pdata);
+      'profile_photo': await MultipartFile.fromFile(photopath.path)
+    });
+
+    final result = await _editProfileRepository.changeUserInfo(formData);
     return result.fold((error) {
       List<String> msg = ['false', error.message];
       return msg;
