@@ -30,7 +30,7 @@ class DioException implements Exception {
         return error["message"] ?? "Error";
       case 422:
         if (error['details'] != null) {
-          return error["details"].toString() ?? "Something went wrong";
+          return error["details"].toString();
         } else {
           return error["message"] ?? "Something went wrong";
         }
