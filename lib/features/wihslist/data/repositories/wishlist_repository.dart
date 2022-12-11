@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/core/api/api_error.dart';
 import 'package:hamro_electronics/core/api/dio_exception.dart';
@@ -25,10 +24,10 @@ class WishlistRepositoryImpl extends WishlistRepository {
     try {
       final result = await _wishlistDataSource.getWishlist();
       return Right(result);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Left(
         ApiError(
-          message: e.message,
+          message: e.message!,
         ),
       );
     }

@@ -25,11 +25,15 @@ class DioException implements Exception {
       case 401:
         return error["message"];
       case 404:
-        return error["message"] ?? "Not found";
+        return error["message"] == "" ? "Not found" : error['message'];
       case 409:
         return error["message"] ?? "Error";
       case 422:
-        return error["message"] ?? "Something went wrong";
+        if (error['details'] != null) {
+          return error["details"].toString() ?? "Something went wrong";
+        } else {
+          return error["message"] ?? "Something went wrong";
+        }
       case 500:
         return "Internal server error";
       default:

@@ -89,7 +89,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       phonenumber = userDecoded["phone_number"];
       address = userDecoded["address"];
       email = userDecoded['email'];
-      photopath = userDecoded['profile_photo'];
+      photopath = userDecoded['profile_photo'] ?? '';
     });
   }
 

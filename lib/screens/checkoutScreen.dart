@@ -709,12 +709,7 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                                 for (var cart in data) {
                                   ref
                                       .read(cartControllerProvider.notifier)
-                                      .updateOrder(cart.id)
-                                      .then((value) {
-                                    if (value) {
-                                      ref.refresh(cartControllerProvider);
-                                    }
-                                  });
+                                      .updateOrder(cart.id);
                                 }
                                 Navigator.of(context).pop();
                               }

@@ -4,9 +4,9 @@ import 'package:hamro_electronics/features/cart/data/models/cart.dart';
 
 abstract class CartDataSource {
   Future<List<Cart>> fetchCart();
-  Future<void> addToCart(var pdata);
-  Future<void> removeFromCart(int cartId);
-  Future<void> updateQuantity(int cartId, var pdata);
+  Future<String> addToCart(var pdata);
+  Future<String> removeFromCart(int cartId);
+  Future<String> updateQuantity(int cartId, var pdata);
   Future<void> updateOrder(int cartId, var pdata);
 }
 
@@ -18,10 +18,10 @@ class CartDataSourceImpl extends CartDataSource {
   final ApiService _apiService;
   CartDataSourceImpl(this._apiService);
   @override
-  Future<void> addToCart(pdata) async {
+  Future<String> addToCart(pdata) async {
     final result =
         await _apiService.postDataWithAuthorize(endpoint: 'cart', pdata: pdata);
-    return result;
+    return result['message'];
   }
 
   @override
@@ -32,10 +32,10 @@ class CartDataSourceImpl extends CartDataSource {
   }
 
   @override
-  Future<void> removeFromCart(int cartId) async {
+  Future<String> removeFromCart(int cartId) async {
     final result =
         await _apiService.deleteWithAuthorize(endpoint: 'cart/$cartId');
-    return result;
+    return result['message'];
   }
 
   @override
@@ -46,9 +46,9 @@ class CartDataSourceImpl extends CartDataSource {
   }
 
   @override
-  Future<void> updateQuantity(int cartId, pdata) async {
+  Future<String> updateQuantity(int cartId, pdata) async {
     final result = await _apiService.postDataWithAuthorize(
-        endpoint: 'cart/update/ordered/$cartId', pdata: pdata);
-    return result;
+        endpoint: 'cart/update/$cartId', pdata: pdata);
+    return result['message'];
   }
 }

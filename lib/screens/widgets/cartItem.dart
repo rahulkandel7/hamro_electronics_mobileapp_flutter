@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/features/cart/presentation/controllers/cartController.dart';
 
+import '../../core/utils/toast.dart';
+
 class CartItem extends ConsumerStatefulWidget {
   final int id;
   final String name;
@@ -34,6 +36,7 @@ class CartItemState extends ConsumerState<CartItem> {
   @override
   Widget build(BuildContext context) {
     Size mediaQuery = MediaQuery.of(context).size;
+    final state = ref.watch(cartControllerProvider);
     return Dismissible(
       key: UniqueKey(),
       background: Container(
@@ -57,22 +60,10 @@ class CartItemState extends ConsumerState<CartItem> {
             .read(cartControllerProvider.notifier)
             .deleteCart(widget.id)
             .then((value) {
-          if (value) {
-            ref.refresh(cartControllerProvider);
-            return ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: const Text(
-                  'Item Removed From Cart Successfully',
-                ),
-                backgroundColor: Colors.indigo,
-                behavior: SnackBarBehavior.floating,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    10,
-                  ),
-                ),
-              ),
-            );
+          if (value[0] == "true") {
+            toast(context: context, label: value[1], color: Colors.indigo);
+          } else {
+            toast(context: context, label: value[1], color: Colors.red);
           }
         });
       },
@@ -177,18 +168,29 @@ class CartItemState extends ConsumerState<CartItem> {
             Column(
               children: [
                 IconButton(
-                  onPressed: () {
-                    setState(() {
-                      if (widget.quantity > 1) {
-                        setState(() {
-                          widget.quantity--;
-                        });
-                        ref
-                            .read(cartControllerProvider.notifier)
-                            .updateQuantity(widget.id, widget.quantity);
-                      }
-                    });
-                  },
+                  onPressed: state.isRefreshing
+                      ? null
+                      : () {
+                          setState(() {
+                            if (widget.quantity > 1) {
+                              setState(() {
+                                widget.quantity--;
+                              });
+                              ref
+                                  .read(cartControllerProvider.notifier)
+                                  .updateQuantity(widget.id, widget.quantity)
+                                  .then((value) {
+                                if (value[0] == 'false') {
+                                  return toast(
+                                    context: context,
+                                    label: value[1],
+                                    color: Colors.red,
+                                  );
+                                }
+                              });
+                            }
+                          });
+                        },
                   icon: Icon(
                     Icons.remove,
                     size: Theme.of(context).textTheme.bodyLarge!.fontSize,
@@ -199,16 +201,27 @@ class CartItemState extends ConsumerState<CartItem> {
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 IconButton(
-                  onPressed: () {
-                    if (widget.quantity < widget.stock) {
-                      setState(() {
-                        widget.quantity++;
-                      });
-                      ref
-                          .read(cartControllerProvider.notifier)
-                          .updateQuantity(widget.id, widget.quantity);
-                    }
-                  },
+                  onPressed: state.isRefreshing
+                      ? null
+                      : () {
+                          if (widget.quantity < widget.stock) {
+                            setState(() {
+                              widget.quantity++;
+                            });
+                            ref
+                                .read(cartControllerProvider.notifier)
+                                .updateQuantity(widget.id, widget.quantity)
+                                .then((value) {
+                              if (value[0] == 'false') {
+                                return toast(
+                                  context: context,
+                                  label: value[1],
+                                  color: Colors.red,
+                                );
+                              }
+                            });
+                          }
+                        },
                   icon: Icon(
                     Icons.add,
                     size: Theme.of(context).textTheme.bodyLarge!.fontSize,

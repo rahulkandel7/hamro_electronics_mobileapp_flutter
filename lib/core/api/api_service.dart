@@ -34,8 +34,8 @@ class ApiService {
     try {
       final result = await dio.get(endpoint);
       return result.data;
-    } on DioError {
-      rethrow;
+    } on DioError catch (e) {
+      throw DioException.fromDioError(e);
     }
   }
 
@@ -51,8 +51,8 @@ class ApiService {
     try {
       final result = await dio.post(endpoint, data: pdata);
       return result.data;
-    } on DioError {
-      rethrow;
+    } on DioError catch (e) {
+      throw DioException.fromDioError(e);
     }
   }
 
@@ -90,8 +90,8 @@ class ApiService {
     try {
       final result = await dio.delete(endpoint);
       return result.data;
-    } on DioError {
-      rethrow;
+    } on DioError catch (e) {
+      throw DioException.fromDioError(e);
     }
   }
 }

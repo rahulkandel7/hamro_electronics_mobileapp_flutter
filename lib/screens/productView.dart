@@ -10,11 +10,10 @@ import 'package:hamro_electronics/features/cart/presentation/controllers/cartCon
 import 'package:hamro_electronics/features/wihslist/presentation/controllers/wishlistController.dart';
 import 'package:hamro_electronics/models/comment.dart';
 import 'package:hamro_electronics/features/wihslist/data/models/wishlist.dart';
-import 'package:hamro_electronics/features/cart/presentation/screens/cartScreen.dart';
-import 'package:hamro_electronics/features/auth/presentation/screens/loginScreen.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../features/auth/presentation/screens/loginScreen.dart';
 import '/controllers/productController.dart';
 import '../features/brand/data/models/brand.dart';
 
@@ -304,8 +303,6 @@ class ProductViewState extends ConsumerState<ProductView> {
 
     List<Product> suggestedProducts =
         ref.watch(productProvider.notifier).findByCategory(product.categoryId);
-
-    final state = ref.watch(cartControllerProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -929,56 +926,21 @@ class ProductViewState extends ConsumerState<ProductView> {
                               'ordered': '0',
                             };
 
-                            if (state.hasError) {
-                              print(state);
-                              print(state.stackTrace);
-                            }
-
                             isLogin
                                 ? ref
                                     .read(cartControllerProvider.notifier)
                                     .addToCart(pdata)
                                     .then((value) {
-                                    if (value) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: const Text(
-                                            'Product Added To Cart Successfully',
-                                          ),
-                                          backgroundColor: Colors.indigo,
-                                          behavior: SnackBarBehavior.floating,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10,
-                                            ),
-                                          ),
-                                          action: SnackBarAction(
-                                            label: 'Go To Cart',
-                                            textColor: Colors.white,
-                                            onPressed: () =>
-                                                Navigator.of(context).pushNamed(
-                                              CartScreen.routeName,
-                                            ),
-                                          ),
-                                        ),
-                                      );
+                                    if (value[0] == "true") {
+                                      toast(
+                                          context: context,
+                                          label: value[1],
+                                          color: Colors.indigo);
                                     } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: const Text(
-                                            'Something went wrong',
-                                          ),
-                                          backgroundColor: Colors.indigo,
-                                          behavior: SnackBarBehavior.floating,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10,
-                                            ),
-                                          ),
-                                        ),
-                                      );
+                                      toast(
+                                          context: context,
+                                          label: value[1],
+                                          color: Colors.red);
                                     }
                                   })
                                 : Navigator.of(context)

@@ -17,28 +17,63 @@ class CartController extends StateNotifier<AsyncValue<List<Cart>>> {
     );
   }
 
-  Future<bool> updateQuantity(int cartId, var pdata) async {
+  Future<List<String>> updateQuantity(int cartId, int quantity) async {
+    var pdata = {'quantity': quantity};
     final result = await _cartRepository.updateQuantity(cartId, pdata);
-    return result.fold((l) => false, (r) => true);
+
+    return result.fold((error) {
+      List<String> msg = ['false', error.message];
+      return msg;
+    }, (success) {
+      fetchCart();
+      List<String> msg = ['true', success];
+      return msg;
+    });
   }
 
-  Future<bool> deleteCart(int cartId) async {
+  Future<List<String>> deleteCart(int cartId) async {
     final result = await _cartRepository.removeFromCart(cartId);
-    return result.fold((l) => false, (r) => true);
+    return result.fold((error) {
+      List<String> msg = ['false', error.message];
+      return msg;
+    }, (success) {
+      List<String> msg = ['true', success];
+      fetchCart();
+      return msg;
+    });
   }
 
   Future<bool> updateOrder(int cartId) async {
     var pdata = {'ordered': 1.toString()};
     final result = await _cartRepository.updateOrder(cartId, pdata);
-    return result.fold((l) => false, (r) => true);
+    return result.fold((l) => false, (r) {
+      fetchCart();
+      return true;
+    });
   }
 
-  Future<bool> addToCart(var pdata) async {
+  Future<List<String>> addToCart(var pdata) async {
     final result = await _cartRepository.addToCart(pdata);
-    return result.fold((l) {
-      state = AsyncError(l.message, StackTrace.fromString(l.toString()));
-      return false;
-    }, (r) => true);
+    return result.fold((error) {
+      final errors = error.message.split(',');
+      List<String> msg = ['false'];
+
+      for (var element in errors) {
+        msg.add(
+          element
+              .replaceAll('{', '')
+              .replaceAll('}', '')
+              .replaceAll('[', '')
+              .replaceAll(']', ''),
+        );
+      }
+
+      return msg;
+    }, (success) {
+      List<String> msg = ['true', success];
+      fetchCart();
+      return msg;
+    });
   }
 }
 
