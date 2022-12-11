@@ -6,48 +6,45 @@ class AuthController extends StateNotifier<AsyncValue<void>> {
   AuthController(this._authRepository) : super(const AsyncData<void>(null));
 
   final AuthRepository _authRepository;
-  loginUser(String email, String password) async {
+  Future<List<String>> loginUser(String email, String password) async {
     var data = {'email': email, 'password': password};
     final result = await _authRepository.login(data);
-    result.fold(
-      (l) => state = AsyncError(
-        l.toString(),
-        StackTrace.fromString(
-          l.message,
-        ),
-      ),
-      (r) {
-        return state = AsyncData(r);
+    return result.fold(
+      (error) {
+        List<String> msg = ['false', error.message];
+        return msg;
+      },
+      (success) {
+        List<String> msg = ['true', success];
+        return msg;
       },
     );
   }
 
-  logout() async {
+  Future<List<String>> logout() async {
     final result = await _authRepository.logout();
-    result.fold(
-      (l) => state = AsyncError(
-        l.toString(),
-        StackTrace.fromString(
-          l.message,
-        ),
-      ),
-      (r) {
-        return state = AsyncData(r);
+    return result.fold(
+      (error) {
+        List<String> msg = ['false', error.message];
+        return msg;
+      },
+      (success) {
+        List<String> msg = ['true', success];
+        return msg;
       },
     );
   }
 
-  register(var user) async {
+  Future<List<String>> register(var user) async {
     final result = await _authRepository.register(user);
-    result.fold(
-      (l) => state = AsyncError(
-        l.toString(),
-        StackTrace.fromString(
-          l.message,
-        ),
-      ),
-      (r) {
-        return state = AsyncData(r);
+    return result.fold(
+      (error) {
+        List<String> msg = ['false', error.message];
+        return msg;
+      },
+      (success) {
+        List<String> msg = ['true', success];
+        return msg;
       },
     );
   }

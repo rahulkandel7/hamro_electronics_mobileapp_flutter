@@ -705,13 +705,13 @@ class CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                                     );
                               }
                               Navigator.of(context).pop();
-                              return toast(
+                              toast(
                                 context: context,
                                 label: value[1],
                                 color: Colors.indigo,
                               );
                             } else {
-                              return toast(
+                              toast(
                                   context: context,
                                   label: value[1],
                                   color: Colors.red);

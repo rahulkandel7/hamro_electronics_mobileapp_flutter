@@ -5,7 +5,7 @@ import 'package:hamro_electronics/features/product_view/data/models/product.dart
 import 'package:hamro_electronics/features/product_view/presentation/controllers/productController.dart';
 import 'package:hamro_electronics/features/wihslist/presentation/controllers/wishlistController.dart';
 
-import 'package:hamro_electronics/screens/widgets/shimmers/wishlistShimmer.dart';
+import 'package:hamro_electronics/core/shimmers/wishlistShimmer.dart';
 
 import 'package:hamro_electronics/features/wihslist/presentation/widgets/wishlistItem.dart';
 

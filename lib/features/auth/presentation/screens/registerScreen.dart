@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/features/auth/presentation/controllers/authController.dart';
 
-import '../../../../screens/navbar.dart';
+import '../../../../core/screens/navbar.dart';
+import '../../../../core/utils/toast.dart';
 import 'loginScreen.dart';
 import '../../data/models/user.dart';
 
@@ -32,30 +33,7 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
   Widget build(BuildContext context) {
     Size mediaQuery = MediaQuery.of(context).size;
     final state = ref.watch(authControllerProvider);
-    ref.listen<AsyncValue>(
-      authControllerProvider,
-      (_, state) {
-        if (!state.isRefreshing && state.hasError) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('Something went Wrong'),
-          ));
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Text(
-                'Register Successful',
-              ),
-              backgroundColor: Colors.indigo,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              behavior: SnackBarBehavior.floating,
-            ),
-          );
-          Navigator.of(context).pushReplacementNamed(Navbar.routeName);
-        }
-      },
-    );
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -307,7 +285,23 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
                                   };
                                   ref
                                       .read(authControllerProvider.notifier)
-                                      .register(data);
+                                      .register(data)
+                                      .then((value) {
+                                    if (value[0] == 'true') {
+                                      toast(
+                                          context: context,
+                                          label: value[1],
+                                          color: Colors.indigo);
+                                      Navigator.of(context)
+                                          .pushReplacementNamed(
+                                              Navbar.routeName);
+                                    } else {
+                                      toast(
+                                          context: context,
+                                          label: value[1],
+                                          color: Colors.red);
+                                    }
+                                  });
                                 },
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(

@@ -5,9 +5,9 @@ import 'package:hamro_electronics/core/api/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class AuthDataSources {
-  Future<void> login(var pdata);
-  Future<void> logout();
-  Future<void> register(var pdata);
+  Future<String> login(var pdata);
+  Future<String> logout();
+  Future<String> register(var pdata);
 }
 
 final authDataSourceProvider = Provider<AuthDataSources>((ref) {
@@ -19,33 +19,33 @@ class AuthDataSourcesImpl extends AuthDataSources {
 
   AuthDataSourcesImpl(this._apiService);
   @override
-  Future<void> login(var pdata) async {
+  Future<String> login(var pdata) async {
     final result = await _apiService.postData(endpoint: 'login', pdata: pdata);
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('token', result['token']);
     prefs.setString('user', json.encode(result['user']));
-    return result;
+    return result['message'];
   }
 
   @override
-  Future<void> logout() async {
+  Future<String> logout() async {
     final result = await _apiService.postDataWithAuthorize(endpoint: 'logout');
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('token');
     prefs.remove('user');
-    return result;
+    return result['message'];
   }
 
   @override
-  Future<void> register(pdata) async {
+  Future<String> register(pdata) async {
     final result =
         await _apiService.postData(endpoint: 'register', pdata: pdata);
-    print(result);
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('token', result['token']);
     prefs.setString('user', json.encode(result['user']));
-    return result;
+    return result['message'];
   }
 }

@@ -181,7 +181,7 @@ class CartItemState extends ConsumerState<CartItem> {
                                   .updateQuantity(widget.id, widget.quantity)
                                   .then((value) {
                                 if (value[0] == 'false') {
-                                  return toast(
+                                  toast(
                                     context: context,
                                     label: value[1],
                                     color: Colors.red,
@@ -213,7 +213,7 @@ class CartItemState extends ConsumerState<CartItem> {
                                 .updateQuantity(widget.id, widget.quantity)
                                 .then((value) {
                               if (value[0] == 'false') {
-                                return toast(
+                                toast(
                                   context: context,
                                   label: value[1],
                                   color: Colors.red,

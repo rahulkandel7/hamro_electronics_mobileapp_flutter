@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../screens/navbar.dart';
+import 'navbar.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   static const routeName = '/onboardingscreen';
@@ -23,8 +23,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }
 
   void _onIntroEnd(context) async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    _prefs.setBool('isFirst', true);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isFirst', true);
     Navigator.of(context).pushReplacementNamed(
       Navbar.routeName,
     );

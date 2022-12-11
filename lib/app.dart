@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'screens/navbar.dart';
-import 'screens/onboarding_screen.dart';
+import 'core/screens/navbar.dart';
+import 'core/screens/onboarding_screen.dart';
 import 'core/utils/router.dart';
 
 class MyApp extends StatelessWidget {

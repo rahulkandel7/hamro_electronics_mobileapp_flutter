@@ -4,11 +4,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hamro_electronics/features/auth/presentation/controllers/authController.dart';
-import 'package:hamro_electronics/screens/editProfileScreen.dart';
+import 'package:hamro_electronics/features/editProfile/presentation/screens/editProfileScreen.dart';
 import 'package:hamro_electronics/features/auth/presentation/screens/loginScreen.dart';
 import 'package:hamro_electronics/features/viewOrder/presentation/screen/ordersScreen.dart';
 import 'package:hamro_electronics/features/wihslist/presentation/screens/wishlistScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../core/utils/toast.dart';
 
 class OptionScreen extends StatefulWidget {
   const OptionScreen({super.key});
@@ -189,7 +191,24 @@ class _OptionScreenState extends State<OptionScreen> {
                       );
                       return InkWell(
                         onTap: () {
-                          ref.read(authControllerProvider.notifier).logout();
+                          ref
+                              .read(authControllerProvider.notifier)
+                              .logout()
+                              .then((value) {
+                            if (value[0] == 'true') {
+                              toast(
+                                  context: context,
+                                  label: value[1],
+                                  color: Colors.indigo);
+                              Navigator.of(context)
+                                  .pushReplacementNamed(LoginScreen.routeName);
+                            } else {
+                              toast(
+                                  context: context,
+                                  label: value[1],
+                                  color: Colors.red);
+                            }
+                          });
                         },
                         child: options(
                             mediaQuery, Icons.logout_outlined, 'Logout'),

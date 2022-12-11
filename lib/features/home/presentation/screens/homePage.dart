@@ -13,8 +13,8 @@ import 'package:hamro_electronics/features/home/presentation/controllers/bannerC
 import 'package:hamro_electronics/features/product_view/data/models/product.dart';
 import 'package:hamro_electronics/features/product_view/presentation/controllers/productController.dart';
 
-import 'package:hamro_electronics/screens/widgets/shimmers/homeCategoryShimmer.dart';
-import 'package:hamro_electronics/screens/widgets/shimmers/homeProductShimmer.dart';
+import 'package:hamro_electronics/core/shimmers/homeCategoryShimmer.dart';
+import 'package:hamro_electronics/core/shimmers/homeProductShimmer.dart';
 import 'package:hamro_electronics/features/wihslist/presentation/screens/wishlistScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hamro_electronics/core/screens/navbar.dart';
+import 'package:hamro_electronics/core/utils/toast.dart';
 import 'package:hamro_electronics/features/auth/presentation/controllers/authController.dart';
-
-import '../../../../screens/navbar.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   static const routeName = "/login";
@@ -21,30 +21,30 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     Size mediaQuery = MediaQuery.of(context).size;
     final state = ref.watch(authControllerProvider);
-    ref.listen<AsyncValue>(
-      authControllerProvider,
-      (_, state) {
-        if (!state.isRefreshing && state.hasError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("error")),
-          );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Text(
-                'Login Successful',
-              ),
-              backgroundColor: Colors.indigo,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              behavior: SnackBarBehavior.floating,
-            ),
-          );
-          Navigator.of(context).pushReplacementNamed(Navbar.routeName);
-        }
-      },
-    );
+    // ref.listen<AsyncValue>(
+    //   authControllerProvider,
+    //   (_, state) {
+    //     if (!state.isRefreshing && state.hasError) {
+    //       ScaffoldMessenger.of(context).showSnackBar(
+    //         const SnackBar(content: Text("error")),
+    //       );
+    //     } else {
+    //       ScaffoldMessenger.of(context).showSnackBar(
+    //         SnackBar(
+    //           content: const Text(
+    //             'Login Successful',
+    //           ),
+    //           backgroundColor: Colors.indigo,
+    //           shape: RoundedRectangleBorder(
+    //             borderRadius: BorderRadius.circular(10),
+    //           ),
+    //           behavior: SnackBarBehavior.floating,
+    //         ),
+    //       );
+    //       Navigator.of(context).pushReplacementNamed(Navbar.routeName);
+    //     }
+    //   },
+    // );
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -169,7 +169,23 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
 
                                   ref
                                       .read(authControllerProvider.notifier)
-                                      .loginUser(email, password);
+                                      .loginUser(email, password)
+                                      .then((value) {
+                                    if (value[0] == 'true') {
+                                      toast(
+                                          context: context,
+                                          label: value[1],
+                                          color: Colors.indigo);
+                                      Navigator.of(context)
+                                          .pushReplacementNamed(
+                                              Navbar.routeName);
+                                    } else {
+                                      toast(
+                                          context: context,
+                                          label: value[1],
+                                          color: Colors.red);
+                                    }
+                                  });
                                 },
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(
