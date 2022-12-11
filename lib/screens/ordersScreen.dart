@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:hamro_electronics/controllers/statusController.dart';
-import 'package:hamro_electronics/models/status.dart';
+import 'package:hamro_electronics/features/view_order/data/models/orderView.dart';
+import 'package:hamro_electronics/features/view_order/presentation/controllers/orderViewController.dart';
 
 import 'package:hamro_electronics/screens/widgets/ordersItem.dart';
 
@@ -37,12 +37,12 @@ class OrdersScreen extends ConsumerWidget {
         ),
         body: TabBarView(
           children: [
-            ref.watch(fetchStatus).when(
+            ref.watch(orderViewControllerProvider).when(
                   data: (data) {
-                    List<Status> orders = data
+                    List<OrderView> orders = data
                         .where((element) =>
-                            element.status == 'pending' ||
-                            element.status == 'processing')
+                            element.status.toLowerCase() == 'pending' ||
+                            element.status.toLowerCase() == 'processing')
                         .toList();
                     return orders.isEmpty
                         ? Center(
@@ -72,11 +72,13 @@ class OrdersScreen extends ConsumerWidget {
                     ),
                   ),
                 ),
-            ref.watch(fetchStatus).when(
+            ref.watch(orderViewControllerProvider).when(
                   data: (data) {
-                    List<Status> orders = data
-                        .where((element) => element.status == 'completed')
+                    List<OrderView> orders = data
+                        .where((element) =>
+                            element.status.toLowerCase() == 'completed')
                         .toList();
+
                     return orders.isEmpty
                         ? Center(
                             child: Text(
@@ -105,10 +107,11 @@ class OrdersScreen extends ConsumerWidget {
                     ),
                   ),
                 ),
-            ref.watch(fetchStatus).when(
+            ref.watch(orderViewControllerProvider).when(
                   data: (data) {
-                    List<Status> orders = data
-                        .where((element) => element.status == 'cancelled')
+                    List<OrderView> orders = data
+                        .where((element) =>
+                            element.status.toLowerCase() == 'cancelled')
                         .toList();
                     return orders.isEmpty
                         ? Center(
