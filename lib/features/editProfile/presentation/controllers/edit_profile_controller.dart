@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hamro_electronics/features/editProfile/data/repositories/edit_profile_repository.dart';
+
+import '../../data/repositories/edit_profile_repository.dart';
 
 class EditProfileController extends StateNotifier<AsyncValue> {
   EditProfileController(this._editProfileRepository)
@@ -35,13 +36,23 @@ class EditProfileController extends StateNotifier<AsyncValue> {
     required File photopath,
     required String email,
   }) async {
-    var formData = FormData.fromMap({
-      'name': name,
-      'address': address,
-      'email': email,
-      'phone_number': phone,
-      'profile_photo': await MultipartFile.fromFile(photopath.path)
-    });
+    FormData formData;
+    if (photopath.path.isEmpty) {
+      formData = FormData.fromMap({
+        'name': name,
+        'address': address,
+        'email': email,
+        'phone_number': phone,
+      });
+    } else {
+      formData = FormData.fromMap({
+        'name': name,
+        'address': address,
+        'email': email,
+        'phone_number': phone,
+        'profile_photo': await MultipartFile.fromFile(photopath.path)
+      });
+    }
 
     final result = await _editProfileRepository.changeUserInfo(formData);
     return result.fold((error) {
