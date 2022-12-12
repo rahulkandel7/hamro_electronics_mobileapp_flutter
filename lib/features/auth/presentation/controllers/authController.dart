@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/repositories/auth_repositoy.dart';
@@ -8,6 +9,11 @@ class AuthController extends StateNotifier<AsyncValue<void>> {
 
   final AuthRepository _authRepository;
   Future<List<String>> loginUser(String email, String password) async {
+    String firebaseToken = '';
+    await FirebaseMessaging.instance.getToken().then((token) {
+      firebaseToken = token!;
+    });
+
     var data = {'email': email, 'password': password};
     final result = await _authRepository.login(data);
     return result.fold(
@@ -24,6 +30,7 @@ class AuthController extends StateNotifier<AsyncValue<void>> {
 
   Future<List<String>> logout() async {
     final result = await _authRepository.logout();
+
     return result.fold(
       (error) {
         List<String> msg = ['false', error.message];
