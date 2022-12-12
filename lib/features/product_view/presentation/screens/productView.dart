@@ -4,22 +4,21 @@ import 'package:flutter_html/flutter_html.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:hamro_electronics/core/utils/toast.dart';
-import 'package:hamro_electronics/features/brand/presentation/controllers/brandController.dart';
-import 'package:hamro_electronics/features/cart/presentation/controllers/cartController.dart';
-import 'package:hamro_electronics/features/product_view/data/models/comment.dart';
-import 'package:hamro_electronics/features/product_view/data/models/product.dart';
-import 'package:hamro_electronics/features/product_view/presentation/controllers/commentController.dart';
-import 'package:hamro_electronics/features/product_view/presentation/controllers/productController.dart';
-import 'package:hamro_electronics/features/wihslist/presentation/controllers/wishlistController.dart';
-
-import 'package:hamro_electronics/features/wihslist/data/models/wishlist.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/utils/toast.dart';
 import '../../../auth/presentation/screens/loginScreen.dart';
 import '../../../brand/data/models/brand.dart';
 
+import '../../../brand/presentation/controllers/brandController.dart';
+import '../../../cart/presentation/controllers/cartController.dart';
+import '../../../wihslist/data/models/wishlist.dart';
+import '../../../wihslist/presentation/controllers/wishlistController.dart';
+import '../../data/models/comment.dart';
+import '../../data/models/product.dart';
+import '../controllers/commentController.dart';
+import '../controllers/productController.dart';
 import '../widgets/productItem.dart';
 
 class ProductView extends ConsumerStatefulWidget {
@@ -327,41 +326,43 @@ class ProductViewState extends ConsumerState<ProductView> {
         actions: [
           isLogin
               ? ref.watch(wishlistControllerProvider).when(
-                  data: (data) {
-                    List<Wishlist> wishlists = data
-                        .where((element) => element.productId == id)
-                        .toList();
+                    data: (data) {
+                      List<Wishlist> wishlists = data
+                          .where((element) => element.productId == id)
+                          .toList();
 
-                    bool isWishlist = wishlists.isEmpty ? false : true;
-                    return IconButton(
-                      onPressed: () {
-                        ref
-                            .read(wishlistControllerProvider.notifier)
-                            .addToWishlist(product.id)
-                            .then((value) {
-                          if (value[0] == "true") {
-                            toast(
-                                context: context,
-                                label: value[1],
-                                color: Colors.indigo);
-                          } else {
-                            toast(
-                                context: context,
-                                label: value[1],
-                                color: Colors.red);
-                          }
-                        });
-                      },
-                      icon: Icon(
-                        isWishlist ? Icons.favorite : Icons.favorite_border,
-                        color: isWishlist ? Colors.red : Colors.indigo,
-                      ),
-                    );
-                  },
-                  error: (e, s) => Text('hello$e'),
-                  loading: () => const Center(
-                        child: CircularProgressIndicator(),
-                      ))
+                      bool isWishlist = wishlists.isEmpty ? false : true;
+                      return IconButton(
+                        onPressed: () {
+                          ref
+                              .read(wishlistControllerProvider.notifier)
+                              .addToWishlist(product.id)
+                              .then((value) {
+                            if (value[0] == "true") {
+                              toast(
+                                  context: context,
+                                  label: value[1],
+                                  color: Colors.indigo);
+                            } else {
+                              toast(
+                                  context: context,
+                                  label: value[1],
+                                  color: Colors.red);
+                            }
+                          });
+                        },
+                        icon: Icon(
+                          isWishlist ? Icons.favorite : Icons.favorite_border,
+                          color: isWishlist ? Colors.red : Colors.indigo,
+                        ),
+                      );
+                    },
+                    error: (e, s) => Text('$e'),
+                    loading: () => const Icon(
+                      Icons.favorite_border,
+                      color: Colors.indigo,
+                    ),
+                  )
               : const SizedBox(),
         ],
       ),
