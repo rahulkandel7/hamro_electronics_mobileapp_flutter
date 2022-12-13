@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hamro_electronics/features/notification/presentation/screens/notificationScreen.dart';
 
 import '../../features/category/presentation/screens/categoryViewScreen.dart';
 import '../../features/checkout/presentation/screens/checkoutScreen.dart';
@@ -24,4 +25,5 @@ Map<String, Widget Function(BuildContext)> routes = <String, WidgetBuilder>{
   EditProfileScreen.routeName: (context) => const EditProfileScreen(),
   OrdersScreen.routeName: (context) => const OrdersScreen(),
   OnBoardingScreen.routeName: (context) => const OnBoardingScreen(),
+  NotificationScreen.routeName: (context) => const NotificationScreen(),
 };

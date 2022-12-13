@@ -8,6 +8,7 @@ import 'package:hamro_electronics/features/category/data/models/Category.dart';
 import 'package:hamro_electronics/features/category/presentation/controllers/categoryController.dart';
 import 'package:hamro_electronics/features/auth/presentation/screens/loginScreen.dart';
 import 'package:hamro_electronics/features/home/presentation/controllers/bannerController.dart';
+import 'package:hamro_electronics/features/notification/presentation/screens/notificationScreen.dart';
 import 'package:hamro_electronics/features/product_view/data/models/product.dart';
 import 'package:hamro_electronics/features/product_view/presentation/controllers/productController.dart';
 
@@ -74,7 +75,8 @@ class HomePageState extends ConsumerState<HomePage> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          print('Goes to Notification Page');
+                          Navigator.of(context)
+                              .pushNamed(NotificationScreen.routeName);
                         },
                         enableFeedback: true,
                         splashColor: Colors.indigo.shade100,
