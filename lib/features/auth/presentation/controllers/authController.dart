@@ -14,7 +14,11 @@ class AuthController extends StateNotifier<AsyncValue<void>> {
       firebaseToken = token!;
     });
 
-    var data = {'email': email, 'password': password};
+    var data = {
+      'email': email,
+      'password': password,
+      'device_token': firebaseToken
+    };
     final result = await _authRepository.login(data);
     return result.fold(
       (error) {
@@ -43,7 +47,17 @@ class AuthController extends StateNotifier<AsyncValue<void>> {
     );
   }
 
-  Future<List<String>> register(var user) async {
+  Future<List<String>> register(Map<String, String> user) async {
+    String firebaseToken = '';
+    await FirebaseMessaging.instance.getToken().then((token) {
+      firebaseToken = token!;
+    });
+    Map<String, String> ftoken = {'device_token': firebaseToken};
+
+    user.addEntries(ftoken.entries);
+
+    print(user);
+
     final result = await _authRepository.register(user);
     return result.fold(
       (error) {

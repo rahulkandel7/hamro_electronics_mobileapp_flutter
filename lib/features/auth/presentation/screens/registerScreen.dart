@@ -273,7 +273,7 @@ class RegisterScreenState extends ConsumerState<RegisterScreen> {
                                   if (!_registerKey.currentState!.validate()) {
                                     return;
                                   }
-                                  var data = {
+                                  Map<String, String> data = {
                                     'name': _user.name.toString(),
                                     'address': _user.address.toString(),
                                     'email': _user.email.toString(),
