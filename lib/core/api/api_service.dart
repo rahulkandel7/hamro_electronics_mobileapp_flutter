@@ -12,9 +12,12 @@ final apiServiceProvider = Provider<ApiService>((ref) {
 class ApiService {
   getData({required String endpoint}) async {
     final Dio dio = Dio(
-      BaseOptions(baseUrl: ApiConstants.url, headers: {
-        "accept": "application/json",
-      }),
+      BaseOptions(
+        baseUrl: ApiConstants.url,
+        headers: {
+          "accept": "application/json",
+        },
+      ),
     );
     try {
       final result = await dio.get(endpoint);

@@ -13,7 +13,6 @@ class AuthController extends StateNotifier<AsyncValue<void>> {
     await FirebaseMessaging.instance.getToken().then((token) {
       firebaseToken = token!;
     });
-
     var data = {
       'email': email,
       'password': password,
